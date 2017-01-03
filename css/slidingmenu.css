@@ -1,0 +1,142 @@
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+    background: rgba(48, 7, 67, 0.5);
+}
+
+
+nav.menu {
+    position: fixed;
+    z-index: 2000;
+    background-color: #300743;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+nav.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav.menu a {
+    color: #fff;
+}
+button.close-menu:focus {
+    outline: none
+}
+
+
+nav.slide-menu-left{
+    top: 0;
+    width: 200px;
+    height: 100%;
+}
+
+nav.slide-menu-left img{
+    width:50%;
+    margin-left:60px;
+    margin-top:20px;
+    margin-bottom:40px;
+
+}
+
+nav.slide-menu-left li{
+    display: block;
+}
+
+nav.slide-menu-left li a:hover, nav.slide-menu-left li a:focus {
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+}
+
+nav.slide-menu-left a{
+    display: block;
+    font-size:14px;
+    font-weight:700;
+    text-transform: uppercase;
+    border-radius:0;
+    padding: 4px 10px 4px 10px;
+    background:transparent;
+    text-align: left;
+    color:white;
+    margin-top:10px;
+    margin-left:30px;
+}
+
+
+
+nav.slide-menu-left{
+    left: -200px
+}
+
+body.sml-open nav.slide-menu-left {
+    left: 0
+}
+
+body.pml-open #wrapper {
+    left: 300px
+}
+body.pmr-open #wrapper {
+    left: -300px
+}
+
+/*  Media Queries  */
+
+@media all and (max-width: 860px) {
+    .buttons br {
+        display: none
+    }
+    .buttons button {
+        padding: 10px 20px
+    }
+
+
+    nav.slide-menu-left img {
+        width: 60%;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+
+    nav.slide-menu-left a {
+        font-size: 10px;
+    }
+
+}
+@media all and (max-width: 660px) {
+}
+
+@media all and (max-width: 330px) {
+    nav.slide-menu-left{
+        top: 0;
+        width: 80%;
+    }
+    nav.slide-menu-left,
+    nav.push-menu-left {
+        left: -80%
+    }
+
+    body.sml-open nav.slide-menu-left,
+    body.pml-open nav.push-menu-left {
+        left: 0
+    }
+    body.smr-open nav.slide-menu-right,
+    body.pmr-open nav.push-menu-right {
+        right: 0
+    }
+    body.pml-open #wrapper {
+        left: 80%
+    }
+    body.pmr-open #wrapper {
+        left: -100%
+    }
+}

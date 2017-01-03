@@ -1,0 +1,108 @@
+
+#blog{
+    padding-top:150px;
+    letter-spacing:0;
+    background-color:white;
+}
+
+.navbar-default{
+    z-index:1201; /*bug fix*/
+}
+
+
+.btn-search{
+    font-size:12px;
+    font-weight:700;
+    text-transform: uppercase;
+    border-radius:0px;
+    padding: 4px 10px 4px 10px;
+    background:transparent;
+    text-align: center;
+    color:white;
+    letter-spacing: 3px;
+    margin:10px;
+    margin-right:3px;
+    border:2px solid transparent;
+    display: inline-block;
+}
+
+
+
+.btn-search:hover, .btn-search:focus{
+    border: 2px solid white;
+    color:white;
+}
+
+
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid transparent;
+}
+.list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.panel h4{
+    padding:10px;
+}
+
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: none;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.panel p{
+margin: 0;
+
+}
+.widget{
+    font-size:12px;
+    font-weight:300;
+}
+
+#myTabContent .thumbnail img{
+    padding-top:15px;
+}
+
+
+.media-body p{
+    padding:0;
+    padding-bottom:10px;
+}
+
+
+/* CALENDAR */
+
+#wp-calendar {width: 100%; color:Black;}
+#wp-calendar caption { text-align: center; color: #333; font-size: 12px; margin-top: 10px; margin-bottom: 15px; border-bottom:1px solid black;
+    padding-bottom:15px; font-weight:700;}
+
+#wp-calendar thead { font-size: 10px; color:Black; text-align:center;}
+
+#wp-calendar thead th { padding-bottom: 10px; padding-left:5%; }
+
+
+#wp-calendar tbody { color:black; }
+#wp-calendar tbody td { background: color:black; border: 1px solid #fff; text-align: center; padding:8px;}
+#wp-calendar tbody td:hover { background: #300743 ; color:white; }
+
+#wp-calendar tbody td.pad { background: none; }
+#wp-calendar tbody td.pad :hover td.pad{ background: white; }
+
