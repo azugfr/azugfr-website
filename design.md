@@ -1,6 +1,6 @@
 ### [DESIGN] - AZUG FR Website Technical Design - 2026-03-31T18:10:00Z
 **Objective**: Define the architecture, interfaces, data models, and validation strategy for the AZUG FR static website.
-**Context**: Requirements are captured in `requirements.md`. The repository currently ships a legacy static HTML site through a GitHub Pages workflow that uploads the repository root directly. The target state is Astro static output on GitHub Pages with Tailwind CSS, build-time content sync, Astro Content Collections, Pagefind search, and Penpot-guided UI implementation.
+**Context**: Requirements are captured in `requirements.md`. The repository currently ships a legacy static HTML site through a GitHub Pages workflow that uploads the repository root directly. The target state is Astro static output on GitHub Pages with Tailwind CSS, build-time content sync, Astro Content Collections, Pagefind search, Penpot-guided UI implementation, and first-class multilingual support for French and English.
 **Decision**: Use a content-first, schema-validated static architecture with build-time ingestion and collection-driven route generation, executed as a controlled migration from the existing legacy site.
 **Execution**: Converted requirements into an implementable architecture, documented interfaces and normalized models, defined failure handling, and structured the validation strategy around Astro, Zod, and static build outputs.
 **Output**: Architecture, data flow, interfaces, models, error matrix, and test strategy are documented below.
@@ -30,7 +30,8 @@ Because the confidence score is **83%**, this work follows the **medium-confiden
 - **Styling**: Tailwind CSS
 - **Search**: Pagefind client-side index and UI integration
 - **Deployment**: GitHub Pages
-- **Rendering Model**: Static HTML pages generated from validated content collections
+- **Rendering Model**: Static locale-aware HTML pages generated from validated content collections
+- **Locales**: `fr` and `en`
 
 ### Build-Time Architecture
 
@@ -43,14 +44,18 @@ Because the confidence score is **83%**, this work follows the **medium-confiden
 - **Presentation layer**
   - Shared layouts, section components, and content card components
 - **Search layer**
-  - Pagefind post-build indexing of generated pages
+  - Pagefind post-build indexing of generated localized pages
+- **Localization layer**
+  - Locale-aware route generation
+  - Locale-specific content resolution
+  - Shared translation dictionaries for UI chrome
 
 ### Legacy-to-Target Mapping
 
 | Current Asset/Route | Target Treatment |
 | --- | --- |
-| `index.html` | Replace with `src/pages/index.astro` |
-| `blog.html` and `single-post.html` | Replace with `/news` and `/news/[slug]` |
+| `index.html` | Replace with localized `src/pages/[locale]/index.astro` or equivalent Astro i18n routing structure |
+| `blog.html` and `single-post.html` | Replace with localized `/[locale]/news` and `/[locale]/news/[slug]` |
 | `gab.html` and `gabparis.html` | Re-express as event content and, later, flagship or event-specific landing pages |
 | `style.css`, `css/*` | Replace progressively with Tailwind-based styling and only retain static assets that are still needed |
 | `js/*` | Remove or replace with minimal Astro/client behavior as needed |
@@ -82,7 +87,10 @@ Because the confidence score is **83%**, this work follows the **medium-confiden
    │  ├─ sponsors/*.{json,md}
    │  └─ resources/*.{json,md}
    ├─ data/
-   │  └─ site.ts
+   │  ├─ site.ts
+   │  └─ i18n/
+   │     ├─ fr.ts
+   │     └─ en.ts
    ├─ layouts/
    │  ├─ BaseLayout.astro
    │  └─ ContentLayout.astro
@@ -95,17 +103,19 @@ Because the confidence score is **83%**, this work follows the **medium-confiden
    │  └─ search/
    ├─ lib/
    │  ├─ content/
+   │  ├─ i18n/
    │  ├─ seo/
    │  ├─ routes/
    │  └─ format/
    └─ pages/
-      ├─ index.astro
-      ├─ about.astro
-      ├─ resources.astro
-      ├─ news/
-      ├─ events/
-      ├─ speakers/
-      └─ global-azure-france.astro
+      └─ [locale]/
+         ├─ index.astro
+         ├─ about.astro
+         ├─ resources.astro
+         ├─ news/
+         ├─ events/
+         ├─ speakers/
+         └─ global-azure-france.astro
 ```
 
 ## 4. System Interaction and Data Flow
@@ -117,13 +127,16 @@ Meetup API --------\
                     -> Sync scripts -> Normalized JSON -> Content Collections validation
 RSS bridge --------/                                       |
                                                            v
+                                                Locale-aware content resolution
+                                                           |
+                                                           v
                                                   Astro route generation
                                                            |
                                                            v
-                                                    Static HTML output
+                                             Static localized HTML output
                                                            |
                                                            v
-                                                   Pagefind indexing
+                                             Locale-aware Pagefind indexing
                                                            |
                                                            v
                                                    GitHub Pages deploy
@@ -139,21 +152,25 @@ RSS bridge --------/                                       |
   - `sponsors`
   - `resources`
   - about/manifesto/history data
+- **Localized UI content**
+  - shared navigation labels
+  - static section labels
+  - fallback and CTA strings
 
 ## 5. Route Design
 
 | Route | Source | Notes |
 | --- | --- | --- |
-| `/` | Aggregated collections + site data | Manifesto, next event, latest news, sponsors |
-| `/events` | `events` | Upcoming + archived grouping |
-| `/events/[slug]` | `events` | Per-event detail pages |
-| `/news` | `news` | Chronological list |
-| `/news/[slug]` | `news` | Full or summary + source link |
-| `/speakers` | `speakers` | List and discovery page |
-| `/speakers/[slug]` | `speakers` | Speaker details + related events |
-| `/resources` | `resources` | Replay/slide listing |
-| `/about` | Curated data/content | Manifesto, history, organizers, partners |
-| `/global-azure-france` | Curated page content | Implemented after core milestone |
+| `/fr/`, `/en/` | Aggregated collections + site data | Locale-specific home pages |
+| `/[locale]/events` | `events` | Upcoming + archived grouping in active locale |
+| `/[locale]/events/[slug]` | `events` | Per-event detail pages |
+| `/[locale]/news` | `news` | Chronological localized list |
+| `/[locale]/news/[slug]` | `news` | Full or summary + source link |
+| `/[locale]/speakers` | `speakers` | List and discovery page |
+| `/[locale]/speakers/[slug]` | `speakers` | Speaker details + related events |
+| `/[locale]/resources` | `resources` | Replay/slide listing |
+| `/[locale]/about` | Curated data/content | Manifesto, history, organizers, partners |
+| `/[locale]/global-azure-france` | Curated page content | Implemented after core milestone |
 
 ## 6. Content Collection Schemas
 
@@ -162,6 +179,7 @@ RSS bridge --------/                                       |
 Recommended fields:
 
 - `slug: string`
+- `locale: "fr" | "en"` or locale-aware field group`
 - `title: string`
 - `summary: string`
 - `description?: string`
@@ -180,6 +198,7 @@ Recommended fields:
 ### `news`
 
 - `slug: string`
+- `locale: "fr" | "en"` or locale-aware field group`
 - `title: string`
 - `summary: string`
 - `content?: string`
@@ -193,6 +212,7 @@ Recommended fields:
 ### `speakers`
 
 - `slug: string`
+- `locale: "fr" | "en"` or shared identity with localized content fields
 - `name: string`
 - `headline?: string`
 - `bio?: string`
@@ -207,6 +227,7 @@ Recommended fields:
 ### `sponsors`
 
 - `slug: string`
+- `locale?: "fr" | "en"` for localized descriptive fields where needed
 - `name: string`
 - `tier?: string`
 - `description?: string`
@@ -218,6 +239,7 @@ Recommended fields:
 ### `resources`
 
 - `slug: string`
+- `locale: "fr" | "en"` or locale-aware field group`
 - `title: string`
 - `type: "slides" | "video" | "article" | "repository" | "other"`
 - `summary?: string`
@@ -233,20 +255,22 @@ Recommended fields:
 #### Meetup sync output
 
 - Input: Meetup GraphQL credentials/configuration
-- Output: One normalized JSON file per event in `src/content/events`
+- Output: One normalized JSON file per event or per event-locale representation in `src/content/events`
 - Guarantees:
   - Stable slug generation
   - Required date/title/source fields
   - Explicit status derivation (`upcoming`, `past`, `cancelled`)
+  - Locale-aware field availability or explicit fallback markers
 
 #### LinkedIn RSS sync output
 
 - Input: RSS bridge URL
-- Output: One normalized JSON file per post in `src/content/news`
+- Output: One normalized JSON file per post or per localized representation in `src/content/news`
 - Guarantees:
   - Stable slug generation
   - Valid publish date
   - Original source URL preserved
+  - Locale-aware field availability or explicit fallback markers
 
 ### Content Utility Contracts
 
@@ -257,6 +281,8 @@ Recommended fields:
 - `getSpeakerBySlug(slug: string): SpeakerEntry | undefined`
 - `getRelatedEventsForSpeaker(slug: string): EventEntry[]`
 - `getFeaturedSponsors(): SponsorEntry[]`
+- `resolveLocaleContent<T>(entry: T, locale: "fr" | "en"): T`
+- `getLocalizedRoute(locale: "fr" | "en", routeKey: string, slug?: string): string`
 
 These should be pure, build-time-safe helpers with no runtime network access.
 
@@ -268,6 +294,13 @@ These should be pure, build-time-safe helpers with no runtime network access.
 
 These are design-time planning helpers, not necessarily runtime modules, but the migration work should treat them as explicit concerns.
 
+### Localization Utility Contracts
+
+- `getSupportedLocales(): ("fr" | "en")[]`
+- `getDefaultLocale(): "fr" | "en"`
+- `getAlternateLocale(locale: "fr" | "en"): "fr" | "en"`
+- `getUiDictionary(locale: "fr" | "en"): UiDictionary`
+
 ## 8. Shared UI and Design-System Strategy
 
 - Build shared layout primitives first:
@@ -277,6 +310,7 @@ These are design-time planning helpers, not necessarily runtime modules, but the
   - grid/list cards
   - CTA/button styles
   - metadata row
+- Make layout primitives locale-neutral so labels and copy can be injected per locale.
 - Translate Penpot patterns into Astro + Tailwind primitives rather than one-off page CSS.
 - Use the Penpot design system page as the visual anchor for spacing, typography, logo usage, and card patterns.
 - For pages not explicitly available in Penpot, reuse established primitives from Home, Events, and About patterns.
@@ -293,12 +327,15 @@ These are design-time planning helpers, not necessarily runtime modules, but the
 | Broken cross-reference | Content validation helper | Fail build or emit explicit warning based on policy, never silent |
 | Empty search index | Post-build validation | Fail CI or preview validation |
 | GitHub Pages base mismatch | Preview/deploy validation | Fail deployment check with actionable config guidance |
+| Missing localized content | Locale resolution layer | Apply explicit fallback policy or fail validation according to content type |
+| Broken alternate-language link | Route generation or SEO helper | Fail metadata validation or route-level tests |
 
 ## 10. Testing Strategy
 
 ### Unit-Level Validation
 
 - Schema validation for each content collection
+- Locale resolution tests for French/English entries
 - Slug normalization tests
 - Event status derivation tests
 - Speaker derivation and override merge tests
@@ -311,6 +348,8 @@ These are design-time planning helpers, not necessarily runtime modules, but the
 - Static route generation count matches expected collection sizes
 - Pagefind index is generated after build
 - Legacy route mapping is reviewed before removing old root HTML files
+- Locale-specific routes and alternate links are generated correctly
+- Search results stay scoped or labeled correctly per locale
 
 ### Manual Validation
 
@@ -323,6 +362,8 @@ These are design-time planning helpers, not necessarily runtime modules, but the
 - Keyboard navigation and heading hierarchy review
 - GitHub Pages preview validation for asset and route correctness
 - Migration review of legacy assets/pages to confirm intended retention or retirement
+- Locale switcher review between French and English variants
+- Check that `lang` attributes and translated UI labels match the active locale
 
 ## 11. Performance and Maintainability Considerations
 
@@ -348,6 +389,14 @@ These are design-time planning helpers, not necessarily runtime modules, but the
 **Rationale**: A migration framing reduces the risk of losing useful content or breaking production behavior while still enabling a modern Astro architecture.
 **Impact**: Tasks must include inventory, route replacement, deployment workflow replacement, and a decision on unsupported legacy server-side behavior.
 **Review**: Reassess once the first Astro-based production release is live.
+
+### Decision - 2026-03-31T21:22:00Z
+**Decision**: Implement multilingual support using explicit locale-prefixed routes for `fr` and `en`.
+**Context**: The site is fully static, must work on GitHub Pages, and now needs French and English support across pages, metadata, and search.
+**Options**: Single-language routes with toggled copy; locale-prefixed routes; separate domains per language.
+**Rationale**: Locale-prefixed routes are the most deterministic option for static generation, SEO, alternate links, and user-visible language switching.
+**Impact**: Route generation, content modeling, search indexing, and UI chrome all become locale-aware.
+**Review**: Reassess if GitHub Pages constraints or future language expansion require a different i18n strategy.
 
 ### Decision - 2026-03-31T18:14:00Z
 **Decision**: Derive speaker entries from event data with optional manual overrides.
