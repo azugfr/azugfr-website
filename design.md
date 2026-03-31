@@ -174,18 +174,39 @@ RSS bridge --------/                                       |
 
 ## 6. Content Collection Schemas
 
+### i18n Content Modeling Strategy
+
+All content entries follow a **single-file bilingual model**: one JSON file per content item stores the canonical (primary) locale content directly on the top-level fields, with optional translations for the secondary locale inside a `translations` sub-object.
+
+```
+{
+  "slug": "my-event",
+  "locale": "fr",                // canonical locale of this file
+  "title": "Mon événement",      // primary locale field
+  "translations": {
+    "en": {
+      "title": "My event"        // override for secondary locale
+    }
+  }
+}
+```
+
+**Rules:**
+
+- `locale` is always present and set to the entry's primary language (`"fr"` or `"en"`).
+- Top-level text fields (`title`, `summary`, `description`, `bio`, `headline`, etc.) hold the **canonical locale** content.
+- `translations.<locale>` holds **partial overrides** for the other locale. Only differing text fields need to be included; locale-neutral fields are never duplicated.
+- **Locale-neutral fields** (dates, slugs, URLs, IDs, numeric data) appear only at the top level and are shared across all locale representations.
+- The Zod schema marks `translations` as optional to avoid blocking entries where translations are not yet available; the fallback policy (defined in T3) governs what to render when a translation is absent.
+
 ### `events`
 
-Recommended fields:
+**Locale-neutral fields** (shared, no duplication):
 
-- `slug: string`
-- `locale: "fr" | "en"` or locale-aware field group`
-- `title: string`
-- `summary: string`
-- `description?: string`
-- `startDate: string`
-- `endDate?: string`
-- `timezone: string`
+- `slug: string` — stable, URL-safe identifier
+- `startDate: string` — ISO 8601
+- `endDate?: string` — ISO 8601
+- `timezone: string` — IANA zone name (e.g. `"Europe/Paris"`)
 - `status: "upcoming" | "past" | "cancelled"`
 - `venue?: { name?: string; city?: string; address?: string; mode: "in_person" | "online" | "hybrid" }`
 - `registrationUrl?: string`
@@ -195,58 +216,109 @@ Recommended fields:
 - `tags?: string[]`
 - `source: { provider: "meetup"; externalId: string; lastSyncedAt: string }`
 
-### `news`
+**Locale-specific fields** (top level = canonical locale):
 
-- `slug: string`
-- `locale: "fr" | "en"` or locale-aware field group`
+- `locale: "fr" | "en"` — canonical locale of this entry
 - `title: string`
 - `summary: string`
-- `content?: string`
-- `publishedAt: string`
+- `description?: string`
+
+**Translations sub-object**:
+
+- `translations?: { fr?: { title?: string; summary?: string; description?: string }; en?: { title?: string; summary?: string; description?: string } }`
+
+### `news`
+
+**Locale-neutral fields**:
+
+- `slug: string`
+- `publishedAt: string` — ISO 8601
 - `author?: string`
 - `sourceUrl: string`
 - `image?: string`
 - `tags?: string[]`
 - `source: { provider: "linkedin-rss"; externalId: string; lastSyncedAt: string }`
 
+**Locale-specific fields** (top level = canonical locale):
+
+- `locale: "fr" | "en"`
+- `title: string`
+- `summary: string`
+- `content?: string`
+
+**Translations sub-object**:
+
+- `translations?: { fr?: { title?: string; summary?: string; content?: string }; en?: { title?: string; summary?: string; content?: string } }`
+
 ### `speakers`
 
+Speaker identity is locale-neutral; only human-readable descriptive fields are localized.
+
+**Locale-neutral fields**:
+
 - `slug: string`
-- `locale: "fr" | "en"` or shared identity with localized content fields
-- `name: string`
-- `headline?: string`
-- `bio?: string`
+- `name: string` — canonical display name (locale-neutral)
 - `photo?: string`
 - `company?: string`
 - `role?: string`
 - `location?: string`
-- `expertise?: string[]`
 - `links?: { website?: string; linkedin?: string; github?: string; x?: string }`
 - `derivedFrom?: { eventSourceIds?: string[]; displayNameVariants?: string[] }`
 
+**Locale-specific fields** (top level = canonical locale):
+
+- `locale: "fr" | "en"` — locale of the canonical text fields
+- `headline?: string`
+- `bio?: string`
+- `expertise?: string[]`
+
+**Translations sub-object**:
+
+- `translations?: { fr?: { headline?: string; bio?: string; expertise?: string[] }; en?: { headline?: string; bio?: string; expertise?: string[] } }`
+
 ### `sponsors`
 
+Most sponsor data is locale-neutral; only marketing copy is localized.
+
+**Locale-neutral fields**:
+
 - `slug: string`
-- `locale?: "fr" | "en"` for localized descriptive fields where needed
 - `name: string`
 - `tier?: string`
-- `description?: string`
 - `website: string`
 - `logo?: string`
-- `alt?: string`
 - `featured?: boolean`
+
+**Locale-specific fields** (top level = canonical locale):
+
+- `locale: "fr" | "en"` — canonical locale of text fields
+- `description?: string`
+- `alt?: string` — accessible alt text for the logo
+
+**Translations sub-object**:
+
+- `translations?: { fr?: { description?: string; alt?: string }; en?: { description?: string; alt?: string } }`
 
 ### `resources`
 
+**Locale-neutral fields**:
+
 - `slug: string`
-- `locale: "fr" | "en"` or locale-aware field group`
-- `title: string`
 - `type: "slides" | "video" | "article" | "repository" | "other"`
-- `summary?: string`
 - `url: string`
 - `eventSlug?: string`
 - `speakerSlugs?: string[]`
 - `publishedAt?: string`
+
+**Locale-specific fields** (top level = canonical locale):
+
+- `locale: "fr" | "en"`
+- `title: string`
+- `summary?: string`
+
+**Translations sub-object**:
+
+- `translations?: { fr?: { title?: string; summary?: string }; en?: { title?: string; summary?: string } }`
 
 ## 7. Interface Contracts
 
