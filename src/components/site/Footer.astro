@@ -21,7 +21,7 @@ const linkGroups = [
       { label: locale === "fr" ? "Code de conduite" : "Code of Conduct", href: getLocalizedRoute(locale, "about") },
       { label: "Contact",                                             href: getLocalizedRoute(locale, "about") },
     ],
-    cta: null as { label: string; href: string } | null,
+    ctas: [] as { label: string; href: string }[],
   },
   {
     heading: locale === "fr" ? "Événements" : "Events",
@@ -29,10 +29,16 @@ const linkGroups = [
       { label: locale === "fr" ? "À venir" : "Upcoming",   href: getLocalizedRoute(locale, "events") },
       { label: locale === "fr" ? "Passés" : "Past events", href: getLocalizedRoute(locale, "events") },
     ],
-    cta: {
-      label: locale === "fr" ? "Proposer un talk" : "Submit a talk",
-      href: getLocalizedRoute(locale, "speakers"),
-    },
+    ctas: [
+      {
+        label: locale === "fr" ? "Proposer un talk" : "Submit a talk",
+        href: "mailto:paris@azug.fr",
+      },
+      {
+        label: locale === "fr" ? "Héberger un événement" : "Host an event",
+        href: "mailto:paris@azug.fr",
+      },
+    ],
   },
   {
     heading: locale === "fr" ? "Communauté" : "Community",
@@ -41,7 +47,7 @@ const linkGroups = [
       { label: "Sponsors",                                      href: getLocalizedRoute(locale, "about") },
       { label: "Blog",                                          href: getLocalizedRoute(locale, "news") },
     ],
-    cta: null as { label: string; href: string } | null,
+    ctas: [] as { label: string; href: string }[],
   },
 ];
 
@@ -56,7 +62,7 @@ const socials = [
 <footer class="bg-[#0B1929] text-white">
   <div class="max-w-7xl mx-auto px-4 md:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
     <!-- 3 link columns -->
-    {linkGroups.map(({ heading, links, cta }) => (
+    {linkGroups.map(({ heading, links, ctas }) => (
       <div class="flex flex-col gap-2">
         <h3 class="text-sm font-bold text-white mb-1">{heading}</h3>
         {links.map(({ label, href }) => (
@@ -64,14 +70,14 @@ const socials = [
             {label}
           </a>
         ))}
-        {cta && (
+        {ctas && ctas.map((cta) => (
           <a
             href={cta.href}
-            class="mt-2 inline-flex items-center justify-center px-3 py-1.5 rounded border border-[#0078D4] text-[#4FA8E8] text-sm font-semibold hover:bg-[#0078D4] hover:text-white transition-colors w-fit"
+            class="mt-1 inline-flex items-center justify-center px-3 py-1.5 rounded border border-[#0078D4] text-[#4FA8E8] text-sm font-semibold hover:bg-[#0078D4] hover:text-white transition-colors w-fit"
           >
             {cta.label}
           </a>
-        )}
+        ))}
       </div>
     ))}
 
