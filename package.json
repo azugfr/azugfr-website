@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync:news": "node scripts/sync-linkedin-news.mjs",
+    "sync": "npm run sync:events && npm run sync:news"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.3",
