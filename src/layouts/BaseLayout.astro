@@ -20,7 +20,7 @@ const altLocale = getAlternateLocale(locale);
 const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}`;
 const altCanonical = `${site.url}/${altLocale}`;
 const resolvedDescription = description ?? site.description[locale];
-const resolvedOgImage = ogImage ?? `${site.url}/og-default.png`;
+const resolvedOgImage = ogImage ?? `${site.url}/og-default.svg`;
 const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`;
 ---
 
@@ -29,6 +29,7 @@ const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
     <meta name="description" content={resolvedDescription} />

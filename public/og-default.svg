@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="AZUG FR">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0A3D62"/>
+      <stop offset="100%" stop-color="#0078D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="970" cy="120" r="210" fill="#ffffff" fill-opacity="0.08"/>
+  <circle cx="180" cy="560" r="170" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="90" y="300" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="700">AZUG FR</text>
+  <text x="90" y="370" fill="#DDEEFF" font-family="Segoe UI, Arial, sans-serif" font-size="40">Azure User Group France</text>
+</svg>

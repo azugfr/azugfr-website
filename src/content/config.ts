@@ -234,9 +234,9 @@ export type ResourceEntry = z.infer<typeof resourcesSchema>;
 // Collection definitions
 // ---------------------------------------------------------------------------
 export const collections = {
-  events: defineCollection({ schema: eventsSchema }),
-  news: defineCollection({ schema: newsSchema }),
-  speakers: defineCollection({ schema: speakersSchema }),
-  sponsors: defineCollection({ schema: sponsorsSchema }),
-  resources: defineCollection({ schema: resourcesSchema }),
+  events: defineCollection({ type: "data", schema: eventsSchema }),
+  news: defineCollection({ type: "data", schema: newsSchema }),
+  speakers: defineCollection({ type: "data", schema: speakersSchema }),
+  sponsors: defineCollection({ type: "data", schema: sponsorsSchema }),
+  resources: defineCollection({ type: "data", schema: resourcesSchema }),
 };
