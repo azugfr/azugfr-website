@@ -1,0 +1,12 @@
+{
+  "type": "organizer",
+  "slug": "marius-zaharia",
+  "order": 1,
+  "locale": "fr",
+  "name": "Marius Zaharia",
+  "role": "Principal Engineer / Cloud Guild Leader",
+  "company": "Société Générale",
+  "mvp": "Microsoft Azure MVP",
+  "photo": "/organizers/marius-zaharia.jpg",
+  "linkedin": "https://www.linkedin.com/in/mzaharia/"
+}

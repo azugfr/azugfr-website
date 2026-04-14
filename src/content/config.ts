@@ -266,8 +266,11 @@ export const aboutOrganizerSchema = z.object({
   name: z.string(),
   role: z.string(),
   photo: z.string().optional(),
+  company: z.string().optional(),
+  mvp: z.string().optional(),
   linkedin: z.string().optional(),
   github: z.string().optional(),
+  twitter: z.string().optional(),
   translations: z
     .object({
       fr: z

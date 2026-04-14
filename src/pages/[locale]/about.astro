@@ -49,7 +49,7 @@ const labels = {
   manifesto: locale === "fr" ? "Notre manifeste" : "Our Manifesto",
   mission: locale === "fr" ? "Notre mission" : "Our Mission",
   history: locale === "fr" ? "Notre histoire" : "Our History",
-  organizers: locale === "fr" ? "L'équipe" : "The Team",
+  organizers: locale === "fr" ? "Le Board" : "The Board",
   community: locale === "fr" ? "Rejoignez la communauté" : "Join the Community",
   meetup: "Meetup",
   linkedin: "LinkedIn",
@@ -95,12 +95,28 @@ const labels = {
     <!-- Organizers -->
     <section class="mb-12">
       <h2 class="text-2xl font-semibold text-gray-800 mb-6">{labels.organizers}</h2>
-      <ul class="grid gap-4 sm:grid-cols-2">
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {organizers.map((org) => (
-          <li class="bg-gray-50 rounded-lg p-5 border border-gray-200">
-            <p class="font-semibold text-gray-900 text-lg">{org.name}</p>
-            <p class="text-azure-600 text-sm mb-3">{org.role}</p>
-            <div class="flex gap-3 text-sm">
+          <li class="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow flex flex-col">
+            <div class="flex items-center gap-4 mb-3">
+              {org.photo
+                ? <img src={org.photo} alt={org.name} class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+                : <div class="w-16 h-16 rounded-full bg-azure-100 flex items-center justify-center flex-shrink-0">
+                    <span class="text-2xl font-bold text-azure-700">{org.name.charAt(0)}</span>
+                  </div>
+              }
+              <div class="min-w-0">
+                <p class="font-semibold text-gray-900 leading-tight">{org.name}</p>
+                <p class="text-azure-600 text-sm mt-0.5">{org.role}</p>
+                {org.company && <p class="text-gray-500 text-xs mt-0.5 truncate">{org.company}</p>}
+              </div>
+            </div>
+            {org.mvp && (
+              <span class="inline-block self-start text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200 px-2 py-0.5 rounded-full mb-3">
+                {org.mvp}
+              </span>
+            )}
+            <div class="flex gap-3 text-sm mt-auto">
               {org.linkedin && (
                 <a
                   href={org.linkedin}

@@ -1,0 +1,12 @@
+{
+  "type": "organizer",
+  "slug": "ihor-leontiev",
+  "order": 5,
+  "locale": "fr",
+  "name": "Ihor Leontiev",
+  "role": "CTO",
+  "company": "Dvigunity",
+  "mvp": "Microsoft Regional Director | Azure & IoT MVP",
+  "photo": "/organizers/ihor-leontiev.jpg",
+  "linkedin": "https://www.linkedin.com/in/leontievihor/"
+}

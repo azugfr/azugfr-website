@@ -1,0 +1,12 @@
+{
+  "type": "organizer",
+  "slug": "jean-luc-boucho",
+  "order": 4,
+  "locale": "fr",
+  "name": "Jean-Luc Boucho",
+  "role": "Advisory, Tech Strategist",
+  "company": "Avanade (JV Accenture, Microsoft)",
+  "mvp": "Microsoft AI MVP",
+  "photo": "/organizers/jean-luc-boucho.jpg",
+  "linkedin": "https://www.linkedin.com/in/jeanlucboucho/"
+}

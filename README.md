@@ -308,6 +308,58 @@ The **filename** of each JSON file becomes the Astro collection entry ID (used a
 
 ---
 
+### About
+
+**Path:** `src/content/about/{slug}.json`  
+**Maintained:** Manually — no external sync script. Edit JSON files directly to update page content.
+
+The `about` collection uses a **discriminated union** schema with two entry types: `"section"` for text blocks and `"organizer"` for team member cards.
+
+**Section entry** (`section-manifesto.json`, `section-mission.json`, `section-history.json`):
+
+```jsonc
+{
+  "type": "section",
+  "slug": "manifesto",        // used by about.astro to find this entry
+  "order": 1,                 // display order on the page
+  "locale": "fr",
+  "title": "Notre manifeste",
+  "body": "AZUG FR est la communauté...",
+  "translations": {
+    "en": {
+      "title": "Our Manifesto",
+      "body": "AZUG FR is the French-speaking community..."
+    }
+  }
+}
+```
+
+**Organizer entry** (`organizer-{slug}.json`):
+
+```jsonc
+{
+  "type": "organizer",
+  "slug": "equipe-azugfr",
+  "order": 1,
+  "locale": "fr",
+  "name": "Équipe AZUG FR",
+  "role": "Organisateurs bénévoles",
+  "photo": "/organizers/team.jpg",      // optional
+  "linkedin": "https://linkedin.com/company/azure-user-group-france/",
+  "github": "https://github.com/azugfr",  // optional
+  "translations": {
+    "en": {
+      "role": "Volunteer Organizers"
+    }
+  }
+}
+```
+
+To **add a new organizer**, create `src/content/about/organizer-{slug}.json` following the schema above and run `npm run build` to validate.  
+To **edit existing text**, open the relevant section JSON and update the `body` / `translations.en.body` fields.
+
+---
+
 ## Internationalization (i18n)
 
 The site supports **French (`fr`)** and **English (`en`)**, with French as the default locale.
@@ -447,6 +499,18 @@ Smoke tests verifying key pages render correctly at both `/fr` and `/en` locales
 ### Add a Global Azure France edition
 
 Edit `src/data/globalAzure.ts` and add a new entry to the `editions` array.
+
+### Update about page text
+
+Edit the relevant JSON file in `src/content/about/`:
+- `section-manifesto.json` — opening statement
+- `section-mission.json` — mission text
+- `section-history.json` — history paragraph
+- Update `body` for French, `translations.en.body` for English
+
+### Add a new organizer
+
+Create `src/content/about/organizer-{slug}.json` with `"type": "organizer"`, set `order` to control display position, and run `npm run build` to validate.
 
 ---
 

@@ -1,0 +1,12 @@
+{
+  "type": "organizer",
+  "slug": "cedric-leblond",
+  "order": 3,
+  "locale": "fr",
+  "name": "Cédric Leblond",
+  "role": "Consultant Cloud",
+  "company": "",
+  "mvp": "Microsoft MVP Azure",
+  "photo": "/organizers/cedric-leblond.jpg",
+  "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/"
+}
