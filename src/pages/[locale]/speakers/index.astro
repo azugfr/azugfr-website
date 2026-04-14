@@ -1,0 +1,65 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAllSpeakers } from "@/lib/content/contentHelpers";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const speakers = await getAllSpeakers(locale);
+speakers.sort((a, b) => a.name.localeCompare(b.name));
+
+const title = locale === "fr" ? "Intervenants | AZUG FR" : "Speakers | AZUG FR";
+const description =
+  locale === "fr"
+    ? "Les expertes et experts qui partagent leurs connaissances lors de nos événements."
+    : "The experts who share their knowledge at our events.";
+const canonicalUrl = `${site.url}/${locale}/speakers`;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="speakers">
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+      {locale === "fr" ? "Intervenants" : "Speakers"}
+    </h1>
+    <p class="text-gray-600 mb-10">{description}</p>
+
+    {speakers.length === 0 ? (
+      <p class="text-gray-500">{dict.common.noResults}</p>
+    ) : (
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {speakers.map(s => (
+          <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
+            <div class="flex items-center gap-4 mb-4">
+              {s.photo
+                ? <img src={s.photo} alt={s.name} class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+                : <div class="w-16 h-16 rounded-full bg-azure-100 flex items-center justify-center flex-shrink-0">
+                    <span class="text-2xl font-bold text-azure-700">{s.name.charAt(0)}</span>
+                  </div>
+              }
+              <div>
+                <h2 class="font-semibold text-gray-900">
+                  <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="hover:text-azure-600">{s.name}</a>
+                </h2>
+                {s.headline && <p class="text-sm text-gray-500 mt-1">{s.headline}</p>}
+              </div>
+            </div>
+            {s.company && <p class="text-sm text-gray-600 mb-2">🏢 {s.company}</p>}
+            {s.expertise && s.expertise.length > 0 && (
+              <div class="flex flex-wrap gap-1 mt-auto pt-3">
+                {s.expertise.slice(0, 3).map(tag => (
+                  <span class="text-xs bg-azure-50 text-azure-700 px-2 py-1 rounded-full">{tag}</span>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

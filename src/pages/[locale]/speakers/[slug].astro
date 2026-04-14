@@ -1,0 +1,114 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSpeakerBySlug, getRelatedEventsForSpeaker } from "@/lib/content/contentHelpers";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  const locales: Locale[] = ["fr", "en"];
+  const paths = [];
+  for (const locale of locales) {
+    const entries = await getCollection("speakers");
+    for (const entry of entries) {
+      paths.push({ params: { locale, slug: entry.data.slug } });
+    }
+  }
+  const seen = new Set<string>();
+  return paths.filter(p => {
+    const key = `${p.params.locale}:${p.params.slug}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const dict = getUiDictionary(locale);
+const speaker = await getSpeakerBySlug(slug, locale);
+if (!speaker) return Astro.redirect(`/${locale}/speakers`);
+const relatedEvents = await getRelatedEventsForSpeaker(slug, locale);
+
+const title = `${speaker.name} | AZUG FR`;
+const description = speaker.headline ?? speaker.bio ?? "";
+const canonicalUrl = `${site.url}/${locale}/speakers/${slug}`;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="speakers">
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Back -->
+    <a href={getLocalizedRoute(locale, "speakers")} class="text-azure-600 hover:underline text-sm">
+      ← {dict.common.backTo} {dict.nav.speakers}
+    </a>
+
+    <!-- Speaker profile header -->
+    <div class="mt-8 flex flex-col md:flex-row gap-8 items-start">
+      {speaker.photo
+        ? <img src={speaker.photo} alt={speaker.name} class="w-32 h-32 rounded-full object-cover flex-shrink-0" />
+        : <div class="w-32 h-32 rounded-full bg-azure-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-4xl font-bold text-azure-700">{speaker.name.charAt(0)}</span>
+          </div>
+      }
+      <div class="flex-1">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{speaker.name}</h1>
+        {speaker.headline && <p class="text-xl text-gray-600 mb-3">{speaker.headline}</p>}
+        <div class="flex flex-wrap gap-3 text-sm text-gray-500 mb-4">
+          {speaker.company && <span>🏢 {speaker.company}</span>}
+          {speaker.role && <span>💼 {speaker.role}</span>}
+          {speaker.location && <span>📍 {speaker.location}</span>}
+        </div>
+        <!-- Social links -->
+        <div class="flex gap-3">
+          {speaker.links?.linkedin && <a href={speaker.links.linkedin} target="_blank" rel="noopener noreferrer" class="text-azure-600 hover:underline text-sm">LinkedIn</a>}
+          {speaker.links?.github && <a href={speaker.links.github} target="_blank" rel="noopener noreferrer" class="text-azure-600 hover:underline text-sm">GitHub</a>}
+          {speaker.links?.website && <a href={speaker.links.website} target="_blank" rel="noopener noreferrer" class="text-azure-600 hover:underline text-sm">{locale === "fr" ? "Site web" : "Website"}</a>}
+          {speaker.links?.x && <a href={speaker.links.x} target="_blank" rel="noopener noreferrer" class="text-azure-600 hover:underline text-sm">X / Twitter</a>}
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    {speaker.bio && (
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">{locale === "fr" ? "Biographie" : "Biography"}</h2>
+        <p class="text-gray-700 leading-relaxed">{speaker.bio}</p>
+      </section>
+    )}
+
+    <!-- Expertise tags -->
+    {speaker.expertise && speaker.expertise.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-3">{locale === "fr" ? "Domaines d'expertise" : "Areas of expertise"}</h2>
+        <div class="flex flex-wrap gap-2">
+          {speaker.expertise.map(tag => (
+            <span class="bg-azure-50 text-azure-700 px-3 py-1 rounded-full text-sm">{tag}</span>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related events -->
+    {relatedEvents.length > 0 && (
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">{locale === "fr" ? "Interventions" : "Talks"}</h2>
+        <ul class="grid gap-4">
+          {relatedEvents.map(event => (
+            <li class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <div>
+                <a href={getLocalizedRoute(locale, "events", event.slug)} class="font-semibold text-gray-900 hover:text-azure-600">
+                  {event.title}
+                </a>
+                <p class="text-sm text-gray-500 mt-1">{new Date(event.startDate).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+              </div>
+              <span class={`text-xs px-2 py-1 rounded-full ${deriveEventStatus(event) === "upcoming" ? "bg-azure-100 text-azure-700" : "bg-gray-100 text-gray-600"}`}>
+                {deriveEventStatus(event) === "upcoming" ? dict.common.upcoming : dict.common.past}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+</BaseLayout>
