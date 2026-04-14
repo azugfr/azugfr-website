@@ -10,8 +10,7 @@ export const site = {
     twitter: "https://twitter.com/azugfr",
     github: "https://github.com/azugfr",
     meetup: "https://www.meetup.com/fr-FR/azure-user-group-france/",
-    linkedin: "https://www.linkedin.com/company/azure-user-group-france/",
-    youtube: "https://www.youtube.com/@azugfr",
+    linkedin: "https://www.linkedin.com/company/azugfr",
   },
 };
 
