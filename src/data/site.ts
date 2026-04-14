@@ -9,7 +9,7 @@ export const site = {
   social: {
     twitter: "https://twitter.com/azugfr",
     github: "https://github.com/azugfr",
-    meetup: "https://www.meetup.com/fr-FR/azure-user-group-france/",
+    meetup: "https://www.meetup.com/azug-fr",
     linkedin: "https://www.linkedin.com/company/azugfr",
   },
 };
