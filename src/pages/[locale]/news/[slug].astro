@@ -1,0 +1,112 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, getLocalizedRoute, resolveLocaleContent } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+
+export async function getStaticPaths() {
+  const locales: Locale[] = ["fr", "en"];
+  const paths = [];
+  for (const locale of locales) {
+    const entries = await getCollection("news");
+    for (const entry of entries) {
+      paths.push({ params: { locale, slug: entry.data.slug } });
+    }
+  }
+  const seen = new Set<string>();
+  return paths.filter((p) => {
+    const key = `${p.params.locale}:${p.params.slug}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const dict = getUiDictionary(locale);
+const entries = await getCollection("news");
+const entry = entries.find((e) => e.data.slug === slug);
+if (!entry) return Astro.redirect(`/${locale}/news`);
+const item = resolveLocaleContent(entry.data, locale);
+
+const pageTitle = `${item.title} | AZUG FR`;
+const pageDescription = item.summary;
+
+function formatDate(iso: string, loc: Locale): string {
+  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="news"
+>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <a
+      href={getLocalizedRoute(locale, "news")}
+      class="text-azure-600 hover:underline text-sm"
+    >
+      ← {dict.common.backTo}
+      {locale === "fr" ? "Actualités" : "News"}
+    </a>
+
+    <header class="mt-6 mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{item.title}</h1>
+      <div class="flex items-center gap-4 text-sm text-gray-500">
+        <time datetime={item.publishedAt}>
+          {formatDate(item.publishedAt, locale)}
+        </time>
+        {item.author && <span>— {item.author}</span>}
+        <a
+          href={item.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-azure-600 hover:underline"
+        >
+          {locale === "fr" ? "Voir la source" : "View source"} ↗
+        </a>
+      </div>
+    </header>
+
+    {
+      item.image && (
+        <img
+          src={item.image}
+          alt={item.title}
+          class="w-full rounded-lg mb-8 object-cover max-h-64"
+        />
+      )
+    }
+
+    {
+      item.content ? (
+        <div
+          class="prose max-w-none text-gray-700"
+          set:html={item.content}
+        />
+      ) : (
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
+          <p class="text-gray-700 text-lg mb-4">{item.summary}</p>
+          <a
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-azure-600 text-white px-6 py-3 rounded-lg hover:bg-azure-700 transition-colors font-semibold"
+          >
+            {
+              locale === "fr"
+                ? "Lire l'article complet sur LinkedIn"
+                : "Read full article on LinkedIn"
+            } ↗
+          </a>
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

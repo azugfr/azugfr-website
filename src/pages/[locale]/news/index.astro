@@ -1,0 +1,93 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { getLatestNews } from "@/lib/content/contentHelpers";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const news = await getLatestNews(locale);
+
+const pageTitle = locale === "fr" ? "Actualités | AZUG FR" : "News | AZUG FR";
+const pageDescription =
+  locale === "fr"
+    ? "Les dernières nouvelles de la communauté AZUG FR."
+    : "The latest news from the AZUG FR community.";
+
+function formatDate(iso: string, loc: Locale): string {
+  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="news"
+>
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">
+      {locale === "fr" ? "Actualités" : "News"}
+    </h1>
+    <p class="text-gray-600 mb-10">
+      {
+        locale === "fr"
+          ? "Les dernières nouvelles de la communauté AZUG FR."
+          : "The latest news from the AZUG FR community."
+      }
+    </p>
+
+    {
+      news.length === 0 ? (
+        <p class="text-gray-500">{dict.common.noResults}</p>
+      ) : (
+        <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {news.map((item) => (
+            <li class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+              {item.image && (
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  class="w-full h-48 object-cover"
+                />
+              )}
+              <div class="p-6 flex flex-col flex-1">
+                <time
+                  class="text-xs text-gray-400 mb-2"
+                  datetime={item.publishedAt}
+                >
+                  {formatDate(item.publishedAt, locale)}
+                </time>
+                <h2 class="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">
+                  <a
+                    href={getLocalizedRoute(locale, "news", item.slug)}
+                    class="hover:text-azure-600"
+                  >
+                    {item.title}
+                  </a>
+                </h2>
+                <p class="text-sm text-gray-600 flex-1 line-clamp-3">
+                  {item.summary}
+                </p>
+                <a
+                  href={getLocalizedRoute(locale, "news", item.slug)}
+                  class="mt-4 text-azure-600 hover:underline text-sm font-medium"
+                >
+                  {dict.common.readMore} →
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

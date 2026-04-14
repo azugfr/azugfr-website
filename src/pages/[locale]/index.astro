@@ -1,0 +1,153 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import { getFeaturedEvent, getLatestNews, getFeaturedSponsors } from "@/lib/content/contentHelpers";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+function formatDate(iso: string, locale: Locale): string {
+  return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const featuredEvent = await getFeaturedEvent(locale);
+const latestNews = await getLatestNews(locale, 3);
+const featuredSponsors = await getFeaturedSponsors(locale);
+---
+
+<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home">
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-azure-700 to-azure-900 text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-5xl font-bold mb-6">AZUG FR</h1>
+      <p class="text-xl text-azure-100 mb-4">
+        {locale === "fr" ? "Azure User Group France" : "Azure User Group France"}
+      </p>
+      <p class="text-lg text-azure-200 mb-10 max-w-2xl mx-auto">
+        {site.description[locale]}
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href={getLocalizedRoute(locale, "events")}
+           class="bg-white text-azure-700 px-8 py-3 rounded-lg font-semibold hover:bg-azure-50 transition-colors">
+          {dict.nav.events}
+        </a>
+        <a href={site.social.meetup} target="_blank" rel="noopener noreferrer"
+           class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-azure-700 transition-colors">
+          {locale === "fr" ? "Rejoindre la communauté" : "Join the community"}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Event Section -->
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        {locale === "fr" ? "Prochain événement" : "Next event"}
+      </h2>
+      {featuredEvent ? (
+        <div class="bg-white border-l-4 border-azure-600 rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6">
+          <div class="flex-1">
+            <span class="text-xs font-semibold uppercase tracking-wide text-azure-600 mb-2 block">
+              {dict.common.upcoming}
+            </span>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+              <a href={getLocalizedRoute(locale, "events", featuredEvent.slug)} class="hover:text-azure-600">
+                {featuredEvent.title}
+              </a>
+            </h3>
+            <p class="text-gray-600 mb-4">{featuredEvent.summary}</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+              <time datetime={featuredEvent.startDate}>{formatDate(featuredEvent.startDate, locale)}</time>
+              {featuredEvent.venue?.city && <span>📍 {featuredEvent.venue.city}</span>}
+            </div>
+            {featuredEvent.registrationUrl && (
+              <a href={featuredEvent.registrationUrl} target="_blank" rel="noopener noreferrer"
+                 class="bg-azure-600 text-white px-6 py-3 rounded-lg hover:bg-azure-700 transition-colors font-semibold inline-block">
+                {dict.hero.register}
+              </a>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div class="bg-gray-50 rounded-lg p-12 text-center">
+          <p class="text-gray-500 text-lg">
+            {locale === "fr"
+              ? "Aucun événement programmé pour l'instant. Revenez bientôt !"
+              : "No events scheduled at the moment. Check back soon!"}
+          </p>
+          <a href={getLocalizedRoute(locale, "events")} class="mt-4 inline-block text-azure-600 hover:underline">
+            {locale === "fr" ? "Voir tous les événements passés" : "View all past events"} →
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Latest News Section -->
+  <section class="bg-gray-50 py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">
+          {locale === "fr" ? "Dernières actualités" : "Latest news"}
+        </h2>
+        <a href={getLocalizedRoute(locale, "news")} class="text-azure-600 hover:underline text-sm">
+          {locale === "fr" ? "Toutes les actualités" : "All news"} →
+        </a>
+      </div>
+      {latestNews.length > 0 ? (
+        <ul class="grid gap-6 md:grid-cols-3">
+          {latestNews.map(item => (
+            <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <time class="text-xs text-gray-400 mb-2 block" datetime={item.publishedAt}>
+                {formatDate(item.publishedAt, locale)}
+              </time>
+              <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
+                <a href={getLocalizedRoute(locale, "news", item.slug)} class="hover:text-azure-600">
+                  {item.title}
+                </a>
+              </h3>
+              <p class="text-sm text-gray-600 line-clamp-3">{item.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-500">{dict.common.noResults}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Sponsors Section -->
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+        {locale === "fr" ? "Nos partenaires" : "Our partners"}
+      </h2>
+      {featuredSponsors.length > 0 && (
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+          {featuredSponsors.map(s => (
+            <a href={s.website} target="_blank" rel="noopener noreferrer"
+               class="grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
+              {s.logo
+                ? <img src={s.logo} alt={s.alt ?? s.name} class="h-12 object-contain" />
+                : <span class="font-semibold text-gray-700">{s.name}</span>
+              }
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
