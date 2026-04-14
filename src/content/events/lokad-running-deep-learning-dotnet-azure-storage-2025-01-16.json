@@ -1,0 +1,33 @@
+{
+  "slug": "lokad-running-deep-learning-dotnet-azure-storage-2025-01-16",
+  "locale": "fr",
+  "title": "Running deep learning models in .NET // Abstractions on top of Azure Storage",
+  "summary": "Soirée chez Lokad dédiée aux librairies .NET pour le deep learning et aux abstractions au-dessus d'Azure Blob Storage.",
+  "description": "Lokad et la communauté Azure User Group France (AZUG FR - MTG Paris) vous invitent le jeudi 16 janvier 2025 à partir de 18h30 chez Lokad, éditeur logiciel spécialisé dans la Supply Chain. Le meetup permet de partager un retour d'expérience sur le développement de librairies .NET orientées deep learning et data. Agenda : 18h30 accueil, 18h45 introduction et dernières news Azure, 19h00 « Abstractions on top of Azure Blob Storage » par Victor Nicollet, 19h40 « Lokad.Onnx, Running deep learning models in .NET managed code » par Joannès Vermorel, 20h20 Q&A, 20h30 cocktail dinatoire.",
+  "startDate": "2025-01-16T18:30:00",
+  "endDate": "2025-01-16T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Lokad",
+    "city": "Paris",
+    "address": "83-85 Bd Vincent Auriol, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/305132870/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["victor-nicollet", "joannes-vermorel"],
+  "tags": ["Azure", "DotNet", "DeepLearning", "Storage"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "305132870",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Running deep learning models in .NET // Abstractions on top of Azure Storage",
+      "summary": "Evening at Lokad about .NET libraries for deep learning and abstractions on Azure Blob Storage.",
+      "description": "Community event at Lokad in Paris with talks on Azure Blob Storage abstractions and running ONNX deep learning models in managed .NET code."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "vs-code-dev-days-paris-2025-09-18",
+  "locale": "fr",
+  "title": "VS Code Dev Days | Paris",
+  "summary": "Atelier pratique pour exploiter VS Code et GitHub Copilot afin d'améliorer l'expérience de développement.",
+  "description": "Rejoignez-nous pour un atelier pratique où vous apprendrez à exploiter tout le potentiel de VS Code et GitHub Copilot afin d'améliorer votre expérience de développement. Que vous soyez débutant ou développeur expérimenté, cette session vous initiera aux workflows assistés par l'IA pour écrire un meilleur code, plus rapidement. Programme : 18h00 accueil & networking, 18h20 bienvenue & introduction, 18h30 techniques essentielles pour GitHub Copilot dans VS Code, 19h10 session communautaire, 20h00 atelier VS Code et GitHub Copilot, 21h00 clôture & networking.",
+  "startDate": "2025-09-18T18:00:00",
+  "endDate": "2025-09-18T21:00:00",
+  "timezone": "Europe/Paris",
+  "status": "cancelled",
+  "venue": {
+    "name": "Siège de Microsoft France",
+    "city": "Issy-les-Moulineaux",
+    "address": "39 Quai du Président Roosevelt, Issy-les-Moulineaux, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://luma.com/nwzb0m39",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/310833003/",
+  "speakerSlugs": [],
+  "tags": ["VS Code", "GitHub Copilot", "AI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "310833003",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "VS Code Dev Days | Paris",
+      "summary": "Hands-on workshop to leverage VS Code and GitHub Copilot for a better developer experience.",
+      "description": "Hands-on session to learn how to unlock the full potential of VS Code and GitHub Copilot, with agenda including essentials of AI-assisted development and a practical lab."
+    }
+  }
+}

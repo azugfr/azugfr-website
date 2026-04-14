@@ -1,0 +1,33 @@
+{
+  "slug": "azugfr-global-ai-bootcamp-paris-2025-04-10",
+  "locale": "fr",
+  "title": "AZUG FR @ Global AI Bootcamp Paris 2025",
+  "summary": "Mini-conférence autour des technologies d'IA et des dernières avancées de l'IA générative sur Azure.",
+  "description": "Le Global AI Bootcamp est un événement annuel mondial où développeurs et passionnés d'IA se familiarisent avec l'IA grâce à des ateliers, sessions et discussions. AZUGFR se joint à la Global AI Community pour une mini-conférence le jeudi 10 avril 2025 à partir de 18h30 dans les locaux de l'ESGI Paris. La soirée couvre infrastructure intelligente et AIOps, agents distribués avec DAPR, atelier Azure AI Agent, automatisation du support IT avec IA, GitHub Copilot pour accélérer le déploiement cloud, prévention des dérives des IA, et un cocktail de clôture.",
+  "startDate": "2025-04-10T18:30:00",
+  "endDate": "2025-04-10T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "École Supérieure de Génie Informatique (ESGI)",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/307062572/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["marius-zaharia", "ivan-ignatiev", "jean-luc-boucho", "marouane-abdellah", "ihor-leontiev"],
+  "tags": ["AI", "Azure", "GlobalAIBootcamp", "GenerativeAI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "307062572",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "AZUG FR @ Global AI Bootcamp Paris 2025",
+      "summary": "Mini-conference on AI technologies and generative AI on Azure, as part of the Global AI Bootcamp.",
+      "description": "Evening event at ESGI Paris with talks and workshops on intelligent infrastructure, DAPR AI agents, Azure AI Agent, IT support automation with AI, GitHub Copilot for Azure, and AI safety."
+    }
+  }
+}

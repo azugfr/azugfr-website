@@ -1,0 +1,33 @@
+{
+  "slug": "global-azure-france-2025-paris-2025-05-06",
+  "locale": "fr",
+  "title": "Global Azure France 2025 à Paris - #GlobalAzure",
+  "summary": "Édition parisienne du Global Azure 2025 pour découvrir et approfondir Microsoft Azure.",
+  "description": "Le Global Azure est un événement gratuit pour découvrir le Cloud Microsoft Azure, organisé les mêmes jours par des groupes d'utilisateurs et communautés du monde entier. En France, AZUG FR organise une édition à Paris pour la communauté Azure francophone, avec 6 sessions réparties sur plusieurs créneaux autour de la gouvernance, de l'IA, des Azure Landing Zones, de Copilot Studio, du réseau sur Azure, et de GitOps/DevOps dans Microsoft Fabric. L'événement se tient à l'ESGI Paris à partir de 18h45.",
+  "startDate": "2025-05-06T18:45:00",
+  "endDate": "2025-05-06T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "École Supérieure de Génie Informatique (ESGI)",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/307416397/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["wilfried-woivre", "sidali-kadouche", "benoit-sautiere", "romain-gerard", "michel-perfetti", "rodrigue-yengo"],
+  "tags": ["Azure", "GlobalAzure", "Cloud", "AI", "Governance"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "307416397",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2025 in Paris - #GlobalAzure",
+      "summary": "Paris edition of Global Azure 2025 to discover and deepen knowledge of Microsoft Azure.",
+      "description": "Free community event at ESGI Paris on 6 May 2025 with multiple Azure sessions on governance, AI agents, landing zones, Copilot Studio, networking, and GitOps/DevOps."
+    }
+  }
+}

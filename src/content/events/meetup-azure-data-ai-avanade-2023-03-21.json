@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-azure-data-ai-avanade-2023-03-21",
+  "locale": "fr",
+  "title": "Meetup Azure Data & AI @ Avanade - Mars 2023",
+  "summary": "Meetup Avanade et AZUG FR sur les services data et IA dans Azure, Cosmos DB, Synapse, Power BI et Azure OpenAI.",
+  "description": "AVANADE et AZUG FR invitent le mardi 21 mars 2023 à partir de 18h30 dans les locaux d'Avanade à Issy-les-Moulineaux pour un tour d'horizon des services de gestion des données et d'IA dans Azure. Le programme comprend une session pratique sur Cosmos DB, un panorama des services data dans Azure avec focus sur Synapse et Power BI, et une session sur Azure OpenAI Service avec des cas d'usage de LLM et d'agents conversationnels.",
+  "startDate": "2023-03-21T18:30:00",
+  "endDate": "2023-03-21T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Avanade Paris",
+    "city": "Issy-les-Moulineaux",
+    "address": "3 Esp. du Foncet, Issy-les-Moulineaux, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/291663133/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["emmanuel-deletang", "jean-pierre-riehl", "abderrahmane-filali", "paul-peton", "jonathan-pacifico"],
+  "tags": ["Azure", "Data", "AI", "CosmosDB", "OpenAI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "291663133",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Azure Data & AI Meetup @ Avanade - March 2023",
+      "summary": "Avanade and AZUG FR meetup on data and AI services in Azure including Cosmos DB, Synapse, Power BI, and Azure OpenAI.",
+      "description": "Evening at Avanade in Issy-les-Moulineaux covering practical Cosmos DB, Azure data services, and Azure OpenAI use cases."
+    }
+  }
+}

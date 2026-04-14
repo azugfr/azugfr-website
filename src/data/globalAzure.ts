@@ -26,6 +26,19 @@ export const globalAzureData: GlobalAzureData = {
   },
   editions: [
     {
+      year: 2026,
+      city: "Paris (ESGI)",
+      date: {
+        fr: "18 avril 2026",
+        en: "April 18, 2026",
+      },
+      description: {
+        fr: "Édition 2026 du Global Azure France organisée par AZUG FR et l'ESGI à Paris (12ᵉ). Sessions gratuites sur le développement Azure, l'IA, l'infrastructure, le DevOps, la sécurité et la gouvernance cloud.",
+        en: "2026 edition of Global Azure France organised by AZUG FR and ESGI in Paris (12th). Free sessions on Azure development, AI, infrastructure, DevOps, security and cloud governance.",
+      },
+      registrationUrl: "https://www.meetup.com/azug-fr/events/313716280/",
+    },
+    {
       year: 2022,
       city: "Paris (ESGI)",
       date: {

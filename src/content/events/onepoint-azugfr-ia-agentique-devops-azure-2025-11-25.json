@@ -1,0 +1,33 @@
+{
+  "slug": "onepoint-azugfr-ia-agentique-devops-azure-2025-11-25",
+  "locale": "fr",
+  "title": "Onepoint x AZUG FR : quand l'IA agentique rencontre le DevOps sur Azure",
+  "summary": "Soirée immersive dédiée à l'IA agentique appliquée au DevOps sur Azure, avec démo live d'un agent intelligent pour AKS.",
+  "description": "En partenariat avec AZUG FR, la communauté française des utilisateurs du cloud Microsoft Azure, Onepoint organise une soirée immersive dédiée à l'IA appliquée à Azure. Au programme : démo live d'un agent intelligent pour Azure Kubernetes Service (AKS) capable d'analyser les logs, détecter les incidents et proposer ou déclencher des actions pertinentes, retour sur les annonces marquantes de Microsoft Ignite 2025 et partage d'expérience sur l'intégration de l'IA dans les pratiques DevOps et l'observabilité sur Azure. Agenda : 18h30 — accueil, 19h00 — introduction AZUG FR & Onepoint, 19h15 — retour sur Microsoft Ignite 2025, 20h00 — démo live IA agentique sur AKS, 21h00 — networking & buffet, 22h00 — fin.",
+  "startDate": "2025-11-25T18:30:00",
+  "endDate": "2025-11-25T22:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Onepoint",
+    "city": "Paris",
+    "address": "14 Av. d'Eylau, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/311876300/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "DevOps", "AI", "AKS"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "311876300",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Onepoint x AZUG FR: when Agentic AI meets DevOps on Azure",
+      "summary": "Immersive evening on agentic AI applied to DevOps on Azure, including a live demo of an intelligent agent for AKS.",
+      "description": "In partnership with AZUG FR, Onepoint hosts an immersive evening on AI applied to Azure, featuring a live agent for AKS, a recap of Microsoft Ignite 2025, and concrete DevOps observability feedback."
+    }
+  }
+}

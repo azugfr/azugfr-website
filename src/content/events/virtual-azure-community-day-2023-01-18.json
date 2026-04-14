@@ -1,0 +1,33 @@
+{
+  "slug": "virtual-azure-community-day-2023-01-18",
+  "locale": "fr",
+  "title": "Virtual Azure Community Day - 18 janvier 2023",
+  "summary": "Édition #VACD avec 3h de conférences en ligne autour d'Azure.",
+  "description": "Virtual Azure Community Day revient pour une cinquième édition le 18 janvier 2023 avec environ 3 heures de conférences en continu autour d'Azure. L'événement en ligne propose des démos et retours d'expérience : recettes du développeur cloud responsable, automatisation des alertes budgets, outils de debug pour Kubernetes, monitoring d'applications dans Azure, tests de montée en charge avec Azure Load Testing, et utilisation des Polyglot Notebooks.",
+  "startDate": "2023-01-18T13:50:00",
+  "endDate": "2023-01-18T17:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Online",
+    "city": "Online",
+    "address": "",
+    "mode": "online"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/290613622/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "Online", "Conference"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "290613622",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Virtual Azure Community Day - 18 January 2023",
+      "summary": "Fifth #VACD edition with 3 hours of online Azure sessions.",
+      "description": "Online event with continuous Azure talks and demos about responsible cloud development, budget alerts, Kubernetes debugging, monitoring, load testing, and Polyglot Notebooks."
+    }
+  }
+}

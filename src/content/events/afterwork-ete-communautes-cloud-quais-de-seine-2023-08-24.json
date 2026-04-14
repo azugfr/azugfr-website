@@ -1,0 +1,33 @@
+{
+  "slug": "afterwork-ete-communautes-cloud-quais-de-seine-2023-08-24",
+  "locale": "fr",
+  "title": "Meetup Afterwork d'été Des Communautés Cloud, sur les quais de Seine",
+  "summary": "Afterwork estival des communautés cloud sur les quais de Seine à Paris.",
+  "description": "Afterwork Cloud d'été sur une terrasse sur les quais de Paris pour discuter de PaaS, IoT, conteneurs et préparer les futurs meetups de la saison dans une ambiance détendue. L'événement a lieu le 24 août 2023 à partir de 19h sur la péniche Annette K., Port de Javel Bas.",
+  "startDate": "2023-08-24T19:00:00",
+  "endDate": "2023-08-24T22:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Annette K.",
+    "city": "Paris",
+    "address": "Port de Javel Bas, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/295339405/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": [],
+  "tags": ["Cloud", "Networking", "Afterwork"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "295339405",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Summer Cloud Communities Afterwork on the Seine",
+      "summary": "Summer afterwork for cloud communities on the banks of the Seine in Paris.",
+      "description": "Informal meetup on the Annette K. boat to discuss cloud topics and plan upcoming events in a relaxed setting."
+    }
+  }
+}

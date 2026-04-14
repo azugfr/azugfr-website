@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-cloud-souverain-sustainability-accenture-2023-02-09",
+  "locale": "fr",
+  "title": "Meetup Cloud Souverain et Sustainability - Février 2023 @ Accenture",
+  "summary": "Meetup Accenture et AZUG FR sur le cloud de confiance, la souveraineté et le Green Ops avec Azure.",
+  "description": "ACCENTURE et la communauté AZUG FR invitent le jeudi 9 février 2023 à partir de 18h30 dans les locaux d'Accenture à Paris pour une soirée sur le cloud souverain et la sustainability. Agenda : accueil et networking, introduction, nouveautés du cloud, session sur le cloud de confiance dans Azure et l'autonomie stratégique, puis session Green Ops avec Azure, suivies d'échanges communautaires autour d'un cocktail dînatoire.",
+  "startDate": "2023-02-09T18:30:00",
+  "endDate": "2023-02-09T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Accenture Paris Innovation Center",
+    "city": "Paris",
+    "address": "118 Av. de France, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/290269444/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "CloudSovereignty", "Sustainability", "GreenOps"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "290269444",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Sovereign Cloud and Sustainability Meetup - February 2023 @ Accenture",
+      "summary": "Accenture and AZUG FR meetup on trusted cloud, sovereignty, and Green Ops with Azure.",
+      "description": "Evening at Accenture Paris covering cloud of trust in Azure, strategic autonomy, and Green Ops practices."
+    }
+  }
+}

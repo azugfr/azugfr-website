@@ -1,0 +1,33 @@
+{
+  "slug": "microsoft-ai-tour-paris-2024-03-13",
+  "locale": "fr",
+  "title": "Microsoft AI Tour",
+  "summary": "Journée Microsoft AI Tour à Paris pour découvrir les opportunités de l'IA avec Azure.",
+  "description": "Microsoft AI Tour est un événement gratuit d'une journée, en personne, destiné à aider les profils techniques à découvrir de nouvelles opportunités avec l'IA et Microsoft Azure. L'édition parisienne a lieu le 13 mars 2024, de 8h00 à 18h00, au Carrousel du Louvre, 99 rue de Rivoli, 75001 Paris. Des membres de la communauté, dont Aymeric Weinbach, Cédric Leblond et Marius Zaharia, y animent des workshops et tiennent un stand communautaire.",
+  "startDate": "2024-03-13T08:00:00",
+  "endDate": "2024-03-13T18:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Carrousel du Louvre",
+    "city": "Paris",
+    "address": "99 Rue de Rivoli, 75001 Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://msevents.microsoft.com/event?id=4006187193",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/298884827/",
+  "speakerSlugs": ["aymeric-weinbach", "cedric-leblond", "marius-zaharia"],
+  "tags": ["AI", "Azure", "Conference"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "298884827",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Microsoft AI Tour",
+      "summary": "Microsoft AI Tour day in Paris to explore AI opportunities with Azure.",
+      "description": "Full-day free in-person Microsoft AI Tour event at the Carrousel du Louvre on 13 March 2024, with community-led workshops and a community booth."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "back-from-github-universe-2024-virtual-meetup-2024-11-12",
+  "locale": "fr",
+  "title": "Back from GitHub Universe 2024 - Virtual Meetup",
+  "summary": "Meetup virtuel de décryptage des annonces GitHub Universe 2024 autour de l'IA, Copilot et la sécurité.",
+  "description": "Les 29 et 30 octobre 2024 s'est tenue la 10e édition de GitHub Universe, centrée sur l'IA avec GitHub Copilot, GitHub Workspaces, l'expérience développeur et la sécurité. Les communautés Global AI Paris et AZUG FR invitent à un meetup virtuel le 12 novembre 2024 à 19h pour décrypter les annonces et nouveautés, présenté par Philippe Didiergeorges, Cloud Architect chez Microsoft. L'événement se déroule en ligne via Microsoft Teams.",
+  "startDate": "2024-11-12T19:00:00",
+  "endDate": "2024-11-12T20:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Online",
+    "city": "Online",
+    "address": "",
+    "mode": "online"
+  },
+  "registrationUrl": "https://events.teams.microsoft.com/event/6aa97dac-16a3-41e0-b420-3205c785cb11@ffefbc2f-501f-4925-8583-f9126722d21c",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/304265977/",
+  "speakerSlugs": ["philippe-didiergeorges"],
+  "tags": ["GitHub", "Copilot", "AI", "Security"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "304265977",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Back from GitHub Universe 2024 - Virtual Meetup",
+      "summary": "Virtual recap of GitHub Universe 2024 announcements about AI, Copilot, and developer experience.",
+      "description": "Online meetup with Global AI Paris and AZUG FR communities, presenting key announcements from GitHub Universe 2024, delivered by a Microsoft Cloud Architect."
+    }
+  }
+}

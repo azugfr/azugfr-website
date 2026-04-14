@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-azugfr-devoteam-cloud-souverainete-2024-01-18",
+  "locale": "fr",
+  "title": "Meetup AZUG FR @ Devoteam M Cloud: Cloud dans la Sovereignty",
+  "summary": "Meetup Devoteam M Cloud et AZUG FR sur le cloud de confiance, la souveraineté et Azure Confidential Computing.",
+  "description": "Devoteam M Cloud et la communauté Azure User Group France (AZUG FR - MTG Paris) vous invitent le jeudi 18 janvier 2024 à partir de 18h30 sur le site de Devoteam, 73 rue Anatole France, 92300 Levallois-Perret, pour un meetup sur le thème du cloud dans la souveraineté. Agenda : 18h30 accueil, 18h45 introduction, 19h00 présentation du framework Microsoft Cloud for Sovereignty, 20h00 session Azure Confidential Computing post Ignite 2023, 20h30 Q&A, suivi d'un cocktail dinatoire.",
+  "startDate": "2024-01-18T18:30:00",
+  "endDate": "2024-01-18T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Devoteam M Cloud",
+    "city": "Levallois-Perret",
+    "address": "73 Rue Anatole France, 92300 Levallois-Perret, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/298069057/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["ludovic-benimelis", "thibault-gibard", "stephane-proust"],
+  "tags": ["Azure", "CloudSovereignty", "Security"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "298069057",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup AZUG FR @ Devoteam M Cloud: Cloud in Sovereignty",
+      "summary": "Devoteam M Cloud and AZUG FR meetup on trusted cloud, sovereignty, and Azure Confidential Computing.",
+      "description": "Evening at Devoteam M Cloud in Levallois-Perret with sessions on Microsoft Cloud for Sovereignty and Azure Confidential Computing after Ignite 2023."
+    }
+  }
+}

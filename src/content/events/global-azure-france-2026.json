@@ -1,0 +1,32 @@
+{
+  "slug": "global-azure-france-2026",
+  "locale": "fr",
+  "title": "Global Azure France 2026",
+  "summary": "Une journée gratuite dédiée à Microsoft Azure à l'ESGI Paris, organisée par AZUG FR et l'ESGI. Sessions sur le développement, l'IA, l'infrastructure, le DevOps et plus encore.",
+  "description": "Global Azure France 2026 est l'édition française de l'événement mondial #GlobalAzure. Organisée par AZUG FR en partenariat avec l'ESGI, cette journée propose des sessions gratuites sur Microsoft Azure couvrant le développement, l'infrastructure, la data, l'IA, le DevOps, la sécurité et la gouvernance cloud.",
+  "startDate": "2026-04-18T09:00:00",
+  "endDate": "2026-04-18T18:00:00",
+  "timezone": "Europe/Paris",
+  "status": "upcoming",
+  "venue": {
+    "name": "ESGI Paris",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, 75012 Paris",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/313716280/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "tags": ["Global Azure", "Azure", "Community", "AI", "DevOps", "Infrastructure"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "313716280",
+    "lastSyncedAt": "2026-04-14T14:13:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2026",
+      "summary": "A free day dedicated to Microsoft Azure at ESGI Paris, organised by AZUG FR and ESGI. Sessions on development, AI, infrastructure, DevOps and more.",
+      "description": "Global Azure France 2026 is the French edition of the worldwide #GlobalAzure event. Organised by AZUG FR in partnership with ESGI, this day offers free sessions on Microsoft Azure covering development, infrastructure, data, AI, DevOps, security and cloud governance."
+    }
+  }
+}

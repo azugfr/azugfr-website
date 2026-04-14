@@ -1,0 +1,33 @@
+{
+  "slug": "global-ai-bootcamp-paris-2024-03-27",
+  "locale": "fr",
+  "title": "Global AI Bootcamp Paris",
+  "summary": "Meetup Global AI Bootcamp à Paris chez Microsoft France autour de l'IA générative et des architectures.",
+  "description": "La communauté AZUGFR se joint au Global AI Paris pour un meetup exceptionnel chez Microsoft France. La soirée comprend une introduction communauté & news AI / Azure, la keynote Global AI Bootcamp 2024, une session sur la génération d'IA et l'architecture, une session sur les learnings après un an de GPT-4 et un atelier de 75 minutes d'introduction à OpenAI sur Azure.",
+  "startDate": "2024-03-27T19:00:00",
+  "endDate": "2024-03-27T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Microsoft France",
+    "city": "Issy-les-Moulineaux",
+    "address": "37 Quai du Président Roosevelt, Issy-les-Moulineaux, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/299674046/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["jean-luc-boucho", "ari-kouts"],
+  "tags": ["AI", "GlobalAIBootcamp", "Azure", "GenerativeAI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "299674046",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global AI Bootcamp Paris",
+      "summary": "Global AI Bootcamp meetup in Paris at Microsoft France focused on generative AI and architecture.",
+      "description": "Evening event with community introduction, Global AI Bootcamp keynote, sessions on generative AI, GPT-4 learnings, and a 75-minute OpenAI on Azure workshop."
+    }
+  }
+}

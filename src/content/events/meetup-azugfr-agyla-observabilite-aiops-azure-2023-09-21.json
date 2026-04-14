@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-azugfr-agyla-observabilite-aiops-azure-2023-09-21",
+  "locale": "fr",
+  "title": "Meetup AZUG FR @ Agyla.Cloud : Observabilité et AIOps avec Azure",
+  "summary": "Meetup Agyla.Cloud et AZUG FR sur l'observabilité orientée AIOps avec Azure et OpenAI.",
+  "description": "La communauté AZUG FR et Agyla.Cloud vous invitent le jeudi 21 septembre 2023 à partir de 19h dans les espaces Morning, Faubourg Saint-Honoré, à Paris, pour un meetup sur l'observabilité des applications dans le Cloud Azure. Programme : actualités de la communauté, nouveautés du cloud Azure, talk Agyla.Cloud « Optimisation des temps de résolution d'incidents : Puissance combinée d'Azure et d'OpenAI pour l'analyse des logs », puis échanges communautaires et networking autour d'un cocktail dînatoire.",
+  "startDate": "2023-09-21T19:00:00",
+  "endDate": "2023-09-21T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Morning, Faubourg Saint-Honoré",
+    "city": "Paris",
+    "address": "128 Rue du Faubourg Saint-Honoré, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/295730157/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["omar-bouabidi", "romain-lenoir", "achraf-mahdhi"],
+  "tags": ["Azure", "AIOps", "Observability", "OpenAI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "295730157",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup AZUG FR @ Agyla.Cloud: Observability and AIOps with Azure",
+      "summary": "Agyla.Cloud and AZUG FR meetup on observability and AIOps using Azure and OpenAI.",
+      "description": "Evening at Morning Faubourg Saint-Honoré in Paris with news, Azure updates, and a talk on using Azure Log Analytics, Logic Apps, and OpenAI for incident resolution."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "global-azure-france-2026-announcement",
+  "locale": "fr",
+  "title": "Global Azure France 2026 — Réservez votre place !",
+  "summary": "AZUG FR vous invite au Global Azure France 2026 le samedi 18 avril à l'ESGI Paris. Entrée gratuite, sessions sur Azure, IA, DevOps et plus encore.",
+  "content": "AZUG FR - Azure User Group France, la communauté française des utilisateurs de Microsoft Azure, et ESGI – l'École Supérieure de Génie Informatique – ont le plaisir de vous inviter à Global Azure France 2026 (#GlobalAzure).\n\nGlobal Azure est un événement gratuit dédié au cloud Microsoft Azure, organisé les mêmes jours par des groupes d'utilisateurs et communautés du monde entier.\n\nCet événement, ouvert à tous, aura lieu en France le samedi 18 avril 2026 à partir de 9h, dans les locaux de l'ESGI Paris (12ᵉ arrondissement).\n\nCette journée permettra aux participants de découvrir ou d'approfondir leurs connaissances sur Microsoft Azure et ses services : développement, infrastructure, IA, DevOps… C'est également l'occasion de rencontrer des experts et speakers reconnus ainsi que les membres de la communauté.\n\nL'agenda, prévu pour être très riche en contenu, est actuellement en cours d'élaboration.\n\nN'hésitez pas à réserver votre place pour notre événement !\nhttps://www.meetup.com/azug-fr/events/313716280/",
+  "publishedAt": "2026-03-14T09:00:00Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7436857802201063425/",
+  "tags": ["Global Azure", "Azure", "Community", "Paris", "ESGI"],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7436857802201063425",
+    "lastSyncedAt": "2026-04-14T14:13:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2026 — Register now!",
+      "summary": "AZUG FR invites you to Global Azure France 2026 on Saturday 18 April at ESGI Paris. Free entry, sessions on Azure, AI, DevOps and more.",
+      "content": "AZUG FR - Azure User Group France, the French community of Microsoft Azure users, and ESGI – the École Supérieure de Génie Informatique – are pleased to invite you to Global Azure France 2026 (#GlobalAzure).\n\nGlobal Azure is a free event dedicated to the Microsoft Azure cloud, organised on the same days by user groups and communities around the world.\n\nThis event, open to everyone, will take place in France on Saturday 18 April 2026 from 9am, at ESGI Paris (12th arrondissement).\n\nThis day will allow participants to discover or deepen their knowledge of Microsoft Azure and its services: development, infrastructure, AI, DevOps… It is also an opportunity to meet recognised experts and speakers as well as community members.\n\nThe agenda, expected to be very content-rich, is currently being developed.\n\nFeel free to reserve your place!\nhttps://www.meetup.com/azug-fr/events/313716280/"
+    }
+  }
+}

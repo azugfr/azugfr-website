@@ -1,0 +1,33 @@
+{
+  "slug": "cross-meetup-csharp-dotnet-paris-azugfr-latelier-2026-04-07",
+  "locale": "fr",
+  "title": "Cross Meetup C# .NET Paris - AZUG FR @ L'Atelier",
+  "summary": "Premier meetup / afterwork commun avec la communauté Meetup C# .NET Paris autour d'Azure et .NET.",
+  "description": "Rendez-vous pour notre 1er meetup / afterwork avec la communauté Meetup C# .NET Paris, le mardi 7 avril 2026 à partir de 19h dans les locaux de L'Atelier. Au programme : accueil, veille techno Cloud & Dev, session sur « L'architecte azure augmenté avec Copilot » par Michel Perfetti, session « Comment nettoyer 300 repos et survivre grâce au C# » par Marc Kruzik, puis apéro et networking.",
+  "startDate": "2026-04-07T19:00:00",
+  "endDate": "2026-04-07T22:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "L'Atelier",
+    "city": "Paris",
+    "address": "46 rue de l'Arbre Sec, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/313762067/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["michel-perfetti", "marc-kruzik"],
+  "tags": ["Azure", "DotNet", "Copilot"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "313762067",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Cross Meetup C# .NET Paris - AZUG FR @ L'Atelier",
+      "summary": "First joint meetup / afterwork with the Meetup C# .NET Paris community around Azure and .NET.",
+      "description": "Join us for the first joint meetup / afterwork with the Meetup C# .NET Paris community on Tuesday 7 April 2026 from 7 pm at L'Atelier, with talks on an augmented Azure architect with Copilot and cleaning 300 repos with C#, followed by networking."
+    }
+  }
+}

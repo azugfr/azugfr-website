@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-azugfr-microsoft-esgi-conteneurs-azure-ignite-2023-12-12",
+  "locale": "fr",
+  "title": "Meetup AZUG FR - Microsoft @ ESGI : Conteneurs Azure après Ignite 2023",
+  "summary": "Meetup ESGI et AZUG FR sur les services de conteneurisation Azure après Ignite 2023.",
+  "description": "ESGI et AZUG FR vous invitent mardi 12 décembre 2023 à partir de 19h sur le site ESGI Paris pour un meetup sur les conteneurs Azure après Ignite 2023, avec Houssem Dellai et Yassine El Ghali, Cloud Solution Architects chez Microsoft France. Programme : introduction, présentation d'ESGI et de la communauté, dernières nouveautés du Cloud Azure, session plénière sur les services de conteneurisation (AKS, Azure Container Apps), nouveautés post-Ignite, choix entre AKS et ACA, démos et approfondissement sur les landing zones, puis réseautage.",
+  "startDate": "2023-12-12T19:00:00",
+  "endDate": "2023-12-12T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "École Supérieure de Génie Informatique (ESGI)",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/297660531/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["houssem-dellai", "yassine-el-ghali"],
+  "tags": ["Azure", "AKS", "Containers"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "297660531",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup AZUG FR - Microsoft @ ESGI: Azure Containers after Ignite 2023",
+      "summary": "ESGI and AZUG FR meetup on Azure container services after Ignite 2023.",
+      "description": "Evening at ESGI Paris with Microsoft experts on AKS and Azure Container Apps, Ignite 2023 updates, demos, and landing zone best practices."
+    }
+  }
+}

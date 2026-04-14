@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-azugfr-devoteam-durable-azure-2025-03-20",
+  "locale": "fr",
+  "title": "Meetup AZUG FR @ Devoteam - Mars 2025 - Opérer de façon durable dans Azure",
+  "summary": "Meetup dédié aux enjeux environnementaux et au numérique responsable dans les projets cloud et IA sur Azure.",
+  "description": "Devoteam et la communauté Azure User Group France (AZUG FR - MTG Paris) vous invitent le jeudi 20 mars 2025 à partir de 19h dans les locaux de Devoteam à Levallois-Perret. Le meetup explore les approches pour adresser les enjeux environnementaux dans les projets cloud et IA et les démontrer en pratique sur Azure. Agenda : 19h00 accueil, 19h15 introduction et nouveautés Azure, 19h30 session sur l'opération durable dans l'environnement Cloud Azure, 20h30 Q&A, 20h45 pizzas.",
+  "startDate": "2025-03-20T19:00:00",
+  "endDate": "2025-03-20T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "DEVOTEAM",
+    "city": "Levallois-Perret",
+    "address": "73 rue Anatole France, Levallois-Perret, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/305973882/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "Sustainability", "GreenOps"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "305973882",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup AZUG FR @ Devoteam - March 2025 - Operating sustainably in Azure",
+      "summary": "Meetup on environmental challenges and sustainable operations for cloud and AI projects on Azure.",
+      "description": "Evening at Devoteam in Levallois-Perret to discuss responsible cloud and IA practices on Azure, including Azure news and a session on sustainable operations."
+    }
+  }
+}

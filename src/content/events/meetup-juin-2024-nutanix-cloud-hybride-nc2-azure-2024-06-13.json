@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-juin-2024-nutanix-cloud-hybride-nc2-azure-2024-06-13",
+  "locale": "fr",
+  "title": "Meetup Juin 2024 @ Nutanix : Cloud hybride avec Nutanix Cloud Cluster on Azure",
+  "summary": "Meetup sur le cloud hybride avec Nutanix Cloud Cluster (NC2) sur Azure et retours de Microsoft Build 2024.",
+  "description": "Nutanix et la communauté Azure User Group France (AZUG FR - MTG Paris) vous invitent le jeudi 13 juin 2024 à partir de 18h30 chez Nutanix France, 88 Av. Charles de Gaulle, 92200 Neuilly-sur-Seine, pour un meetup sur le thème Cloud Hybride avec Nutanix Cloud Cluster on Azure. Agenda : 18h30 accueil, 19h00 introduction, 19h10 nouveautés Azure et retour de Microsoft Build 2024, 19h30 session « Nutanix Cloud Cluster dans Azure : implémentation technique et scénarios d'usage » avec focus sur intégration réseau, services Azure, migrations et optimisation des coûts, 20h30 Q&A, suivi d'un cocktail dinatoire.",
+  "startDate": "2024-06-13T18:30:00",
+  "endDate": "2024-06-13T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Nutanix France",
+    "city": "Neuilly-sur-Seine",
+    "address": "88 Av. Charles de Gaulle, 92200 Neuilly-sur-Seine, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/301036554/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["stanislas-quastana", "emmanuel-torchy"],
+  "tags": ["Azure", "HybridCloud", "Nutanix"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "301036554",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "June 2024 Meetup @ Nutanix: Hybrid Cloud with Nutanix Cloud Cluster on Azure",
+      "summary": "Meetup about hybrid cloud with Nutanix Cloud Cluster (NC2) on Azure and Azure news from Build 2024.",
+      "description": "Evening at Nutanix France in Neuilly-sur-Seine with sessions on NC2 on Azure, technical implementation, networking, migration options, and cost optimization."
+    }
+  }
+}

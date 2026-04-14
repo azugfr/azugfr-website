@@ -1,0 +1,33 @@
+{
+  "slug": "global-azure-france-2024-paris-2024-04-20",
+  "locale": "fr",
+  "title": "Global Azure France 2024 à Paris - #GlobalAzure",
+  "summary": "Édition 2024 de Global Azure France à Paris pour la communauté Azure francophone.",
+  "description": "En France, AZUG FR, la communauté française des utilisateurs de Microsoft Azure, organise Global Azure à Paris pour la communauté Azure francophone. L'événement a lieu le 20 avril 2024 à partir de 13h30 chez ESGI Paris. L'agenda détaillé est disponible sur la page Eventbrite et l'inscription est obligatoire en raison du nombre de places limité.",
+  "startDate": "2024-04-20T13:30:00",
+  "endDate": "2024-04-20T18:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "École Supérieure de Génie Informatique (ESGI)",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.eventbrite.fr/e/862405487027",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/299775900/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "GlobalAzure", "Cloud"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "299775900",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2024 in Paris - #GlobalAzure",
+      "summary": "2024 Global Azure France edition in Paris for the French-speaking Azure community.",
+      "description": "Community event at ESGI Paris on 20 April 2024 starting at 1:30 pm, with detailed agenda available on Eventbrite and limited seats."
+    }
+  }
+}

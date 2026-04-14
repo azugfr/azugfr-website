@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-maturite-usages-cloud-public-societe-generale-2023-10-12",
+  "locale": "fr",
+  "title": "Meetup \"Maturité et usages Cloud Public\" @ Société Générale",
+  "summary": "Meetup multi-cloud AWS et Azure chez Société Générale sur la maturité et les usages du cloud public.",
+  "description": "SOCIETE GENERALE et les communautés AWS Paris User Group et Azure User Group France (AZUG FR - MTG Paris) vous invitent jeudi 12 octobre 2023 à partir de 18h45 sur le site des Dunes Société Générale pour un meetup multi-cloud AWS et Azure. Le thème est la maturité et les usages du cloud public, avec des sessions sur la sécurité (Trust and Control), des retours d'expérience de migrations vers le cloud public, la plateforme SG APIM sur AWS, la gestion d'un parc de 400 clusters AKS, et un cocktail dinatoire.",
+  "startDate": "2023-10-12T18:45:00",
+  "endDate": "2023-10-12T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Campus Dunes Société Générale",
+    "city": "Fontenay-sous-Bois",
+    "address": "6 All. des Sablons, Fontenay-sous-Bois, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.eventbrite.com/e/billets-meetup-maturite-et-usages-cloud-public-societe-generale-717384364947",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/296040567/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "AWS", "Cloud", "Security"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "296040567",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup \"Cloud Public Maturity and Uses\" @ Société Générale",
+      "summary": "Multi-cloud AWS and Azure meetup at Société Générale on public cloud maturity and uses.",
+      "description": "Evening at Campus Dunes with sessions on security (Trust and Control), cloud migration case studies, SG APIM on AWS, and managing 400 AKS clusters."
+    }
+  }
+}

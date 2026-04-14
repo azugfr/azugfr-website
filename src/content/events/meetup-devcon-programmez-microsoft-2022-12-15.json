@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-devcon-programmez-microsoft-2022-12-15",
+  "locale": "fr",
+  "title": "Meetup @ DevCon Programmez Microsoft",
+  "summary": "Partenariat AZUG FR avec la DevCon #17 : .NET & technologies Microsoft.",
+  "description": "AzugFR est partenaire de la DevCon #17: .Net & technologies Microsoft, 3e édition. L'événement a lieu le 15 décembre 2022 à partir de 13h30 chez Microsoft France à Issy-les-Moulineaux. Retrouvez Igor Leontiev pour une session sur le développement natif Azure à 17h50 et le reste de l'équipe pour la pizza party.",
+  "startDate": "2022-12-15T13:30:00",
+  "endDate": "2022-12-15T20:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Microsoft France",
+    "city": "Issy-les-Moulineaux",
+    "address": "41 Quai du President Roosevelt, 92130 Issy-les-Moulineaux, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://programmez.com/content/programmez-devcon17-inscriptions",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/290099528/",
+  "speakerSlugs": ["igor-leontiev"],
+  "tags": [".NET", "Azure", "Conference"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "290099528",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup @ DevCon Programmez Microsoft",
+      "summary": "AZUG FR partners with DevCon #17: .NET & Microsoft technologies.",
+      "description": "Event at Microsoft France in Issy-les-Moulineaux with a session on native Azure development and a community pizza party."
+    }
+  }
+}

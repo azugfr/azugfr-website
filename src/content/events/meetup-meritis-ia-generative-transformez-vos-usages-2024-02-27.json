@@ -1,0 +1,33 @@
+{
+  "slug": "meetup-meritis-ia-generative-transformez-vos-usages-2024-02-27",
+  "locale": "fr",
+  "title": "Meetup @ Meritis : Entrez dans l'ère de l'IA générative, transformez vos usages",
+  "summary": "Meetup Meritis et AZUG FR sur l'IA générative et la transformation des usages.",
+  "description": "Meritis et la communauté Azure User Group France (AZUG FR - MTG Paris) vous invitent le mardi 27 février 2024 à partir de 18h30 chez Meritis pour un meetup sur l'IA générative et la transformation des usages. Agenda : 18h30 accueil, 18h45 introduction et news Azure/GenAI, 19h00 « RAG 'n Roll : la stack Azure GenAI » par Aymeric Weinbach, 19h40 « Simplifier l'adoption de notre librairie python avec generative AI » par Florian Vuillemot, 20h20 Q&A, 20h30 cocktail dinatoire.",
+  "startDate": "2024-02-27T18:30:00",
+  "endDate": "2024-02-27T21:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Meritis",
+    "city": "Paris",
+    "address": "36 avenue Pierre 1er de Serbie, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/299036928/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "speakerSlugs": ["aymeric-weinbach", "florian-vuillemot"],
+  "tags": ["AI", "GenerativeAI", "Azure"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "299036928",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Meetup @ Meritis: Enter the era of generative AI, transform your uses",
+      "summary": "Meritis and AZUG FR meetup on generative AI and usage transformation.",
+      "description": "Evening at Meritis in Paris with talks on Azure GenAI RAG stack and simplifying Python library adoption with generative AI, plus networking."
+    }
+  }
+}

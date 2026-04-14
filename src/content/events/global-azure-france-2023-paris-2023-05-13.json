@@ -1,0 +1,33 @@
+{
+  "slug": "global-azure-france-2023-paris-2023-05-13",
+  "locale": "fr",
+  "title": "Global Azure France 2023 - #GlobalAzure",
+  "summary": "Édition 2023 de Global Azure France à ESGI Paris pour découvrir le cloud Microsoft Azure.",
+  "description": "Le Global Azure est un événement gratuit pour découvrir le Cloud Microsoft Azure, organisé le même jour, le 13 mai 2023, par des groupes d'utilisateurs et communautés du monde entier. En France, AZUG FR organise cette édition à Paris à partir de 13h30 chez ESGI. L'agenda comprend une ouverture, une keynote, et 8 sessions réparties sur 2 tracks. L'inscription se fait via Eventbrite.",
+  "startDate": "2023-05-13T13:30:00",
+  "endDate": "2023-05-13T18:30:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "École Supérieure de Génie Informatique (ESGI)",
+    "city": "Paris",
+    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.eventbrite.fr/e/global-azure-france-2023-globalazure-tickets-583911584267",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/292196076/",
+  "speakerSlugs": [],
+  "tags": ["Azure", "GlobalAzure", "Cloud"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "292196076",
+    "lastSyncedAt": "2026-04-14T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2023 - #GlobalAzure",
+      "summary": "2023 Global Azure France edition at ESGI Paris to discover Microsoft Azure.",
+      "description": "Community event on 13 May 2023 with opening, keynote, and 8 sessions across 2 tracks, with registration via Eventbrite."
+    }
+  }
+}
