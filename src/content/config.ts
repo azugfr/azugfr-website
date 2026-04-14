@@ -231,6 +231,68 @@ export const resourcesSchema = z.object({
 export type ResourceEntry = z.infer<typeof resourcesSchema>;
 
 // ---------------------------------------------------------------------------
+// about — sections + organizers
+// ---------------------------------------------------------------------------
+export const aboutSectionSchema = z.object({
+  type: z.literal("section"),
+  slug: z.string(),
+  order: z.number(),
+  locale: localeEnum,
+  title: z.string(),
+  body: z.string(),
+  translations: z
+    .object({
+      fr: z
+        .object({
+          title: z.string().optional(),
+          body: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          title: z.string().optional(),
+          body: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export const aboutOrganizerSchema = z.object({
+  type: z.literal("organizer"),
+  slug: z.string(),
+  order: z.number().optional(),
+  locale: localeEnum,
+  name: z.string(),
+  role: z.string(),
+  photo: z.string().optional(),
+  linkedin: z.string().optional(),
+  github: z.string().optional(),
+  translations: z
+    .object({
+      fr: z
+        .object({
+          role: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          role: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export const aboutSchema = z.discriminatedUnion("type", [
+  aboutSectionSchema,
+  aboutOrganizerSchema,
+]);
+
+export type AboutSection = z.infer<typeof aboutSectionSchema>;
+export type AboutOrganizer = z.infer<typeof aboutOrganizerSchema>;
+
+// ---------------------------------------------------------------------------
 // Collection definitions
 // ---------------------------------------------------------------------------
 export const collections = {
@@ -239,4 +301,5 @@ export const collections = {
   speakers: defineCollection({ type: "data", schema: speakersSchema }),
   sponsors: defineCollection({ type: "data", schema: sponsorsSchema }),
   resources: defineCollection({ type: "data", schema: resourcesSchema }),
+  about: defineCollection({ type: "data", schema: aboutSchema }),
 };

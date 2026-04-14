@@ -1,0 +1,14 @@
+{
+  "type": "section",
+  "slug": "history",
+  "order": 3,
+  "locale": "fr",
+  "title": "Notre histoire",
+  "body": "AZUG FR a été créé en 2014 par un groupe d'experts Azure convaincus que la communauté locale était essentielle pour faire progresser les compétences cloud en France. Depuis, nous avons organisé plus de 50 événements — meetups, ateliers, et notre événement phare Global Azure France — réunissant des milliers de participants.",
+  "translations": {
+    "en": {
+      "title": "Our History",
+      "body": "AZUG FR was founded in 2014 by a group of Azure experts convinced that a local community was essential for advancing cloud skills in France. Since then, we have organized over 50 events — meetups, workshops, and our flagship Global Azure France event — bringing together thousands of participants."
+    }
+  }
+}

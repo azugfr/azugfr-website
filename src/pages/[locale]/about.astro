@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getAboutContent } from "@/data/about";
+import { getCollection } from "astro:content";
 import { site } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
+import type { AboutSection, AboutOrganizer } from "@/content/config";
 
 export function getStaticPaths() {
   return [
@@ -13,7 +14,29 @@ export function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 
-const content = getAboutContent(locale);
+const allAbout = await getCollection("about");
+
+const sections = (allAbout
+  .filter((e) => e.data.type === "section")
+  .sort((a, b) => (a.data as AboutSection).order - (b.data as AboutSection).order)
+  .map((e) => {
+    const d = e.data as AboutSection;
+    const t = d.translations?.[locale];
+    return { ...d, title: t?.title ?? d.title, body: t?.body ?? d.body };
+  }));
+
+const organizers = (allAbout
+  .filter((e) => e.data.type === "organizer")
+  .sort((a, b) => ((a.data as AboutOrganizer).order ?? 0) - ((b.data as AboutOrganizer).order ?? 0))
+  .map((e) => {
+    const d = e.data as AboutOrganizer;
+    const t = d.translations?.[locale];
+    return { ...d, role: t?.role ?? d.role };
+  }));
+
+const manifesto = sections.find((s) => s.slug === "manifesto");
+const mission   = sections.find((s) => s.slug === "mission");
+const history   = sections.find((s) => s.slug === "history");
 
 const pageTitle = locale === "fr" ? "À propos | AZUG FR" : "About | AZUG FR";
 const heroTitle = locale === "fr" ? "À propos" : "About";
@@ -53,27 +76,27 @@ const labels = {
     <section class="mb-12">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.manifesto}</h2>
       <blockquote class="border-l-4 border-azure-600 pl-6 italic text-gray-700 text-lg leading-relaxed">
-        {content.manifesto}
+        {manifesto?.body}
       </blockquote>
     </section>
 
     <!-- Mission -->
     <section class="mb-12">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.mission}</h2>
-      <p class="text-gray-700 text-lg leading-relaxed">{content.mission}</p>
+      <p class="text-gray-700 text-lg leading-relaxed">{mission?.body}</p>
     </section>
 
     <!-- History -->
     <section class="mb-12">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.history}</h2>
-      <p class="text-gray-700 text-lg leading-relaxed">{content.history}</p>
+      <p class="text-gray-700 text-lg leading-relaxed">{history?.body}</p>
     </section>
 
     <!-- Organizers -->
     <section class="mb-12">
       <h2 class="text-2xl font-semibold text-gray-800 mb-6">{labels.organizers}</h2>
       <ul class="grid gap-4 sm:grid-cols-2">
-        {content.organizers.map((org) => (
+        {organizers.map((org) => (
           <li class="bg-gray-50 rounded-lg p-5 border border-gray-200">
             <p class="font-semibold text-gray-900 text-lg">{org.name}</p>
             <p class="text-azure-600 text-sm mb-3">{org.role}</p>

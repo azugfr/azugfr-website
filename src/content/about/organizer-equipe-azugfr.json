@@ -1,0 +1,14 @@
+{
+  "type": "organizer",
+  "slug": "equipe-azugfr",
+  "order": 1,
+  "locale": "fr",
+  "name": "Équipe AZUG FR",
+  "role": "Organisateurs bénévoles",
+  "linkedin": "https://www.linkedin.com/company/azure-user-group-france/",
+  "translations": {
+    "en": {
+      "role": "Volunteer Organizers"
+    }
+  }
+}
