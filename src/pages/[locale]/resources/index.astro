@@ -1,0 +1,102 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, resolveLocaleContent } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const entries = await getCollection("resources");
+const resources = entries
+  .map((e) => resolveLocaleContent(e.data, locale))
+  .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+
+const pageTitle =
+  locale === "fr" ? "Ressources | AZUG FR" : "Resources | AZUG FR";
+const pageDescription =
+  locale === "fr"
+    ? "Découvrez les présentations, vidéos et articles partagés par la communauté AZUG FR."
+    : "Browse slides, videos and articles shared by the AZUG FR community.";
+
+function typeIcon(type: string): string {
+  switch (type) {
+    case "slides":
+      return "📊";
+    case "video":
+      return "🎬";
+    case "article":
+      return "📝";
+    case "repository":
+      return "💻";
+    default:
+      return "🔗";
+  }
+}
+
+function formatDate(iso: string, loc: Locale): string {
+  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="resources"
+>
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+      {locale === "fr" ? "Ressources" : "Resources"}
+    </h1>
+    <p class="text-gray-600 mb-10">{pageDescription}</p>
+
+    {
+      resources.length === 0 ? (
+        <p class="text-gray-500">{dict.common.noResults}</p>
+      ) : (
+        <ul class="grid gap-6 md:grid-cols-2">
+          {resources.map((r) => (
+            <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">{typeIcon(r.type)}</span>
+                <div class="flex-1">
+                  <h2 class="font-semibold text-gray-900 text-lg mb-1">
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:text-azure-600"
+                    >
+                      {r.title}
+                    </a>
+                  </h2>
+                  {r.summary && (
+                    <p class="text-sm text-gray-600 mb-3">{r.summary}</p>
+                  )}
+                  <div class="flex items-center gap-3 text-xs text-gray-400">
+                    {r.publishedAt && (
+                      <time datetime={r.publishedAt}>
+                        {formatDate(r.publishedAt, locale)}
+                      </time>
+                    )}
+                    <span class="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full capitalize">
+                      {r.type}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

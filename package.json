@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "sync:events": "node scripts/sync-meetup-events.mjs",
     "sync:news": "node scripts/sync-linkedin-news.mjs",
-    "sync": "npm run sync:events && npm run sync:news"
+    "sync": "npm run sync:events && npm run sync:news",
+    "derive:speakers": "node scripts/derive-speakers.mjs"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.3",
