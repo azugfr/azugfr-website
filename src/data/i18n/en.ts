@@ -8,6 +8,7 @@ export const en: UiDictionary = {
     speakers: "Speakers",
     resources: "Resources",
     about: "About",
+    search: "Search",
   },
   common: {
     upcoming: "Upcoming",

@@ -1,6 +1,9 @@
 # Astro build output
 dist/
 
+# Pagefind index (generated at build time)
+dist/pagefind/
+
 # Astro cache
 .astro/
 

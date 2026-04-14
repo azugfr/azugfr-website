@@ -6,6 +6,7 @@ export const fr = {
     speakers: "Intervenants",
     resources: "Ressources",
     about: "À propos",
+    search: "Recherche",
   },
   common: {
     upcoming: "À venir",
