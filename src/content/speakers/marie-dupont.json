@@ -1,0 +1,28 @@
+{
+  "slug": "marie-dupont",
+  "locale": "fr",
+  "name": "Marie Dupont",
+  "headline": "Architecte Solutions Azure | MVP Microsoft",
+  "bio": "Marie est architecte solutions Azure avec plus de 10 ans d'expérience sur les plateformes cloud Microsoft. Elle est Microsoft MVP depuis 2020 et intervient régulièrement dans les communautés tech françaises.",
+  "expertise": ["Azure Architecture", "Infrastructure as Code", "DevOps"],
+  "photo": "/img/speakers/marie-dupont.jpg",
+  "company": "Contoso France",
+  "role": "Cloud Solutions Architect",
+  "location": "Paris, France",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/marie-dupont-sample",
+    "github": "https://github.com/marie-dupont-sample",
+    "x": "https://x.com/mariedupont_sample"
+  },
+  "derivedFrom": {
+    "eventSourceIds": ["sample-12345"],
+    "displayNameVariants": ["M. Dupont", "Marie D."]
+  },
+  "translations": {
+    "en": {
+      "headline": "Azure Solutions Architect | Microsoft MVP",
+      "bio": "Marie is an Azure solutions architect with over 10 years of experience on Microsoft cloud platforms. She has been a Microsoft MVP since 2020 and regularly speaks at French tech communities.",
+      "expertise": ["Azure Architecture", "Infrastructure as Code", "DevOps"]
+    }
+  }
+}

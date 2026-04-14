@@ -1,0 +1,21 @@
+{
+  "slug": "azugfr-azure-ai-tour-2025",
+  "locale": "fr",
+  "title": "AZUG FR présent au Azure AI Tour Paris 2025",
+  "summary": "La communauté AZUG FR était au Azure AI Tour Paris. Retrouvez nos photos et les ressources de la journée.",
+  "publishedAt": "2025-04-10T09:00:00Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/company/azure-user-group-france/posts/sample",
+  "tags": ["Azure AI Tour", "Paris", "Community"],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "linkedin-sample-001",
+    "lastSyncedAt": "2025-04-10T10:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "AZUG FR at Azure AI Tour Paris 2025",
+      "summary": "The AZUG FR community attended Azure AI Tour Paris. Find our photos and the day's resources here."
+    }
+  }
+}

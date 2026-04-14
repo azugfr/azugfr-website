@@ -1,0 +1,17 @@
+{
+  "slug": "intro-azure-openai-slides",
+  "locale": "fr",
+  "title": "Introduction à Azure OpenAI Service — Slides",
+  "summary": "Présentation complète sur Azure OpenAI Service présentée lors de la soirée AZUG FR de mai 2025.",
+  "type": "slides",
+  "url": "https://speakerdeck.com/azugfr/intro-azure-openai-2025",
+  "eventSlug": "azure-meetup-may-2025",
+  "speakerSlugs": ["marie-dupont"],
+  "publishedAt": "2025-05-15",
+  "translations": {
+    "en": {
+      "title": "Introduction to Azure OpenAI Service — Slides",
+      "summary": "Comprehensive presentation on Azure OpenAI Service delivered at the AZUG FR May 2025 evening."
+    }
+  }
+}

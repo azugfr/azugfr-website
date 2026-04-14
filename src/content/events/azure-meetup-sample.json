@@ -1,0 +1,33 @@
+{
+  "slug": "azure-meetup-may-2025",
+  "locale": "fr",
+  "title": "AZUG FR — Soirée Azure IA & Copilot",
+  "summary": "Une soirée dédiée aux dernières nouveautés Azure IA, Microsoft Copilot et GitHub Copilot, avec des retours d'expérience terrain.",
+  "description": "Au programme : présentation de Azure OpenAI Service, démo GitHub Copilot en conditions réelles, et échanges entre praticiens Azure.",
+  "startDate": "2025-05-15T18:30:00",
+  "endDate": "2025-05-15T21:00:00",
+  "timezone": "Europe/Paris",
+  "status": "past",
+  "venue": {
+    "name": "Microsoft France",
+    "city": "Paris",
+    "address": "39 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azure-user-group-france/events/sample/",
+  "meetupUrl": "https://www.meetup.com/azure-user-group-france/",
+  "speakerSlugs": ["marie-dupont", "jean-martin"],
+  "tags": ["AI", "Copilot", "Azure OpenAI"],
+  "source": {
+    "provider": "meetup",
+    "externalId": "sample-12345",
+    "lastSyncedAt": "2025-05-16T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "AZUG FR — Azure AI & Copilot Evening",
+      "summary": "An evening dedicated to the latest Azure AI, Microsoft Copilot and GitHub Copilot features, with real-world experience sharing.",
+      "description": "On the agenda: Azure OpenAI Service overview, live GitHub Copilot demo, and practitioner discussions."
+    }
+  }
+}

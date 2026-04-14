@@ -1,0 +1,24 @@
+{
+  "slug": "jean-martin",
+  "locale": "fr",
+  "name": "Jean Martin",
+  "headline": "Senior Software Engineer | Azure & GitHub Copilot",
+  "bio": "Jean est développeur senior spécialisé dans l'intégration de l'IA générative dans les workflows de développement.",
+  "expertise": ["GitHub Copilot", "Azure OpenAI", "Python"],
+  "company": "Fabrikam",
+  "role": "Senior Software Engineer",
+  "location": "Lyon, France",
+  "links": {
+    "github": "https://github.com/jean-martin-sample"
+  },
+  "derivedFrom": {
+    "eventSourceIds": ["sample-12345"]
+  },
+  "translations": {
+    "en": {
+      "headline": "Senior Software Engineer | Azure & GitHub Copilot",
+      "bio": "Jean is a senior developer specialised in integrating generative AI into development workflows.",
+      "expertise": ["GitHub Copilot", "Azure OpenAI", "Python"]
+    }
+  }
+}
