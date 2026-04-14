@@ -5,7 +5,24 @@
 **Execution**: Broke implementation into dependency-first phases covering bootstrap, schemas, sync, routes, styling, search, validation, and deployment.
 **Output**: Detailed tasks, outcomes, dependencies, and validation notes are listed below.
 **Validation**: Each task includes objective completion criteria and can be mapped into SQL todos for execution.
-**Next**: Start with repository bootstrap and content schema setup before any page implementation.
+**Next**: All T1–T22 tasks are complete. The site builds 18 pages across FR/EN. Refer to `CUTOVER.md` for the production switch playbook.
+
+---
+
+### [STATUS] - 2026-04-14T10:26:00Z
+
+**All 22 tasks complete.** The `nextgen` branch contains a fully working Astro 5 static site with:
+- FR/EN bilingual routing (`/fr/*`, `/en/*`) with language toggle
+- Content Collections (Zod-validated) for events, news, speakers, sponsors, resources
+- Bilingual content fixtures + sync scripts (Meetup GraphQL, LinkedIn RSS)
+- 18 statically generated pages (9 routes × 2 locales)
+- Pagefind client-side search indexed at build time
+- GitHub Pages deploy workflow + `CUTOVER.md` playbook
+
+**Branch**: `nextgen` → `origin/nextgen`
+**Build output**: 18 pages, 0 errors
+**Pagefind**: 14 content pages indexed (FR + EN)
+**Ready for production**: follow `CUTOVER.md` to switch Pages source from `master` to `nextgen`
 
 ## 1. Milestone Ordering
 
@@ -22,30 +39,30 @@
 
 ## 2. Detailed Task Plan
 
-| ID | Task | Expected Outcome | Depends On |
-| --- | --- | --- | --- |
-| T1 | Inventory legacy pages, assets, and behaviors | Explicit migration map for current HTML pages, assets, workflow, and PHP contact handling | None |
-| T2 | Bootstrap Astro + Tailwind project | Working Astro static project with Tailwind, scripts, and base config alongside the migration plan | T1 |
-| T3 | Establish localization foundation | Locale strategy, dictionaries, route policy, fallback rules, and locale switcher model for `fr` and `en` | T2 |
-| T4 | Configure Astro static deployment for GitHub Pages | Correct `site`, `base`, output settings, and workflow migration for Pages | T2, T3 |
-| T5 | Define Astro Content Collections in `src/content/config.ts` | Zod schemas for `events`, `news`, `speakers`, `sponsors`, `resources` with locale-aware modeling | T2, T3 |
-| T6 | Create initial curated content fixtures | Minimal valid bilingual sample entries for all collections | T5 |
-| T7 | Implement Meetup sync script | Deterministic event JSON generation into `src/content/events` with locale-aware output or fallback markers | T5 |
-| T8 | Implement LinkedIn RSS sync script | Deterministic news JSON generation into `src/content/news` with locale-aware output or fallback markers | T5 |
-| T9 | Add content normalization helpers | Stable slugs, date/status derivation, identity normalization, and locale resolution | T5 |
-| T10 | Add shared layout, SEO, and navigation primitives | Reusable shell aligned with Penpot patterns and bilingual UI chrome | T2, T3 |
-| T11 | Implement Home page | Manifesto, featured event, latest news, sponsors in FR and EN | T5, T10 |
-| T12 | Implement Events list page | Upcoming and archived event listings in localized routes | T5, T9, T10 |
-| T13 | Implement Event detail page | Event detail route with localized metadata and speaker links | T5, T9, T10 |
-| T14 | Implement News list and detail pages | Localized news index and statically generated news details | T5, T10 |
-| T15 | Implement speaker derivation/override pipeline | Stable speaker collection enrichment from events with locale-aware fields | T5, T7, T9 |
-| T16 | Implement Speakers list and detail pages | Localized speaker directory with related events | T5, T10, T15 |
-| T17 | Implement Resources page | Localized curated resources listing with external links | T5, T10 |
-| T18 | Implement About page | Manifesto, history, organizers, partners in FR and EN | T5, T10 |
-| T19 | Implement sponsor presentation components | Reusable sponsor cards/logos/tiers with localized descriptive content where needed | T5, T10 |
-| T20 | Integrate Pagefind search UI | Client-side search over supported content pages with locale-aware behavior | T11, T12, T13, T14, T16, T17, T18 |
-| T21 | Replace legacy deploy flow and retire superseded files safely | Astro build/deploy workflow live with a documented retirement path for old root artifacts | T1, T4, T20 |
-| T22 | Implement `/global-azure-france` landing page | Flagship page built after core routes in FR and EN | T10, T18, T21 |
+| ID | Task | Status | Expected Outcome | Depends On |
+| --- | --- | --- | --- | --- |
+| T1 | Inventory legacy pages, assets, and behaviors | ✅ done | `MIGRATION_MAP.md` — explicit disposition for all legacy HTML, CSS, JS, PHP, and CI artifacts | None |
+| T2 | Bootstrap Astro + Tailwind project | ✅ done | `astro.config.mjs`, `package.json`, `tailwind.config.mjs`, `tsconfig.json` — working static build | T1 |
+| T3 | Establish localization foundation | ✅ done | `src/data/i18n/fr.ts`, `en.ts`, `src/lib/i18n/index.ts` — `Locale`, `UiDictionary`, `resolveLocaleContent`, `getLocalizedRoute` | T2 |
+| T4 | Configure Astro static deployment for GitHub Pages | ✅ done | `.github/workflows/deploy.yml` — Astro build + Pages deploy on `nextgen`/`main` push | T2, T3 |
+| T5 | Define Astro Content Collections in `src/content/config.ts` | ✅ done | Zod schemas for all 5 collections with bilingual model (locale + translations sub-object); exported TS types | T2, T3 |
+| T6 | Create initial curated content fixtures | ✅ done | 6 bilingual JSON files across all 5 collections; build validates all entries | T5 |
+| T7 | Implement Meetup sync script | ✅ done | `scripts/sync-meetup-events.mjs` — GraphQL fetch, normalization, dry-run, `npm run sync:events` | T5 |
+| T8 | Implement LinkedIn RSS sync script | ✅ done | `scripts/sync-linkedin-news.mjs` — RSS parse, normalization, dry-run, `npm run sync:news` | T5 |
+| T9 | Add content normalization helpers | ✅ done | `src/lib/content/`: `slugify.ts`, `eventStatus.ts`, `contentHelpers.ts` (9 async helpers), `speakerDerive.ts`, `index.ts` | T5 |
+| T10 | Add shared layout, SEO, and navigation primitives | ✅ done | `BaseLayout.astro`, `ContentLayout.astro`, `NavBar.astro` (desktop+mobile+hamburger), `LanguageToggle.astro` (FR\|EN), `Footer.astro` | T2, T3 |
+| T11 | Implement Home page | ✅ done | `/fr`, `/en` — hero, featured event, latest 3 news, sponsors; `/` redirects to `/fr` | T5, T10 |
+| T12 | Implement Events list page | ✅ done | `/[locale]/events` — upcoming + archived sections, `EventCard` component | T5, T9, T10 |
+| T13 | Implement Event detail page | ✅ done | `/[locale]/events/[slug]` — meta row, description, registration CTA, resolved speaker grid | T5, T9, T10 |
+| T14 | Implement News list and detail pages | ✅ done | `/[locale]/news` and `/[locale]/news/[slug]` — content/summary fallback, source link | T5, T10 |
+| T15 | Implement speaker derivation/override pipeline | ✅ done | `scripts/derive-speakers.mjs` — reads events, emits/merges speaker stubs, preserves manual overrides, `npm run derive:speakers` | T5, T7, T9 |
+| T16 | Implement Speakers list and detail pages | ✅ done | `/[locale]/speakers` and `/[locale]/speakers/[slug]` — avatar, bio, expertise, related events | T5, T10, T15 |
+| T17 | Implement Resources page | ✅ done | `/[locale]/resources` — type icons, responsive grid, external links | T5, T10 |
+| T18 | Implement About page | ✅ done | `/[locale]/about` — manifesto, history, mission, organizers, community links; `src/data/about.ts` | T5, T10 |
+| T19 | Implement sponsor presentation components | ✅ done | `SponsorCard.astro`, `SponsorGrid.astro` — tiered badges, logo/fallback, `src/components/sponsors/index.ts` | T5, T10 |
+| T20 | Integrate Pagefind search UI | ✅ done | `/[locale]/search`, `data-pagefind-body` on layouts, post-build indexing in `npm run build`, 14 pages indexed | T11–T18 |
+| T21 | Replace legacy deploy flow and retire superseded files safely | ✅ done | `src/pages/404.astro`, `.github/CODEOWNERS`, `CUTOVER.md`, deploy triggers on `nextgen`+`main` | T1, T4, T20 |
+| T22 | Implement `/global-azure-france` landing page | ✅ done | `/[locale]/global-azure-france` — historical editions from `gab.html`/`gabparis.html`, `src/data/globalAzure.ts`, footer link | T10, T18, T21 |
 
 ## 3. Phase Details
 
