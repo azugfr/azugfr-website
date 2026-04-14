@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EventCard from "@/components/events/EventCard.astro";
+import { getUpcomingEvents, getArchivedEvents } from "@/lib/content/contentHelpers";
+import { getUiDictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const upcoming = await getUpcomingEvents(locale);
+const archived = await getArchivedEvents(locale);
+
+const title = locale === "fr" ? "Événements | AZUG FR" : "Events | AZUG FR";
+const description = locale === "fr"
+  ? "Découvrez les prochains événements et les archives de la communauté Azure en France."
+  : "Discover upcoming events and archives from the French Azure community.";
+const canonicalUrl = `${site.url}/${locale}/events`;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="events">
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-10">
+      {locale === "fr" ? "Événements" : "Events"}
+    </h1>
+
+    <!-- Upcoming section -->
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">{dict.common.upcoming}</h2>
+    {upcoming.length === 0 ? (
+      <p class="text-gray-500 mb-16">
+        {locale === "fr" ? "Aucun événement à venir pour l'instant." : "No upcoming events at the moment."}
+      </p>
+    ) : (
+      <ul class="grid gap-6 md:grid-cols-2 mb-16">
+        {upcoming.map(event => <EventCard {event} {locale} />)}
+      </ul>
+    )}
+
+    <!-- Past section -->
+    <h2 class="text-2xl font-semibold text-gray-800 mt-4 mb-6">{dict.common.past}</h2>
+    {archived.length === 0 ? (
+      <p class="text-gray-500">{dict.common.noResults}</p>
+    ) : (
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {archived.map(event => <EventCard {event} {locale} />)}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

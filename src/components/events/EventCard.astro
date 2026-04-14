@@ -1,0 +1,65 @@
+---
+import type { EventEntry } from "@/content/config";
+import type { Locale } from "@/lib/i18n";
+import { getLocalizedRoute, getUiDictionary } from "@/lib/i18n";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+
+interface Props {
+  event: EventEntry;
+  locale: Locale;
+}
+
+const { event, locale } = Astro.props;
+const dict = getUiDictionary(locale);
+const status = deriveEventStatus(event);
+
+const formattedDate = new Date(event.startDate).toLocaleDateString(
+  locale === "fr" ? "fr-FR" : "en-GB",
+  { year: "numeric", month: "long", day: "numeric" }
+);
+
+const venueModeLabels: Record<string, Record<Locale, string>> = {
+  in_person: { fr: "En présentiel", en: "In person" },
+  online: { fr: "En ligne", en: "Online" },
+  hybrid: { fr: "Hybride", en: "Hybrid" },
+};
+
+const modeLabel = event.venue?.mode ? (venueModeLabels[event.venue.mode]?.[locale] ?? event.venue.mode) : null;
+
+const summary = event.summary.length > 150 ? event.summary.slice(0, 150) + "…" : event.summary;
+---
+
+<li class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3">
+  <div class="flex items-center gap-2 flex-wrap">
+    {status === "upcoming" ? (
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+        {dict.common.upcoming}
+      </span>
+    ) : (
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
+        {dict.common.past}
+      </span>
+    )}
+    {modeLabel && (
+      <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200">
+        {modeLabel}
+      </span>
+    )}
+  </div>
+
+  <h3 class="text-lg font-semibold text-gray-900 leading-snug">
+    <a
+      href={getLocalizedRoute(locale, "events", event.slug)}
+      class="hover:text-azure-600 transition-colors"
+    >
+      {event.title}
+    </a>
+  </h3>
+
+  <div class="flex items-center gap-3 text-sm text-gray-500 flex-wrap">
+    <time datetime={event.startDate}>{formattedDate}</time>
+    {event.venue?.city && <span>📍 {event.venue.city}</span>}
+  </div>
+
+  <p class="text-sm text-gray-600 leading-relaxed">{summary}</p>
+</li>
