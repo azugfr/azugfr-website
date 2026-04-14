@@ -1,0 +1,57 @@
+---
+import NavBar from "@/components/site/NavBar.astro";
+import Footer from "@/components/site/Footer.astro";
+import { getAlternateLocale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  activeRoute?: string;
+}
+
+const { locale, title, description, canonicalUrl, ogImage, activeRoute } = Astro.props;
+const altLocale = getAlternateLocale(locale);
+
+const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}`;
+const altCanonical = `${site.url}/${altLocale}`;
+const resolvedDescription = description ?? site.description[locale];
+const resolvedOgImage = ogImage ?? `${site.url}/og-default.png`;
+const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={resolvedDescription} />
+
+    <link rel="canonical" href={resolvedCanonical} />
+    <link rel="alternate" hreflang={locale}    href={resolvedCanonical} />
+    <link rel="alternate" hreflang={altLocale} href={altCanonical} />
+    <link rel="alternate" hreflang="x-default" href={`${site.url}/fr`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={resolvedDescription} />
+    <meta property="og:image"       content={resolvedOgImage} />
+    <meta property="og:url"         content={resolvedCanonical} />
+    <meta property="og:site_name"   content={site.name} />
+    <meta property="og:locale"      content={locale === "fr" ? "fr_FR" : "en_US"} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+    <NavBar locale={locale} activeRoute={activeRoute} currentPath={currentPath} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

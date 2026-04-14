@@ -1,0 +1,21 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import type { Locale } from "@/lib/i18n";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  activeRoute?: string;
+}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <slot />
+  </div>
+</BaseLayout>

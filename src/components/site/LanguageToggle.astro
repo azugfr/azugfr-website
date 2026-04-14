@@ -1,0 +1,57 @@
+---
+import { getAlternateLocale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+
+interface Props {
+  locale: Locale;
+  currentPath?: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const altLocale = getAlternateLocale(locale);
+
+// Build the alternate locale URL by swapping the locale prefix in the path
+function getAltPath(current: string | undefined, from: Locale, to: Locale): string {
+  if (!current) return `/${to}`;
+  const prefix = `/${from}`;
+  if (current === prefix || current === `${prefix}/`) return `/${to}`;
+  if (current.startsWith(`${prefix}/`)) return `/${to}/${current.slice(prefix.length + 1)}`;
+  return `/${to}`;
+}
+
+const frPath = locale === "fr" ? (currentPath ?? "/fr") : getAltPath(currentPath, altLocale as Locale, "fr");
+const enPath = locale === "en" ? (currentPath ?? "/en") : getAltPath(currentPath, altLocale as Locale, "en");
+---
+
+<div
+  role="group"
+  aria-label="Changer de langue / Switch language"
+  class="flex items-center bg-[#F3F2F1] border border-[#D2D0CE] rounded-lg overflow-hidden
+         w-[88px] h-[40px] md:w-[88px] md:h-[40px]
+         w-[80px] h-[32px] text-xs md:text-sm"
+>
+  <a
+    href={frPath}
+    aria-label="Français"
+    aria-current={locale === "fr" ? "true" : undefined}
+    class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
+      ${locale === "fr"
+        ? "bg-[#0078D4] text-white font-semibold"
+        : "text-[#323130] font-normal hover:bg-[#E1DFDD]"
+      }`}
+  >
+    FR
+  </a>
+  <a
+    href={enPath}
+    aria-label="English"
+    aria-current={locale === "en" ? "true" : undefined}
+    class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
+      ${locale === "en"
+        ? "bg-[#0078D4] text-white font-semibold"
+        : "text-[#323130] font-normal hover:bg-[#E1DFDD]"
+      }`}
+  >
+    EN
+  </a>
+</div>

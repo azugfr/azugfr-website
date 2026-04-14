@@ -1,0 +1,80 @@
+---
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUiDictionary(locale);
+
+const navItems = [
+  { key: "home",      label: t.nav.home,      href: `/${locale}` },
+  { key: "events",    label: t.nav.events,    href: getLocalizedRoute(locale, "events") },
+  { key: "news",      label: t.nav.news,      href: getLocalizedRoute(locale, "news") },
+  { key: "speakers",  label: t.nav.speakers,  href: getLocalizedRoute(locale, "speakers") },
+  { key: "resources", label: t.nav.resources, href: getLocalizedRoute(locale, "resources") },
+  { key: "about",     label: t.nav.about,     href: getLocalizedRoute(locale, "about") },
+];
+
+const currentYear = new Date().getFullYear();
+const copyrightLabel = locale === "fr" ? `© ${currentYear} AZUG FR — ${t.footer.rights}.` : `© ${currentYear} AZUG FR — ${t.footer.rights}.`;
+
+const socials = [
+  { label: "Twitter / X", href: site.social.twitter,  icon: "𝕏" },
+  { label: "GitHub",      href: site.social.github,   icon: "⌥" },
+  { label: "Meetup",      href: site.social.meetup,   icon: "M" },
+  { label: "LinkedIn",    href: site.social.linkedin, icon: "in" },
+  { label: "YouTube",     href: site.social.youtube,  icon: "▶" },
+];
+---
+
+<footer class="bg-[#323130] text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Left: logo + tagline -->
+    <div class="flex flex-col gap-3">
+      <a href={`/${locale}`} aria-label="AZUG FR — Home" class="flex-shrink-0">
+        <span class="font-bold text-xl text-[#0078D4] leading-none">AZUG <span class="text-white">FR</span></span>
+      </a>
+      <p class="text-sm text-gray-300">{t.footer.tagline}</p>
+      <!-- Social icons -->
+      <div class="flex gap-3 mt-2" aria-label="Social links">
+        {socials.map(({ label, href, icon }) => (
+          <a
+            href={href}
+            aria-label={label}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 flex items-center justify-center rounded bg-white/10 text-sm font-bold hover:bg-[#0078D4] transition-colors"
+          >
+            {icon}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Center: nav links -->
+    <nav aria-label="Footer navigation" class="flex flex-col gap-2">
+      {navItems.map(({ label, href }) => (
+        <a
+          href={href}
+          class="text-sm text-gray-300 hover:text-white transition-colors"
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right: empty or future content -->
+    <div></div>
+  </div>
+
+  <!-- Copyright bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4">
+      <p class="text-xs text-gray-400 text-center">{copyrightLabel}</p>
+    </div>
+  </div>
+</footer>
