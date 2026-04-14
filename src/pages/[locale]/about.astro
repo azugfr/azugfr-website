@@ -1,0 +1,147 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAboutContent } from "@/data/about";
+import { site } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: "fr" } },
+    { params: { locale: "en" } },
+  ];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+
+const content = getAboutContent(locale);
+
+const pageTitle = locale === "fr" ? "À propos | AZUG FR" : "About | AZUG FR";
+const heroTitle = locale === "fr" ? "À propos" : "About";
+const heroTagline =
+  locale === "fr"
+    ? "La communauté Azure en France"
+    : "The Azure community in France";
+
+const labels = {
+  manifesto: locale === "fr" ? "Notre manifeste" : "Our Manifesto",
+  mission: locale === "fr" ? "Notre mission" : "Our Mission",
+  history: locale === "fr" ? "Notre histoire" : "Our History",
+  organizers: locale === "fr" ? "L'équipe" : "The Team",
+  community: locale === "fr" ? "Rejoignez la communauté" : "Join the Community",
+  meetup: "Meetup",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+  github: "GitHub",
+};
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  activeRoute="about"
+  canonicalUrl={`${site.url}/${locale}/about`}
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Hero -->
+    <section class="mb-12 text-center">
+      <h1 class="text-4xl font-bold text-gray-900 mb-3">{heroTitle}</h1>
+      <p class="text-xl text-azure-600 font-medium">{heroTagline}</p>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.manifesto}</h2>
+      <blockquote class="border-l-4 border-azure-600 pl-6 italic text-gray-700 text-lg leading-relaxed">
+        {content.manifesto}
+      </blockquote>
+    </section>
+
+    <!-- Mission -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.mission}</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">{content.mission}</p>
+    </section>
+
+    <!-- History -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.history}</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">{content.history}</p>
+    </section>
+
+    <!-- Organizers -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{labels.organizers}</h2>
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {content.organizers.map((org) => (
+          <li class="bg-gray-50 rounded-lg p-5 border border-gray-200">
+            <p class="font-semibold text-gray-900 text-lg">{org.name}</p>
+            <p class="text-azure-600 text-sm mb-3">{org.role}</p>
+            <div class="flex gap-3 text-sm">
+              {org.linkedin && (
+                <a
+                  href={org.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-azure-600 hover:text-azure-800 underline"
+                >
+                  LinkedIn
+                </a>
+              )}
+              {org.github && (
+                <a
+                  href={org.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-azure-600 hover:text-azure-800 underline"
+                >
+                  GitHub
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Community links -->
+    <section class="mb-4">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{labels.community}</h2>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href={site.social.meetup}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
+        >
+          {labels.meetup}
+        </a>
+        <a
+          href={site.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
+        >
+          {labels.linkedin}
+        </a>
+        <a
+          href={site.social.youtube}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
+        >
+          {labels.youtube}
+        </a>
+        <a
+          href={site.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
+        >
+          {labels.github}
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
