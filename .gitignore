@@ -7,9 +7,8 @@ dist/pagefind/
 # Astro cache
 .astro/
 
-# LinkeidIN mcp files
-
-.linkeidin-mcp/
+# LinkedIn MCP files
+.linkedin-mcp/
 
 # Node modules
 node_modules/
