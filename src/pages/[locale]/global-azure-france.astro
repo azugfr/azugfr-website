@@ -1,0 +1,123 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { globalAzureData } from "@/data/globalAzure";
+import { site } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+
+export function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+
+const pageTitle = "Global Azure France | AZUG FR";
+const pageDescription = globalAzureData.hero[locale];
+
+const labels = {
+  about:       locale === "fr" ? "Qu'est-ce que le Global Azure ?" : "What is Global Azure?",
+  editions:    locale === "fr" ? "Nos éditions" : "Our editions",
+  register:    locale === "fr" ? "S'inscrire" : "Register",
+  recap:       locale === "fr" ? "Récapitulatif" : "Recap",
+  stayInformed: locale === "fr" ? "Rester informé" : "Stay informed",
+  ctaBody: locale === "fr"
+    ? "Les annonces sur les prochaines éditions du Global Azure France sont partagées via nos canaux communautaires. Rejoignez-nous pour ne rien manquer."
+    : "Announcements about upcoming Global Azure France editions are shared via our community channels. Join us to stay in the loop.",
+  meetup:   "Meetup",
+  linkedin: "LinkedIn",
+};
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={`${site.url}/${locale}/global-azure-france`}
+  activeRoute="global-azure-france"
+>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-[#0078D4] to-[#004E8C] text-white py-20">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+        Global Azure France
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        {pageDescription}
+      </p>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.about}</h2>
+    <p class="text-gray-700 text-lg leading-relaxed">{globalAzureData.about[locale]}</p>
+  </section>
+
+  <!-- Editions -->
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-8">{labels.editions}</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {globalAzureData.editions.map((edition) => (
+          <article class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col gap-3">
+            <div>
+              <h3 class="text-xl font-bold text-[#0078D4]">{edition.year}</h3>
+              <p class="text-sm font-semibold text-gray-800 mt-0.5">{edition.city}</p>
+              <p class="text-xs text-gray-500 mt-1">{edition.date[locale]}</p>
+            </div>
+            <p class="text-gray-700 text-sm leading-relaxed flex-1">
+              {edition.description[locale]}
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              {edition.registrationUrl && (
+                <a
+                  href={edition.registrationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block bg-[#0078D4] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#005A9E] transition-colors"
+                >
+                  {labels.register}
+                </a>
+              )}
+              {edition.recap && (
+                <a
+                  href={edition.recap[locale]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block border border-[#0078D4] text-[#0078D4] text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors"
+                >
+                  {labels.recap}
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.stayInformed}</h2>
+    <p class="text-gray-700 text-lg leading-relaxed mb-6">{labels.ctaBody}</p>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href={site.social.meetup}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 bg-[#0078D4] text-white px-5 py-2.5 rounded-lg hover:bg-[#005A9E] transition-colors font-medium"
+      >
+        {labels.meetup}
+      </a>
+      <a
+        href={site.social.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 bg-[#0078D4] text-white px-5 py-2.5 rounded-lg hover:bg-[#005A9E] transition-colors font-medium"
+      >
+        {labels.linkedin}
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
