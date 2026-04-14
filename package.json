@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "sync:events": "node scripts/sync-meetup-events.mjs",
     "sync:news": "node scripts/sync-linkedin-news.mjs",
     "sync": "npm run sync:events && npm run sync:news"
   },
