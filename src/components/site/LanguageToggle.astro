@@ -1,5 +1,4 @@
 ---
-import { getAlternateLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 
 interface Props {
@@ -7,20 +6,10 @@ interface Props {
   currentPath?: string;
 }
 
-const { locale, currentPath } = Astro.props;
-const altLocale = getAlternateLocale(locale);
+const { locale } = Astro.props;
 
-// Build the alternate locale URL by swapping the locale prefix in the path
-function getAltPath(current: string | undefined, from: Locale, to: Locale): string {
-  if (!current) return `/${to}`;
-  const prefix = `/${from}`;
-  if (current === prefix || current === `${prefix}/`) return `/${to}`;
-  if (current.startsWith(`${prefix}/`)) return `/${to}/${current.slice(prefix.length + 1)}`;
-  return `/${to}`;
-}
-
-const frPath = locale === "fr" ? (currentPath ?? "/fr") : getAltPath(currentPath, altLocale as Locale, "fr");
-const enPath = locale === "en" ? (currentPath ?? "/en") : getAltPath(currentPath, altLocale as Locale, "en");
+const frPath = "/fr";
+const enPath = "/en";
 ---
 
 <div

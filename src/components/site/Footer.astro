@@ -10,71 +10,98 @@ interface Props {
 const { locale } = Astro.props;
 const t = getUiDictionary(locale);
 
-const navItems = [
-  { key: "home",      label: t.nav.home,      href: `/${locale}` },
-  { key: "events",    label: t.nav.events,    href: getLocalizedRoute(locale, "events") },
-  { key: "news",      label: t.nav.news,      href: getLocalizedRoute(locale, "news") },
-  { key: "speakers",  label: t.nav.speakers,  href: getLocalizedRoute(locale, "speakers") },
-  { key: "resources", label: t.nav.resources, href: getLocalizedRoute(locale, "resources") },
-  { key: "about",     label: t.nav.about,     href: getLocalizedRoute(locale, "about") },
-  { key: "global-azure-france", label: "Global Azure France", href: getLocalizedRoute(locale, "global-azure-france") },
+const currentYear = new Date().getFullYear();
+const copyrightLabel = `© ${currentYear} AZUG FR — ${t.footer.rights}.`;
+
+const linkGroups = [
+  {
+    heading: "Azure UG France",
+    links: [
+      { label: locale === "fr" ? "À propos" : "About us",           href: getLocalizedRoute(locale, "about") },
+      { label: locale === "fr" ? "Code de conduite" : "Code of Conduct", href: getLocalizedRoute(locale, "about") },
+      { label: "Contact",                                             href: getLocalizedRoute(locale, "about") },
+    ],
+    cta: null as { label: string; href: string } | null,
+  },
+  {
+    heading: locale === "fr" ? "Événements" : "Events",
+    links: [
+      { label: locale === "fr" ? "À venir" : "Upcoming",   href: getLocalizedRoute(locale, "events") },
+      { label: locale === "fr" ? "Passés" : "Past events", href: getLocalizedRoute(locale, "events") },
+    ],
+    cta: {
+      label: locale === "fr" ? "Proposer un talk" : "Submit a talk",
+      href: getLocalizedRoute(locale, "speakers"),
+    },
+  },
+  {
+    heading: locale === "fr" ? "Communauté" : "Community",
+    links: [
+      { label: locale === "fr" ? "Intervenants" : "Speakers", href: getLocalizedRoute(locale, "speakers") },
+      { label: "Sponsors",                                      href: getLocalizedRoute(locale, "about") },
+      { label: "Blog",                                          href: getLocalizedRoute(locale, "news") },
+    ],
+    cta: null as { label: string; href: string } | null,
+  },
 ];
 
-const currentYear = new Date().getFullYear();
-const copyrightLabel = locale === "fr" ? `© ${currentYear} AZUG FR — ${t.footer.rights}.` : `© ${currentYear} AZUG FR — ${t.footer.rights}.`;
-
 const socials = [
+  { label: "LinkedIn",    href: site.social.linkedin, icon: "in" },
   { label: "Twitter / X", href: site.social.twitter,  icon: "𝕏" },
+  { label: "YouTube",     href: site.social.youtube,  icon: "▶" },
   { label: "GitHub",      href: site.social.github,   icon: "⌥" },
   { label: "Meetup",      href: site.social.meetup,   icon: "M" },
-  { label: "LinkedIn",    href: site.social.linkedin, icon: "in" },
-  { label: "YouTube",     href: site.social.youtube,  icon: "▶" },
 ];
 ---
 
-<footer class="bg-[#323130] text-white">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-    <!-- Left: logo + tagline -->
-    <div class="flex flex-col gap-3">
-      <a href={`/${locale}`} aria-label="AZUG FR — Home" class="flex-shrink-0">
-        <span class="font-bold text-xl text-[#0078D4] leading-none">AZUG <span class="text-white">FR</span></span>
-      </a>
-      <p class="text-sm text-gray-300">{t.footer.tagline}</p>
-      <!-- Social icons -->
-      <div class="flex gap-3 mt-2" aria-label="Social links">
-        {socials.map(({ label, href, icon }) => (
-          <a
-            href={href}
-            aria-label={label}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-8 h-8 flex items-center justify-center rounded bg-white/10 text-sm font-bold hover:bg-[#0078D4] transition-colors"
-          >
-            {icon}
+<footer class="bg-[#0B1929] text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- 3 link columns -->
+    {linkGroups.map(({ heading, links, cta }) => (
+      <div class="flex flex-col gap-2">
+        <h3 class="text-sm font-bold text-white mb-1">{heading}</h3>
+        {links.map(({ label, href }) => (
+          <a href={href} class="text-sm text-[#8FA8C8] hover:text-white transition-colors">
+            {label}
           </a>
         ))}
+        {cta && (
+          <a
+            href={cta.href}
+            class="mt-2 inline-flex items-center justify-center px-3 py-1.5 rounded border border-[#0078D4] text-[#4FA8E8] text-sm font-semibold hover:bg-[#0078D4] hover:text-white transition-colors w-fit"
+          >
+            {cta.label}
+          </a>
+        )}
       </div>
-    </div>
+    ))}
 
-    <!-- Center: nav links -->
-    <nav aria-label="Footer navigation" class="flex flex-col gap-2">
-      {navItems.map(({ label, href }) => (
+    <!-- Follow us column -->
+    <div class="flex flex-col gap-2">
+      <h3 class="text-sm font-bold text-white mb-1">{locale === "fr" ? "Nous suivre" : "Follow us"}</h3>
+      {socials.map(({ label, href, icon }) => (
         <a
           href={href}
-          class="text-sm text-gray-300 hover:text-white transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          class="flex items-center gap-2 text-sm text-[#8FA8C8] hover:text-white transition-colors group"
         >
+          <span class="w-6 h-6 flex items-center justify-center rounded bg-white/10 text-xs font-bold group-hover:bg-[#0078D4] transition-colors flex-shrink-0">
+            {icon}
+          </span>
           {label}
         </a>
       ))}
-    </nav>
-
-    <!-- Right: empty or future content -->
-    <div></div>
+    </div>
   </div>
 
-  <!-- Copyright bar -->
+  <!-- Bottom bar: logo + copyright + tagline -->
   <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <a href={`/${locale}`} aria-label="AZUG FR — Home" class="flex-shrink-0">
+        <img src="/azugfr-logo.png" alt="AZUG FR" class="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+      </a>
       <p class="text-xs text-gray-400 text-center">{copyrightLabel}</p>
     </div>
   </div>
