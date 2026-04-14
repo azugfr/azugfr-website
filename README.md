@@ -4,7 +4,6 @@
 
 The official website for **Azure User Group France (AZUG FR)** — the French Azure community. Built with Astro 5, Tailwind CSS, and deployed to GitHub Pages.
 
-Not ready yeat
 🌐 **Live site:** [azugfr.github.io](https://azugfr.github.io)
 
 ---
@@ -20,6 +19,7 @@ Not ready yeat
   - [Speakers](#speakers)
   - [Sponsors](#sponsors)
   - [Resources](#resources)
+  - [About](#about)
 - [Internationalization (i18n)](#internationalization-i18n)
 - [Data Sync Scripts](#data-sync-scripts)
 - [CI/CD — GitHub Actions](#cicd--github-actions)
