@@ -1,0 +1,77 @@
+{
+  "slug": "build-2026-localhost-paris-2026-06-10",
+  "locale": "fr",
+  "title": "BUILD 2026 //LOCALHOST:PARIS",
+  "summary": "Meetup dédié à l'IA et au développement à l'occasion de Microsoft Build 2026, dans les locaux de Microsoft à Issy-les-Moulineaux.",
+  "description": "À l'occasion de Microsoft Build 2026, un meetup dédié à l'IA et au développement est organisé le mercredi 10 juin à 18h30 dans les locaux de Microsoft. L'événement est organisé par AZUG FR, Global AI Paris, Global AI Communauté Virtuelle Francophone et Meetup C# .Net Paris. Au programme : récapitulatif des temps forts de Microsoft Build 2026 par Marius Zaharia, GitHub Copilot dans Visual Studio par Achraf Ben Alaya, observabilité et ROI pour les agents IA par Ihor Leontiev, puis networking. L'inscription se fait uniquement sur Microsoft Reactor avant le mardi 9 juin 2026 à 16h ; l'accès aux locaux n'est pas possible sans inscription préalable.",
+  "startDate": "2026-06-10T18:30:00",
+  "endDate": "2026-06-10T21:30:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "Microsoft",
+    "address": "42 quai du Président Roosevelt",
+    "city": "Issy-les-Moulineaux",
+    "mode": "in_person"
+  },
+  "host": "Microsoft",
+  "registrationUrl": "https://developer.microsoft.com/reactor/events/27302",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/313762069/",
+  "speakerSlugs": [
+    "marius-zaharia",
+    "achraf-ben-alaya",
+    "ihor-leontiev"
+  ],
+  "talks": [
+    {
+      "title": "Récapitulatif des temps forts de Microsoft Build 2026",
+      "speakerSlugs": [
+        "marius-zaharia"
+      ],
+      "translations": {
+        "en": {
+          "title": "Microsoft Build 2026 highlights recap"
+        }
+      }
+    },
+    {
+      "title": "GitHub Copilot dans Visual Studio : des agents qui déboguent, profilent et testent",
+      "speakerSlugs": [
+        "achraf-ben-alaya"
+      ],
+      "translations": {
+        "en": {
+          "title": "GitHub Copilot in Visual Studio: agents that debug, profile and test"
+        }
+      }
+    },
+    {
+      "title": "De l’observabilité au ROI pour les agents IA sur n’importe quel framework",
+      "speakerSlugs": [
+        "ihor-leontiev"
+      ],
+      "translations": {
+        "en": {
+          "title": "From observability to ROI for AI agents on any framework"
+        }
+      }
+    }
+  ],
+  "tags": [
+    "Azure",
+    "AI",
+    "GitHub Copilot",
+    "Build"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "313762069",
+    "lastSyncedAt": "2026-11-23T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "BUILD 2026 //LOCALHOST:PARIS",
+      "summary": "Meetup dedicated to AI and development on the occasion of Microsoft Build 2026, hosted at Microsoft in Issy-les-Moulineaux.",
+      "description": "On the occasion of Microsoft Build 2026, a meetup dedicated to AI and development takes place on Wednesday 10 June at 6:30 pm at Microsoft's offices. The event is organised by AZUG FR, Global AI Paris, Global AI Communauté Virtuelle Francophone and Meetup C# .Net Paris. Agenda: recap of the highlights of Microsoft Build 2026 by Marius Zaharia, GitHub Copilot in Visual Studio by Achraf Ben Alaya, observability and ROI for AI agents by Ihor Leontiev, then networking. Registration is done only on Microsoft Reactor before Tuesday 9 June 2026 at 4 pm; access to the building is not possible without prior registration."
+    }
+  }
+}

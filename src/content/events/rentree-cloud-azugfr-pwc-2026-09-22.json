@@ -1,0 +1,65 @@
+{
+  "slug": "rentree-cloud-azugfr-pwc-2026-09-22",
+  "locale": "fr",
+  "title": "La rentrée du Cloud avec AZUG FR et PwC !",
+  "summary": "Soirée de rentrée d'AZUG FR chez PwC France autour du Cloud, de l'IA et de la sécurité, avec deux talks et du networking.",
+  "description": "Après la pause estivale, AZUG FR fait sa rentrée chez PwC France (Experience center) le 22 septembre 2026 pour une soirée placée sous le signe du Cloud, de l'IA et des nouvelles pratiques d'architecture et d'exploitation. Au programme : introduction par la communauté AZUG FR, talk de Charles Nkolo (Consultant Cloud) sur la construction d'un assistant IA d'entreprise sécurisé avec Azure OpenAI et Azure AI Search, talk de Laurent Broto (Managing Director) sur le confidential computing, puis networking et échanges avec la communauté. À partir de 19h00.",
+  "startDate": "2026-09-22T19:00:00",
+  "endDate": "2026-09-22T22:00:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "PwC France - Experience center",
+    "address": "11 Rue de Milan, 75009 Paris",
+    "city": "Paris",
+    "mode": "in_person"
+  },
+  "host": "PwC France",
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/316312251/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/316312251/",
+  "speakerSlugs": [
+    "charles-nkolo",
+    "laurent-broto"
+  ],
+  "talks": [
+    {
+      "title": "Construire un assistant IA d'entreprise sécurisé avec Azure OpenAI et Azure AI Search",
+      "speakerSlugs": [
+        "charles-nkolo"
+      ],
+      "translations": {
+        "en": {
+          "title": "Building a secure enterprise AI assistant with Azure OpenAI and Azure AI Search"
+        }
+      }
+    },
+    {
+      "title": "Confidential computing : comment se défendre des 3rd parties ayant accès au matériel",
+      "speakerSlugs": [
+        "laurent-broto"
+      ],
+      "translations": {
+        "en": {
+          "title": "Confidential computing: defending against third parties with access to the hardware"
+        }
+      }
+    }
+  ],
+  "tags": [
+    "Azure",
+    "AI",
+    "Security",
+    "Confidential Computing"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "316312251",
+    "lastSyncedAt": "2026-11-23T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Back-to-school Cloud evening with AZUG FR and PwC!",
+      "summary": "AZUG FR back-to-school evening at PwC France on Cloud, AI and security, with two talks and networking.",
+      "description": "After the summer break, AZUG FR holds its back-to-school evening at PwC France (Experience center) on 22 September 2026, on Cloud, AI and new architecture and operations practices. Agenda: introduction by the AZUG FR community, a talk by Charles Nkolo (Cloud Consultant) on building a secure enterprise AI assistant with Azure OpenAI and Azure AI Search, a talk by Laurent Broto (Managing Director) on confidential computing, then networking with the community. From 7:00 pm."
+    }
+  }
+}

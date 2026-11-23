@@ -13,10 +13,44 @@
     "address": "36 avenue Pierre 1er de Serbie, Paris, FR",
     "mode": "in_person"
   },
+  "host": "Meritis",
   "registrationUrl": "https://www.meetup.com/azug-fr/events/299036928/",
   "meetupUrl": "https://www.meetup.com/azug-fr/",
-  "speakerSlugs": ["aymeric-weinbach", "florian-vuillemot"],
-  "tags": ["AI", "GenerativeAI", "Azure"],
+  "talks": [
+    {
+      "title": "RAG 'n Roll : la stack Azure GenAI",
+      "time": "19:00",
+      "speakerSlugs": [
+        "aymeric-weinbach"
+      ],
+      "translations": {
+        "en": {
+          "title": "RAG 'n Roll: the Azure GenAI stack"
+        }
+      }
+    },
+    {
+      "title": "Simplifier l'adoption de notre librairie python avec generative AI",
+      "time": "19:40",
+      "speakerSlugs": [
+        "florian-vuillemot"
+      ],
+      "translations": {
+        "en": {
+          "title": "Simplifying adoption of our Python library with generative AI"
+        }
+      }
+    }
+  ],
+  "speakerSlugs": [
+    "aymeric-weinbach",
+    "florian-vuillemot"
+  ],
+  "tags": [
+    "AI",
+    "GenerativeAI",
+    "Azure"
+  ],
   "source": {
     "provider": "meetup",
     "externalId": "299036928",

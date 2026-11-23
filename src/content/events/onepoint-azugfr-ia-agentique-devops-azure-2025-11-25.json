@@ -13,10 +13,40 @@
     "address": "14 Av. d'Eylau, Paris, FR",
     "mode": "in_person"
   },
+  "host": "Onepoint",
   "registrationUrl": "https://www.meetup.com/azug-fr/events/311876300/",
   "meetupUrl": "https://www.meetup.com/azug-fr/",
+  "talks": [
+    {
+      "title": "Retour sur Microsoft Ignite 2025",
+      "time": "19:15",
+      "speakerSlugs": [],
+      "translations": {
+        "en": {
+          "title": "Microsoft Ignite 2025 recap"
+        }
+      }
+    },
+    {
+      "title": "Démo live : IA agentique sur AKS",
+      "abstract": "Démo d'un agent intelligent pour Azure Kubernetes Service (AKS) capable d'analyser les logs, détecter les incidents et proposer ou déclencher des actions pertinentes.",
+      "time": "20:00",
+      "speakerSlugs": [],
+      "translations": {
+        "en": {
+          "title": "Live demo: agentic AI on AKS",
+          "abstract": "Demo of an intelligent agent for Azure Kubernetes Service (AKS) that analyses logs, detects incidents and proposes or triggers relevant actions."
+        }
+      }
+    }
+  ],
   "speakerSlugs": [],
-  "tags": ["Azure", "DevOps", "AI", "AKS"],
+  "tags": [
+    "Azure",
+    "DevOps",
+    "AI",
+    "AKS"
+  ],
   "source": {
     "provider": "meetup",
     "externalId": "311876300",

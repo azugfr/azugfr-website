@@ -13,10 +13,35 @@
     "address": "83-85 Bd Vincent Auriol, Paris, FR",
     "mode": "in_person"
   },
+  "host": "Lokad",
   "registrationUrl": "https://www.meetup.com/azug-fr/events/305132870/",
   "meetupUrl": "https://www.meetup.com/azug-fr/",
-  "speakerSlugs": ["victor-nicollet", "joannes-vermorel"],
-  "tags": ["Azure", "DotNet", "DeepLearning", "Storage"],
+  "talks": [
+    {
+      "title": "Abstractions on top of Azure Blob Storage",
+      "time": "19:00",
+      "speakerSlugs": [
+        "victor-nicollet"
+      ]
+    },
+    {
+      "title": "Lokad.Onnx, Running deep learning models in .NET managed code",
+      "time": "19:40",
+      "speakerSlugs": [
+        "joannes-vermorel"
+      ]
+    }
+  ],
+  "speakerSlugs": [
+    "victor-nicollet",
+    "joannes-vermorel"
+  ],
+  "tags": [
+    "Azure",
+    "DotNet",
+    "DeepLearning",
+    "Storage"
+  ],
   "source": {
     "provider": "meetup",
     "externalId": "305132870",
