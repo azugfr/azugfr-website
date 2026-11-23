@@ -3,9 +3,12 @@ import type { Locale } from "@/lib/i18n";
 export interface GabEdition {
   year: number;
   city: string;
-  date: { fr: string; en: string };
-  description: { fr: string; en: string };
-  registrationUrl?: string;
+  /** slug of the matching event file; date and description are then derived from it */
+  eventSlug?: string;
+  date?: { fr: string; en: string };
+  description?: { fr: string; en: string };
+  /** external page for editions without an event file */
+  url?: string;
   recap?: { fr: string; en: string };
 }
 
@@ -25,19 +28,10 @@ export const globalAzureData: GlobalAzureData = {
     en: "Global Azure (formerly Global Azure Bootcamp) is an annual worldwide event run by volunteers: MVPs, experts, enthusiasts and community members. Hundreds of cities around the world simultaneously host a day of free sessions and workshops on Microsoft Azure. In France, AZUG FR has coordinated the event since its early editions, in partnership with other regional communities.",
   },
   editions: [
-    {
-      year: 2026,
-      city: "Paris (ESGI)",
-      date: {
-        fr: "18 avril 2026",
-        en: "April 18, 2026",
-      },
-      description: {
-        fr: "Édition 2026 du Global Azure France organisée par AZUG FR et l'ESGI à Paris (12ᵉ). Sessions gratuites sur le développement Azure, l'IA, l'infrastructure, le DevOps, la sécurité et la gouvernance cloud.",
-        en: "2026 edition of Global Azure France organised by AZUG FR and ESGI in Paris (12th). Free sessions on Azure development, AI, infrastructure, DevOps, security and cloud governance.",
-      },
-      registrationUrl: "https://www.meetup.com/azug-fr/events/313716280/",
-    },
+    { year: 2026, city: "Paris (ESGI)", eventSlug: "global-azure-france-2026" },
+    { year: 2025, city: "Paris (ESGI)", eventSlug: "global-azure-france-2025-paris-2025-05-06" },
+    { year: 2024, city: "Paris (ESGI)", eventSlug: "global-azure-france-2024-paris-2024-04-20" },
+    { year: 2023, city: "Paris (ESGI)", eventSlug: "global-azure-france-2023-paris-2023-05-13" },
     {
       year: 2022,
       city: "Paris (ESGI)",
@@ -49,7 +43,7 @@ export const globalAzureData: GlobalAzureData = {
         fr: "Édition parisienne du Global Azure 2022 accueillie à l'ESGI. Une journée complète de sessions sur Microsoft Azure organisée par AZUG FR, avec un agenda détaillé via Sessionize.",
         en: "Parisian edition of Global Azure 2022 hosted at ESGI. A full day of Microsoft Azure sessions organised by AZUG FR, with a detailed agenda via Sessionize.",
       },
-      registrationUrl: "https://www.meetup.com/fr-FR/AZUG-FR/events/285002702/",
+      url: "https://www.meetup.com/fr-FR/AZUG-FR/events/285002702/",
     },
     {
       year: 2022,
@@ -62,8 +56,7 @@ export const globalAzureData: GlobalAzureData = {
         fr: "Édition PACA du Global Azure 2022 organisée par la communauté Azure & DevOps User Group d'Aix-en-Provence, en partenariat avec AZUG FR.",
         en: "PACA edition of Global Azure 2022 organised by the Azure & DevOps User Group Aix-en-Provence community, in partnership with AZUG FR.",
       },
-      registrationUrl:
-        "https://www.meetup.com/fr-FR/Meetup-Azure-Devops-Aix-en-Provence/events/259728426/",
+      url: "https://www.meetup.com/fr-FR/Meetup-Azure-Devops-Aix-en-Provence/events/259728426/",
     },
     {
       year: 2019,

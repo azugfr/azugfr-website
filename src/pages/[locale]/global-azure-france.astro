@@ -3,12 +3,34 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { globalAzureData } from "@/data/globalAzure";
 import { site } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import { getAllEvents } from "@/lib/content/contentHelpers";
+import { getEventSpeakerSlugs } from "@/lib/content/speakerDerive";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { formatEventDate, getBuildNow } from "@/lib/dates";
 
 export function getStaticPaths() {
   return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
 }
 
 const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const events = await getAllEvents(locale);
+const buildYear = getBuildNow().getFullYear();
+
+const editions = globalAzureData.editions.map((edition) => {
+  const event = edition.eventSlug ? events.find((e) => e.slug === edition.eventSlug) : undefined;
+  const status = event ? deriveEventStatus(event) : edition.year < buildYear ? "past" : "upcoming";
+  const date = event ? formatEventDate(event.startDate, locale, "date", event.timezone) : edition.date?.[locale];
+  const description = event ? event.summary : edition.description?.[locale];
+  const sessions = event?.talks?.length ?? 0;
+  const speakers = event ? getEventSpeakerSlugs(event).length : 0;
+  const stats = [
+    sessions > 0 ? dict.ga.sessions(sessions) : null,
+    speakers > 0 ? dict.ga.speakers(speakers) : null,
+  ].filter(Boolean).join(" · ");
+  return { edition, event, status, date, description, stats };
+});
 
 const pageTitle = "Global Azure France | AZUG FR";
 const pageDescription = globalAzureData.hero[locale];
@@ -16,8 +38,6 @@ const pageDescription = globalAzureData.hero[locale];
 const labels = {
   about:       locale === "fr" ? "Qu'est-ce que le Global Azure ?" : "What is Global Azure?",
   editions:    locale === "fr" ? "Nos éditions" : "Our editions",
-  register:    locale === "fr" ? "S'inscrire" : "Register",
-  recap:       locale === "fr" ? "Récapitulatif" : "Recap",
   stayInformed: locale === "fr" ? "Rester informé" : "Stay informed",
   ctaBody: locale === "fr"
     ? "Les annonces sur les prochaines éditions du Global Azure France sont partagées via nos canaux communautaires. Rejoignez-nous pour ne rien manquer."
@@ -58,40 +78,44 @@ const labels = {
     <div class="max-w-5xl mx-auto px-4">
       <h2 class="text-2xl font-semibold text-gray-800 mb-8">{labels.editions}</h2>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {globalAzureData.editions.map((edition) => (
-          <article class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col gap-3">
-            <div>
-              <h3 class="text-xl font-bold text-[#0078D4]">{edition.year}</h3>
-              <p class="text-sm font-semibold text-gray-800 mt-0.5">{edition.city}</p>
-              <p class="text-xs text-gray-500 mt-1">{edition.date[locale]}</p>
-            </div>
-            <p class="text-gray-700 text-sm leading-relaxed flex-1">
-              {edition.description[locale]}
-            </p>
-            <div class="flex flex-wrap gap-2 mt-auto">
-              {edition.registrationUrl && (
-                <a
-                  href={edition.registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-block bg-[#0078D4] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#005A9E] transition-colors"
-                >
-                  {labels.register}
-                </a>
+        {editions.map(({ edition, event, status, date, description, stats }) => {
+          const btnPrimary = "inline-block bg-[#0078D4] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#005A9E] transition-colors";
+          const btnSecondary = "inline-block border border-[#0078D4] text-[#005A9E] text-sm font-medium px-4 py-2 rounded-lg hover:bg-azure-50 transition-colors";
+          const registerUrl = event?.registrationUrl ?? edition.url;
+          return (
+            <article data-testid="ga-edition" data-year={String(edition.year)} class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col gap-3">
+              <div>
+                <h3 class="text-xl font-bold text-[#0078D4]">{edition.year}</h3>
+                <p class="text-sm font-semibold text-gray-800 mt-0.5">{edition.city}</p>
+                {date && <p class="text-xs text-gray-500 mt-1">{date}</p>}
+              </div>
+              {description && (
+                <p class="text-gray-700 text-sm leading-relaxed flex-1">{description}</p>
               )}
-              {edition.recap && (
-                <a
-                  href={edition.recap[locale]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-block border border-[#0078D4] text-[#0078D4] text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  {labels.recap}
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
+              {stats && <p class="text-xs text-gray-500">{stats}</p>}
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {status === "upcoming" && registerUrl ? (
+                  <a href={registerUrl} target="_blank" rel="noopener noreferrer" class={btnPrimary}>
+                    {dict.ga.register}
+                  </a>
+                ) : event ? (
+                  <a href={getLocalizedRoute(locale, "events", event.slug)} class={btnSecondary}>
+                    {dict.ga.viewAgenda}
+                  </a>
+                ) : edition.url ? (
+                  <a href={edition.url} target="_blank" rel="noopener noreferrer" class={btnSecondary}>
+                    {dict.ga.meetupPage}
+                  </a>
+                ) : null}
+                {edition.recap && (
+                  <a href={edition.recap[locale]} target="_blank" rel="noopener noreferrer" class={btnSecondary}>
+                    {dict.ga.recap}
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
