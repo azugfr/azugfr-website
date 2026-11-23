@@ -12,5 +12,14 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    {
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        // Local runs can point at an installed browser build via PW_CHROMIUM_PATH; unset in CI.
+        launchOptions: { executablePath: process.env.PW_CHROMIUM_PATH || undefined },
+      },
+    },
+  ],
 });
