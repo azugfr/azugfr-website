@@ -18,25 +18,26 @@ const linkGroups = [
     heading: "Azure UG France",
     links: [
       { label: locale === "fr" ? "À propos" : "About us",           href: getLocalizedRoute(locale, "about") },
-      { label: locale === "fr" ? "Code de conduite" : "Code of Conduct", href: getLocalizedRoute(locale, "about") },
-      { label: "Contact",                                             href: getLocalizedRoute(locale, "about") },
+      { label: t.footer.board,                                        href: `${getLocalizedRoute(locale, "about")}#board` },
+      { label: t.footer.contact,                                      href: `mailto:${site.contactEmail}` },
     ],
     ctas: [] as { label: string; href: string }[],
   },
   {
     heading: locale === "fr" ? "Événements" : "Events",
     links: [
-      { label: locale === "fr" ? "À venir" : "Upcoming",   href: getLocalizedRoute(locale, "events") },
-      { label: locale === "fr" ? "Passés" : "Past events", href: getLocalizedRoute(locale, "events") },
+      { label: locale === "fr" ? "À venir" : "Upcoming",   href: `${getLocalizedRoute(locale, "events")}#upcoming` },
+      { label: locale === "fr" ? "Passés" : "Past events", href: `${getLocalizedRoute(locale, "events")}#past` },
+      { label: "Global Azure France",                       href: getLocalizedRoute(locale, "global-azure-france") },
     ],
     ctas: [
       {
         label: locale === "fr" ? "Proposer un talk" : "Submit a talk",
-        href: "mailto:paris@azug.fr",
+        href: `mailto:${site.contactEmail}`,
       },
       {
         label: locale === "fr" ? "Héberger un événement" : "Host an event",
-        href: "mailto:paris@azug.fr",
+        href: `mailto:${site.contactEmail}`,
       },
     ],
   },
@@ -44,8 +45,8 @@ const linkGroups = [
     heading: locale === "fr" ? "Communauté" : "Community",
     links: [
       { label: locale === "fr" ? "Intervenants" : "Speakers", href: getLocalizedRoute(locale, "speakers") },
-      { label: "Sponsors",                                      href: getLocalizedRoute(locale, "about") },
-      { label: "Blog",                                          href: getLocalizedRoute(locale, "news") },
+      { label: t.footer.resources,                                href: getLocalizedRoute(locale, "resources") },
+      { label: t.footer.news,                                     href: getLocalizedRoute(locale, "news") },
     ],
     ctas: [] as { label: string; href: string }[],
   },

@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getUiDictionary, resolveLocaleContent } from "@/lib/i18n";
+import { getUiDictionary, getLocalizedRoute, resolveLocaleContent } from "@/lib/i18n";
+import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
+import { getAllEvents } from "@/lib/content/contentHelpers";
 import type { Locale } from "@/lib/i18n";
 import { site } from "@/data/site";
 
@@ -12,9 +14,32 @@ export async function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const dict = getUiDictionary(locale);
 const entries = await getCollection("resources");
-const resources = entries
-  .map((e) => resolveLocaleContent(e.data, locale))
-  .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+const events = await getAllEvents(locale);
+
+interface ResourceItem {
+  type: string;
+  url: string;
+  title: string;
+  summary?: string;
+  publishedAt?: string;
+  eventSlug?: string;
+  eventTitle?: string;
+}
+
+const fromCollection: ResourceItem[] = entries.map((e) => resolveLocaleContent(e.data, locale));
+const fromTalks: ResourceItem[] = events.flatMap((event) =>
+  (event.talks ?? []).flatMap((talk) => [
+    ...(talk.slidesUrl
+      ? [{ type: "slides", url: talk.slidesUrl, title: talk.title, publishedAt: event.startDate, eventSlug: event.slug, eventTitle: event.title }]
+      : []),
+    ...(talk.videoUrl
+      ? [{ type: "video", url: talk.videoUrl, title: talk.title, publishedAt: event.startDate, eventSlug: event.slug, eventTitle: event.title }]
+      : []),
+  ]),
+);
+const resources = [...fromCollection, ...fromTalks].sort((a, b) =>
+  (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+);
 
 const pageTitle =
   locale === "fr" ? "Ressources | AZUG FR" : "Resources | AZUG FR";
@@ -38,14 +63,6 @@ function typeIcon(type: string): string {
   }
 }
 
-function formatDate(iso: string, loc: Locale): string {
-  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
-    timeZone: "Europe/Paris",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 ---
 
 <BaseLayout
@@ -63,7 +80,16 @@ function formatDate(iso: string, loc: Locale): string {
 
     {
       resources.length === 0 ? (
-        <p class="text-gray-500">{dict.common.noResults}</p>
+        <div class="bg-gray-50 rounded-xl p-10 text-center">
+          <p class="text-gray-800 font-medium mb-2">{dict.resources.empty}</p>
+          <p class="text-gray-600 mb-6">{dict.resources.emptyCta}</p>
+          <a
+            href={`mailto:${site.contactEmail}`}
+            class="inline-block bg-azure-600 hover:bg-azure-700 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors"
+          >
+            {dict.home.proposeTalk}
+          </a>
+        </div>
       ) : (
         <ul class="grid gap-6 md:grid-cols-2">
           {resources.map((r) => (
@@ -84,10 +110,17 @@ function formatDate(iso: string, loc: Locale): string {
                   {r.summary && (
                     <p class="text-sm text-gray-600 mb-3">{r.summary}</p>
                   )}
-                  <div class="flex items-center gap-3 text-xs text-gray-400">
+                  {r.eventSlug && (
+                    <p class="text-sm mb-2">
+                      <a href={getLocalizedRoute(locale, "events", r.eventSlug)} class="text-azure-700 hover:underline">
+                        {r.eventTitle}
+                      </a>
+                    </p>
+                  )}
+                  <div class="flex items-center gap-3 text-xs text-gray-500">
                     {r.publishedAt && (
-                      <time datetime={r.publishedAt}>
-                        {formatDate(r.publishedAt, locale)}
+                      <time datetime={toIsoWithOffset(r.publishedAt)}>
+                        {formatEventDate(r.publishedAt, locale, "date")}
                       </time>
                     )}
                     <span class="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full capitalize">
