@@ -220,7 +220,7 @@ test.describe("locale switch and alternates", () => {
   });
 });
 
-test("speakers index lists a card per speaker file and no placeholder speaker and no placeholder speaker", async ({ page }) => {
+test("speakers index lists a card per speaker file and no placeholder speaker", async ({ page }) => {
   await page.goto("/fr/speakers/");
   const cards = page.locator("main ul.grid > li");
   const speakerFiles = readdirSync(join(process.cwd(), "src/content/speakers")).filter((f) => f.endsWith(".json"));

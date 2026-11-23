@@ -11,6 +11,7 @@ import {
   speakersSchema,
 } from "../../src/content/schemas";
 import { globalAzureData } from "../../src/data/globalAzure";
+import { toInstant } from "../../src/lib/dates";
 import { deriveEventStatus } from "../../src/lib/content/eventStatus";
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
@@ -231,17 +232,32 @@ describe("content integrity", () => {
     expect(cancelled).toEqual(["vs-code-dev-days-paris-2025-09-18"]);
   });
 
-  it("12. derived status on real content, at 2026-11-23 and 2026-04-01", () => {
-    const late = new Date("2026-11-23T12:00:00Z");
-    const early = new Date("2026-04-01T00:00:00Z");
-    const statusAt = (now: Date) => Object.fromEntries(events.map(({ data }) => [data.slug, deriveEventStatus(data, now)]));
+  it("12. derived status follows each event's own end, computed per event", () => {
+    // Independent of how many events exist or which are upcoming today: for a set of
+    // reference instants, an event that ended before `now` is never upcoming.
+    const endOf = (d: any) =>
+      toInstant(d.endDate ?? `${String(d.startDate).slice(0, 10)}T23:59:59`, d.timezone ?? "Europe/Paris");
+    const nows = [new Date("2026-04-01T00:00:00Z"), new Date("2026-11-23T12:00:00Z"), new Date()];
+    const failures: string[] = [];
+    for (const now of nows) {
+      for (const { data } of events) {
+        const status = deriveEventStatus(data, now);
+        if (data.status === "cancelled") {
+          if (status !== "cancelled") failures.push(`${data.slug}: cancelled event derived ${status}`);
+        } else if (endOf(data).getTime() < now.getTime()) {
+          if (status !== "past") failures.push(`${data.slug}: ended before ${now.toISOString()} but derived ${status}`);
+        } else if (status !== "upcoming") {
+          failures.push(`${data.slug}: ends after ${now.toISOString()} but derived ${status}`);
+        }
+      }
+    }
+    expect(failures, failures.join("\n")).toEqual([]);
 
-    const atLate = statusAt(late);
-    expect(Object.values(atLate)).not.toContain("upcoming");
-    expect(atLate["global-azure-france-2026"]).toBe("past");
-    expect(atLate["vs-code-dev-days-paris-2025-09-18"]).toBe("cancelled");
-
-    expect(statusAt(early)["global-azure-france-2026"]).toBe("upcoming");
+    const ga = events.find((e) => e.data.slug === "global-azure-france-2026")!.data;
+    expect(deriveEventStatus(ga, new Date("2026-11-23T12:00:00Z"))).toBe("past");
+    expect(deriveEventStatus(ga, new Date("2026-04-01T00:00:00Z"))).toBe("upcoming");
+    const cancelled = events.find((e) => e.data.slug === "vs-code-dev-days-paris-2025-09-18")!.data;
+    expect(deriveEventStatus(cancelled, new Date("2026-11-23T12:00:00Z"))).toBe("cancelled");
   });
 
   it("13. Global Azure editions cover 2023-2026 and every eventSlug resolves to an event file", () => {
@@ -256,9 +272,27 @@ describe("content integrity", () => {
   });
 
   it("14. research events exist and the talk lineups match the research", () => {
+    const research = JSON.parse(readFileSync(join(ROOT, "docs/research/meetup-talks.json"), "utf8")) as {
+      events: { meetupId: string; talks: { title: string }[] }[];
+    };
     const byExternal = new Map(events.map((e) => [e.data.source.externalId, e.data]));
-    for (const id of ["315082158", "313762069", "315504913", "316312251", "316280862"]) {
-      expect(byExternal.has(id), `externalId ${id}`).toBe(true);
+    const ids = ["315082158", "313762069", "315504913", "316312251", "316280862"];
+    for (const id of ids) expect(byExternal.has(id), `externalId ${id}`).toBe(true);
+
+    // Documented normalisations: brand casing and accents fixed in content.
+    const normalise = (t: string) =>
+      t.replace(/\bGithub\b/g, "GitHub").replace(/\bdeboguent\b/g, "déboguent").replace(/’/g, "'").trim();
+    // The GA 2026 welcome/intro slot is an organiser intro, intentionally not listed as a talk.
+    const INTENTIONALLY_DROPPED = new Set(["Bienvenue et Introduction"]);
+
+    for (const id of [...ids, "313716280"]) {
+      const content = byExternal.get(id);
+      const source = research.events.find((e) => e.meetupId === id);
+      expect(content, `content for ${id}`).toBeDefined();
+      expect(source, `research for ${id}`).toBeDefined();
+      const expected = source!.talks.map((t) => t.title).filter((t) => !INTENTIONALLY_DROPPED.has(t)).map(normalise);
+      const actual = (content!.talks ?? []).map((t: any) => normalise(t.title));
+      expect(actual, `talk titles of ${content!.slug}`).toEqual(expected);
     }
 
     const ga = events.find((e) => e.data.slug === "global-azure-france-2026")!.data;
@@ -271,5 +305,13 @@ describe("content integrity", () => {
       "achraf-ben-alaya",
       "ihor-leontiev",
     ]);
+  });
+
+  it("15. organizers with expertise also have English expertise", () => {
+    const failures = about
+      .filter(({ data }) => data.type === "organizer" && data.expertise?.length)
+      .filter(({ data }) => !data.translations?.en?.expertise?.length)
+      .map(({ file }) => file);
+    expect(failures, `missing translations.en.expertise: ${failures.join(", ")}`).toEqual([]);
   });
 });
