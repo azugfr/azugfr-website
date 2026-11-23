@@ -9,6 +9,7 @@ import {
 } from "./schemas";
 
 export type {
+  TalkEntry,
   EventEntry,
   NewsEntry,
   SpeakerEntry,

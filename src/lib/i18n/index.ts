@@ -49,3 +49,13 @@ export function resolveLocaleContent<
   if (!translation) return entry;
   return { ...entry, ...translation };
 }
+
+/**
+ * Swaps the leading /fr or /en segment of a path for another locale.
+ * "/fr/events/x" -> "/en/events/x"; "/fr" -> "/en"; anything else -> "/<to>".
+ */
+export function swapLocaleInPath(path: string, to: Locale): string {
+  const m = path.match(/^\/(fr|en)(\/.*)?$/);
+  if (!m) return `/${to}`;
+  return `/${to}${m[2] ?? ""}`;
+}

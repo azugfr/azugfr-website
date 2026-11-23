@@ -5,6 +5,34 @@ import { z } from "astro/zod";
 // ---------------------------------------------------------------------------
 const localeEnum = z.enum(["fr", "en"]);
 
+export const slugRe = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const slugArray = z.array(z.string().regex(slugRe));
+const hhmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
+
+// ---------------------------------------------------------------------------
+// talks (embedded in events)
+// ---------------------------------------------------------------------------
+const talkTranslation = z.object({
+  title: z.string().optional(),
+  abstract: z.string().optional(),
+});
+
+export const talkSchema = z.object({
+  title: z.string().min(1),
+  abstract: z.string().optional(),
+  /** local start time, optional (used by the agenda timeline) */
+  time: hhmm.optional(),
+  /** may be [] when the source names no speaker */
+  speakerSlugs: slugArray,
+  slidesUrl: z.string().url().optional(),
+  videoUrl: z.string().url().optional(),
+  translations: z
+    .object({ fr: talkTranslation.optional(), en: talkTranslation.optional() })
+    .optional(),
+});
+
+export type TalkEntry = z.infer<typeof talkSchema>;
+
 // ---------------------------------------------------------------------------
 // events
 // ---------------------------------------------------------------------------
@@ -27,7 +55,10 @@ export const eventsSchema = z.object({
   registrationUrl: z.string().optional(),
   meetupUrl: z.string().optional(),
   heroImage: z.string().optional(),
-  speakerSlugs: z.array(z.string()).optional(),
+  speakerSlugs: slugArray.optional(),
+  talks: z.array(talkSchema).optional(),
+  /** partner/host company as named in the source (e.g. "Onepoint") */
+  host: z.string().optional(),
   tags: z.array(z.string()).optional(),
   source: z.object({
     provider: z.literal("meetup"),
@@ -111,7 +142,7 @@ export type NewsEntry = z.infer<typeof newsSchema>;
 // ---------------------------------------------------------------------------
 export const speakersSchema = z.object({
   // locale-neutral
-  slug: z.string(),
+  slug: z.string().regex(slugRe),
   name: z.string(),
   photo: z.string().optional(),
   company: z.string().optional(),
@@ -123,6 +154,7 @@ export const speakersSchema = z.object({
       linkedin: z.string().optional(),
       github: z.string().optional(),
       x: z.string().optional(),
+      sessionize: z.string().url().optional(),
     })
     .optional(),
   derivedFrom: z
@@ -261,29 +293,33 @@ export const aboutSectionSchema = z.object({
 
 export const aboutOrganizerSchema = z.object({
   type: z.literal("organizer"),
-  slug: z.string(),
+  slug: z.string().regex(slugRe),
   order: z.number().optional(),
   locale: localeEnum,
   name: z.string(),
   role: z.string(),
-  photo: z.string().optional(),
   company: z.string().optional(),
-  mvp: z.string().optional(),
-  linkedin: z.string().optional(),
-  github: z.string().optional(),
-  twitter: z.string().optional(),
+  photo: z
+    .string()
+    .refine((v) => v.startsWith("https://"), "organizer photo must be a remote https URL")
+    .optional(),
+  awards: z.array(z.string()).optional(),
+  expertise: z.array(z.string()).optional(),
+  bio: z.string().optional(),
+  links: z
+    .object({
+      linkedin: z.string().url().optional(),
+      github: z.string().url().optional(),
+      x: z.string().url().optional(),
+      website: z.string().url().optional(),
+      sessionize: z.string().url().optional(),
+      mvp: z.string().url().optional(),
+    })
+    .optional(),
   translations: z
     .object({
-      fr: z
-        .object({
-          role: z.string().optional(),
-        })
-        .optional(),
-      en: z
-        .object({
-          role: z.string().optional(),
-        })
-        .optional(),
+      fr: z.object({ role: z.string().optional(), bio: z.string().optional() }).optional(),
+      en: z.object({ role: z.string().optional(), bio: z.string().optional() }).optional(),
     })
     .optional(),
 });

@@ -4,6 +4,8 @@ export const site = {
     fr: "La communauté Azure en France — Azure User Group France",
     en: "The Azure community in France — Azure User Group France",
   },
+  /** Contact address used for every mailto link */
+  contactEmail: "paris@azug.fr",
   /** Canonical base URL (org GitHub Pages — no subdirectory) */
   url: "https://azugfr.github.io",
   social: {

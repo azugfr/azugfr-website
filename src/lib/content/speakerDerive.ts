@@ -1,9 +1,24 @@
 import type { EventEntry, SpeakerEntry } from "../../content/config";
 import { slugify } from "./slugify";
 
-// Locale import kept for future use by derive-speakers script (T15)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Locale } from "../i18n";
+/**
+ * Unique union of an event's own speakerSlugs and its talks' speakerSlugs,
+ * keeping first-seen order.
+ */
+export function getEventSpeakerSlugs(
+  e: Pick<EventEntry, "speakerSlugs" | "talks">
+): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  const all = [...(e.speakerSlugs ?? []), ...(e.talks?.flatMap((t) => t.speakerSlugs ?? []) ?? [])];
+  for (const slug of all) {
+    if (!seen.has(slug)) {
+      seen.add(slug);
+      out.push(slug);
+    }
+  }
+  return out;
+}
 
 /**
  * Extracts speaker stubs from a list of events.
@@ -16,8 +31,7 @@ export function extractSpeakerStubs(
   const map = new Map<string, Partial<SpeakerEntry>>();
 
   for (const event of events) {
-    if (!event.speakerSlugs) continue;
-    for (const rawSlug of event.speakerSlugs) {
+    for (const rawSlug of getEventSpeakerSlugs(event)) {
       const slug = slugify(rawSlug);
       const existing = map.get(slug);
       const externalId = event.source.externalId;
