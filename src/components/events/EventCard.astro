@@ -3,6 +3,7 @@ import type { EventEntry } from "@/content/config";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedRoute, getUiDictionary } from "@/lib/i18n";
 import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
 
 interface Props {
   event: EventEntry;
@@ -13,10 +14,7 @@ const { event, locale } = Astro.props;
 const dict = getUiDictionary(locale);
 const status = deriveEventStatus(event);
 
-const formattedDate = new Date(event.startDate).toLocaleDateString(
-  locale === "fr" ? "fr-FR" : "en-GB",
-  { year: "numeric", month: "long", day: "numeric" }
-);
+const formattedDate = formatEventDate(event.startDate, locale, "date", event.timezone);
 
 const venueModeLabels: Record<string, Record<Locale, string>> = {
   in_person: { fr: "En présentiel", en: "In person" },
@@ -57,7 +55,7 @@ const summary = event.summary.length > 150 ? event.summary.slice(0, 150) + "…"
   </h3>
 
   <div class="flex items-center gap-3 text-sm text-gray-500 flex-wrap">
-    <time datetime={event.startDate}>{formattedDate}</time>
+    <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>{formattedDate}</time>
     {event.venue?.city && <span>📍 {event.venue.city}</span>}
   </div>
 

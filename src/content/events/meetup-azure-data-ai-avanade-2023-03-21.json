@@ -7,7 +7,6 @@
   "startDate": "2023-03-21T18:30:00",
   "endDate": "2023-03-21T21:30:00",
   "timezone": "Europe/Paris",
-  "status": "past",
   "venue": {
     "name": "Avanade Paris",
     "city": "Issy-les-Moulineaux",

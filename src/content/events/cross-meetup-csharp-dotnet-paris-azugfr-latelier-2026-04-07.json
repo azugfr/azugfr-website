@@ -7,7 +7,6 @@
   "startDate": "2026-04-07T19:00:00",
   "endDate": "2026-04-07T22:00:00",
   "timezone": "Europe/Paris",
-  "status": "past",
   "venue": {
     "name": "L'Atelier",
     "city": "Paris",

@@ -3,19 +3,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { site } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
 import { getFeaturedEvent, getLatestNews, getFeaturedSponsors } from "@/lib/content/contentHelpers";
 
 export async function getStaticPaths() {
   return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
-}
-
-function formatDate(iso: string, locale: Locale): string {
-  return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 }
 
 const { locale } = Astro.params as { locale: Locale };
@@ -69,7 +61,7 @@ const featuredSponsors = await getFeaturedSponsors(locale);
             </h3>
             <p class="text-gray-600 mb-4">{featuredEvent.summary}</p>
             <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-              <time datetime={featuredEvent.startDate}>{formatDate(featuredEvent.startDate, locale)}</time>
+              <time datetime={toIsoWithOffset(featuredEvent.startDate, featuredEvent.timezone)}>{formatEventDate(featuredEvent.startDate, locale, "dateLong", featuredEvent.timezone)}</time>
               {featuredEvent.venue?.city && <span>📍 {featuredEvent.venue.city}</span>}
             </div>
             {featuredEvent.registrationUrl && (
@@ -111,7 +103,7 @@ const featuredSponsors = await getFeaturedSponsors(locale);
           {latestNews.map(item => (
             <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <time class="text-xs text-gray-400 mb-2 block" datetime={item.publishedAt}>
-                {formatDate(item.publishedAt, locale)}
+                {formatEventDate(item.publishedAt, locale, "dateLong")}
               </time>
               <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
                 <a href={getLocalizedRoute(locale, "news", item.slug)} class="hover:text-azure-600">

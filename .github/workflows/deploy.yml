@@ -4,6 +4,10 @@ on:
   push:
     branches: ["nextgen", "main"]
   workflow_dispatch:
+  # Daily rebuild so derived event status (upcoming/past) never goes stale.
+  # Note: GitHub runs schedules only from the default branch.
+  schedule:
+    - cron: "17 3 * * *"
 
 # Allow deployment to GitHub Pages
 permissions:
@@ -35,6 +39,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Unit tests
+        run: npm run test:unit
 
       - name: Build Astro site
         run: npm run build

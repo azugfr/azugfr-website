@@ -20,6 +20,7 @@ const pageDescription =
 
 function formatDate(iso: string, loc: Locale): string {
   return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    timeZone: "Europe/Paris",
     year: "numeric",
     month: "long",
     day: "numeric",

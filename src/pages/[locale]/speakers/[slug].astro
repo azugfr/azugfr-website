@@ -6,6 +6,7 @@ import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { deriveEventStatus } from "@/lib/content/eventStatus";
 import { site } from "@/data/site";
+import { formatEventDate } from "@/lib/dates";
 
 export async function getStaticPaths() {
   const locales: Locale[] = ["fr", "en"];
@@ -100,7 +101,7 @@ const canonicalUrl = `${site.url}/${locale}/speakers/${slug}`;
                 <a href={getLocalizedRoute(locale, "events", event.slug)} class="font-semibold text-gray-900 hover:text-azure-600">
                   {event.title}
                 </a>
-                <p class="text-sm text-gray-500 mt-1">{new Date(event.startDate).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+                <p class="text-sm text-gray-500 mt-1">{formatEventDate(event.startDate, locale, "date", event.timezone)}</p>
               </div>
               <span class={`text-xs px-2 py-1 rounded-full ${deriveEventStatus(event) === "upcoming" ? "bg-azure-100 text-azure-700" : "bg-gray-100 text-gray-600"}`}>
                 {deriveEventStatus(event) === "upcoming" ? dict.common.upcoming : dict.common.past}

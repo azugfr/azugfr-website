@@ -1,0 +1,73 @@
+/**
+ * Date helpers. Event content stores local wall-clock times without offset
+ * plus an IANA timezone; these helpers turn them into instants / strings that
+ * do not depend on the machine's time zone.
+ */
+
+export type DateVariant = "date" | "dateLong" | "dateTime" | "time";
+
+export function hasOffset(s: string): boolean {
+  return /(Z|[+-]\d{2}:?\d{2})$/i.test(s);
+}
+
+function normaliseLocal(local: string): string {
+  // "2026-04-18T09:00" -> "2026-04-18T09:00:00"; date-only -> midnight
+  if (/^\d{4}-\d{2}-\d{2}$/.test(local)) return `${local}T00:00:00`;
+  if (/T\d{2}:\d{2}$/.test(local)) return `${local}:00`;
+  return local;
+}
+
+/** Offset string ("+02:00") of `timeZone` at the instant `at`. */
+function offsetAt(at: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "longOffset" }).formatToParts(at);
+  const raw = parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT";
+  if (raw === "GMT") return "+00:00";
+  const m = raw.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+  if (!m) return "+00:00";
+  return `${m[1]}${m[2].padStart(2, "0")}:${m[3] ?? "00"}`;
+}
+
+export function toIsoWithOffset(local: string, timeZone = "Europe/Paris"): string {
+  if (hasOffset(local)) return local;
+  const base = normaliseLocal(local);
+  const guess = new Date(`${base}Z`);
+  return `${base}${offsetAt(guess, timeZone)}`;
+}
+
+export function toInstant(value: string, timeZone = "Europe/Paris"): Date {
+  return new Date(toIsoWithOffset(value, timeZone));
+}
+
+const VARIANT_OPTIONS: Record<DateVariant, Intl.DateTimeFormatOptions> = {
+  date: { year: "numeric", month: "long", day: "numeric" },
+  dateLong: { weekday: "long", year: "numeric", month: "long", day: "numeric" },
+  dateTime: {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  },
+  time: { hour: "2-digit", minute: "2-digit" },
+};
+
+export function formatEventDate(
+  value: string,
+  locale: "fr" | "en",
+  variant: DateVariant = "date",
+  timeZone = "Europe/Paris",
+): string {
+  return toInstant(value, timeZone).toLocaleString(locale === "fr" ? "fr-FR" : "en-GB", {
+    ...VARIANT_OPTIONS[variant],
+    hourCycle: "h23",
+    timeZone,
+  });
+}
+
+/** Build-time "now"; AZUG_NOW overrides it for deterministic builds and tests. */
+export function getBuildNow(): Date {
+  const override = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
+    ?.AZUG_NOW;
+  return override ? new Date(override) : new Date();
+}

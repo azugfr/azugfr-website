@@ -7,7 +7,6 @@
   "startDate": "2025-05-06T18:45:00",
   "endDate": "2025-05-06T21:30:00",
   "timezone": "Europe/Paris",
-  "status": "past",
   "venue": {
     "name": "École Supérieure de Génie Informatique (ESGI)",
     "city": "Paris",

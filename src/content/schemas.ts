@@ -14,7 +14,8 @@ export const eventsSchema = z.object({
   startDate: z.string(),
   endDate: z.string().optional(),
   timezone: z.string(),
-  status: z.enum(["upcoming", "past", "cancelled"]),
+  // only "cancelled" is meaningful; upcoming/past are derived from dates
+  status: z.enum(["upcoming", "past", "cancelled"]).optional(),
   venue: z
     .object({
       name: z.string().optional(),

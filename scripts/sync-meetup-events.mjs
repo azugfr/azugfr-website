@@ -44,10 +44,9 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
-function deriveStatus(meetupStatus, dateTime) {
-  if (meetupStatus === "cancelled") return "cancelled";
-  if (new Date(dateTime) > new Date()) return "upcoming";
-  return "past";
+// Only "cancelled" is stored; upcoming/past are derived from dates at build time.
+function cancelledStatus(meetupStatus) {
+  return meetupStatus === "cancelled" ? { status: "cancelled" } : {};
 }
 
 function normalizeEvent(node) {
@@ -69,7 +68,7 @@ function normalizeEvent(node) {
     startDate: node.dateTime,
     ...(node.endTime != null ? { endDate: node.endTime } : {}),
     timezone: "Europe/Paris",
-    status: deriveStatus(node.status, node.dateTime),
+    ...cancelledStatus(node.status),
     ...(node.venue
       ? {
           venue: {
