@@ -1,6 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getAllSpeakers } from "@/lib/content/contentHelpers";
+import Avatar from "@/components/ui/Avatar.astro";
+import {
+  getAllSpeakers,
+  getSpeakerProfile,
+  getTalksForSpeaker,
+  getRelatedEventsForSpeaker,
+} from "@/lib/content/contentHelpers";
 import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { site } from "@/data/site";
@@ -11,8 +17,18 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const dict = getUiDictionary(locale);
-const speakers = await getAllSpeakers(locale);
-speakers.sort((a, b) => a.name.localeCompare(b.name));
+const base = await getAllSpeakers(locale);
+const profiles = (await Promise.all(base.map((s) => getSpeakerProfile(s.slug, locale)))).filter(
+  (p): p is NonNullable<typeof p> => Boolean(p),
+);
+const speakers = await Promise.all(
+  profiles.map(async (p) => {
+    const talks = await getTalksForSpeaker(p.slug, locale);
+    const count = talks.length > 0 ? talks.length : (await getRelatedEventsForSpeaker(p.slug, locale)).length;
+    return { ...p, count };
+  }),
+);
+speakers.sort((a, b) => a.name.localeCompare(b.name, locale));
 
 const title = locale === "fr" ? "Intervenants | AZUG FR" : "Speakers | AZUG FR";
 const description =
@@ -33,32 +49,35 @@ const canonicalUrl = `${site.url}/${locale}/speakers`;
       <p class="text-gray-500">{dict.common.noResults}</p>
     ) : (
       <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {speakers.map(s => (
-          <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
-            <div class="flex items-center gap-4 mb-4">
-              {s.photo
-                ? <img src={s.photo} alt={s.name} class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
-                : <div class="w-16 h-16 rounded-full bg-azure-100 flex items-center justify-center flex-shrink-0">
-                    <span class="text-2xl font-bold text-azure-700">{s.name.charAt(0)}</span>
-                  </div>
-              }
-              <div>
-                <h2 class="font-semibold text-gray-900">
-                  <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="hover:text-azure-600">{s.name}</a>
-                </h2>
-                {s.headline && <p class="text-sm text-gray-500 mt-1">{s.headline}</p>}
+        {speakers.map((s) => {
+          const subtitle = s.headline ?? [s.role, s.company].filter(Boolean).join(" · ");
+          return (
+            <li class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col gap-3">
+              <div class="flex items-center gap-4">
+                <Avatar name={s.name} src={s.photo} size="lg" />
+                <div class="min-w-0">
+                  <h2 class="font-semibold text-gray-900">
+                    <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="hover:text-azure-700 hover:underline">{s.name}</a>
+                  </h2>
+                  {subtitle && <p class="text-sm text-gray-600 mt-1">{subtitle}</p>}
+                </div>
               </div>
-            </div>
-            {s.company && <p class="text-sm text-gray-600 mb-2">🏢 {s.company}</p>}
-            {s.expertise && s.expertise.length > 0 && (
-              <div class="flex flex-wrap gap-1 mt-auto pt-3">
-                {s.expertise.slice(0, 3).map(tag => (
-                  <span class="text-xs bg-azure-50 text-azure-700 px-2 py-1 rounded-full">{tag}</span>
-                ))}
-              </div>
-            )}
-          </li>
-        ))}
+              {s.isOrganizer && (
+                <span class="self-start text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200 px-2 py-0.5 rounded-full">
+                  {dict.speakers.organizerBadge}
+                </span>
+              )}
+              {s.expertise && s.expertise.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {s.expertise.slice(0, 3).map((tag) => (
+                    <span class="text-xs bg-azure-50 text-azure-700 px-2 py-1 rounded-full">{tag}</span>
+                  ))}
+                </div>
+              )}
+              <p class="text-xs text-gray-500 mt-auto">{dict.speakers.talksCount(s.count)}</p>
+            </li>
+          );
+        })}
       </ul>
     )}
   </section>
