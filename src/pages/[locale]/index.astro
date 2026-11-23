@@ -1,10 +1,20 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import StatusBadge from "@/components/ui/StatusBadge.astro";
 import { site } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
 import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
-import { getFeaturedEvent, getLatestNews, getFeaturedSponsors } from "@/lib/content/contentHelpers";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import {
+  getFeaturedEvent,
+  getLatestPastEvent,
+  getLatestNews,
+  getLatestTalks,
+  getFeaturedSponsors,
+  getAllSpeakers,
+} from "@/lib/content/contentHelpers";
 
 export async function getStaticPaths() {
   return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
@@ -13,19 +23,31 @@ export async function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const dict = getUiDictionary(locale);
 const featuredEvent = await getFeaturedEvent(locale);
+const latestPastEvent = featuredEvent ? null : await getLatestPastEvent(locale);
+const latestTalks = await getLatestTalks(locale, 6);
 const latestNews = await getLatestNews(locale, 3);
-const featuredSponsors = await getFeaturedSponsors(locale);
----
+const partnersWithLogo = (await getFeaturedSponsors(locale)).filter((s) => Boolean(s.logo));
+const speakerBySlug = new Map((await getAllSpeakers(locale)).map((sp) => [sp.slug, sp]));
 
-<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}`}>
+const featuredStatus = featuredEvent ? deriveEventStatus(featuredEvent) : null;
+const featuredTalks = (featuredEvent?.talks ?? []).slice(0, 3);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AZUG FR — Azure User Group France",
+  url: site.url,
+  logo: `${site.url}/azugfr-logo.png`,
+  sameAs: Object.values(site.social),
+};
+---
+<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}`} {jsonLd}>
 
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-azure-700 to-azure-900 text-white py-20 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-5xl font-bold mb-6">AZUG FR</h1>
-      <p class="text-xl text-azure-100 mb-4">
-        {locale === "fr" ? "Azure User Group France" : "Azure User Group France"}
-      </p>
+      <p class="text-xl text-azure-100 mb-4">Azure User Group France</p>
       <p class="text-lg text-azure-200 mb-10 max-w-2xl mx-auto">
         {site.description[locale]}
       </p>
@@ -42,53 +64,127 @@ const featuredSponsors = await getFeaturedSponsors(locale);
     </div>
   </section>
 
-  <!-- Featured Event Section -->
-  <section class="py-16 px-4">
+  <!-- Next event -->
+  <section data-testid="next-event" class="py-16 px-4">
     <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8">
-        {locale === "fr" ? "Prochain événement" : "Next event"}
-      </h2>
-      {featuredEvent ? (
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">{dict.home.nextEvent}</h2>
+      {featuredEvent && featuredStatus ? (
         <div class="bg-white border-l-4 border-azure-600 rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6">
           <div class="flex-1">
-            <span class="text-xs font-semibold uppercase tracking-wide text-azure-600 mb-2 block">
-              {dict.common.upcoming}
-            </span>
+            <div class="mb-3"><StatusBadge status={featuredStatus} {locale} /></div>
             <h3 class="text-2xl font-bold text-gray-900 mb-3">
               <a href={getLocalizedRoute(locale, "events", featuredEvent.slug)} class="hover:text-azure-600">
                 {featuredEvent.title}
               </a>
             </h3>
             <p class="text-gray-600 mb-4">{featuredEvent.summary}</p>
-            <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-              <time datetime={toIsoWithOffset(featuredEvent.startDate, featuredEvent.timezone)}>{formatEventDate(featuredEvent.startDate, locale, "dateLong", featuredEvent.timezone)}</time>
-              {featuredEvent.venue?.city && <span>📍 {featuredEvent.venue.city}</span>}
+            <div class="flex items-center gap-4 text-sm text-gray-600 mb-6 flex-wrap">
+              <time datetime={toIsoWithOffset(featuredEvent.startDate, featuredEvent.timezone)}>
+                {formatEventDate(featuredEvent.startDate, locale, "dateLong", featuredEvent.timezone)}
+              </time>
+              {featuredEvent.venue?.city && <span>{featuredEvent.venue.city}</span>}
             </div>
-            {featuredEvent.registrationUrl && (
+            {featuredTalks.length > 0 && (
+              <ul class="mb-6 space-y-2 text-sm text-gray-700">
+                {featuredTalks.map((t) => (
+                  <li>
+                    <span class="font-medium">{t.title}</span>
+                    {t.speakerSlugs.length > 0 && (
+                      <span class="text-gray-500">
+                        {" — "}
+                        {t.speakerSlugs.map((slug) => speakerBySlug.get(slug)?.name).filter(Boolean).join(", ")}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {featuredStatus === "upcoming" && featuredEvent.registrationUrl && (
               <a href={featuredEvent.registrationUrl} target="_blank" rel="noopener noreferrer"
                  class="bg-azure-600 text-white px-6 py-3 rounded-lg hover:bg-azure-700 transition-colors font-semibold inline-block">
-                {dict.hero.register}
+                {dict.ga.register}
               </a>
             )}
           </div>
         </div>
       ) : (
-        <div class="bg-gray-50 rounded-lg p-12 text-center">
-          <p class="text-gray-500 text-lg">
-            {locale === "fr"
-              ? "Aucun événement programmé pour l'instant. Revenez bientôt !"
-              : "No events scheduled at the moment. Check back soon!"}
-          </p>
-          <a href={getLocalizedRoute(locale, "events")} class="mt-4 inline-block text-azure-600 hover:underline">
-            {locale === "fr" ? "Voir tous les événements passés" : "View all past events"} →
-          </a>
+        <div class="bg-gradient-to-br from-azure-50 to-white border border-azure-100 rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-8">
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">{dict.home.comingSoonTitle}</h3>
+            <p class="text-gray-700 mb-6">{dict.home.comingSoonBody}</p>
+            <div class="flex gap-4 flex-wrap">
+              <a href={site.social.meetup} target="_blank" rel="noopener noreferrer"
+                 class="bg-azure-600 text-white px-6 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-semibold">
+                {dict.home.followMeetup}
+              </a>
+              <a href={`mailto:${site.contactEmail}`}
+                 class="border border-azure-600 text-azure-700 px-6 py-2.5 rounded-lg hover:bg-azure-50 transition-colors font-semibold">
+                {dict.home.proposeTalk}
+              </a>
+            </div>
+          </div>
+          {latestPastEvent && (
+            <div class="md:w-80 bg-white border border-gray-200 rounded-xl p-5 self-start">
+              <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">{dict.home.lastEvent}</p>
+              <h4 class="font-semibold text-gray-900 mb-2">
+                <a href={getLocalizedRoute(locale, "events", latestPastEvent.slug)} class="hover:text-azure-700 hover:underline">
+                  {latestPastEvent.title}
+                </a>
+              </h4>
+              <p class="text-sm text-gray-600">
+                <time datetime={toIsoWithOffset(latestPastEvent.startDate, latestPastEvent.timezone)}>
+                  {formatEventDate(latestPastEvent.startDate, locale, "date", latestPastEvent.timezone)}
+                </time>
+                {latestPastEvent.talks?.length ? ` · ${dict.events.talksCount(latestPastEvent.talks.length)}` : ""}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
   </section>
 
+  <!-- Latest talks -->
+  {latestTalks.length > 0 && (
+    <section class="bg-gray-50 py-16 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center justify-between mb-8 gap-4 flex-wrap">
+          <h2 class="text-3xl font-bold text-gray-900">{dict.home.latestTalks}</h2>
+          <a href={`${getLocalizedRoute(locale, "events")}#past`} class="text-azure-700 hover:underline text-sm">
+            {dict.home.allEvents} →
+          </a>
+        </div>
+        <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {latestTalks.map(({ talk, event, speakers }) => (
+            <li class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col gap-3">
+              <time class="text-xs text-gray-500" datetime={toIsoWithOffset(event.startDate, event.timezone)}>
+                {formatEventDate(event.startDate, locale, "date", event.timezone)}
+              </time>
+              <h3 class="font-semibold text-gray-900 line-clamp-3">{talk.title}</h3>
+              {speakers.length > 0 && (
+                <ul class="flex flex-wrap gap-3">
+                  {speakers.map((sp) => (
+                    <li class="flex items-center gap-2">
+                      <Avatar name={sp.name} src={sp.photo} size="sm" />
+                      <a href={getLocalizedRoute(locale, "speakers", sp.slug)} class="text-sm text-gray-800 hover:text-azure-700 hover:underline">
+                        {sp.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <a href={getLocalizedRoute(locale, "events", event.slug)} class="text-sm text-azure-700 hover:underline mt-auto">
+                {event.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
   <!-- Latest News Section -->
-  <section class="bg-gray-50 py-16 px-4">
+  <section class="py-16 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-3xl font-bold text-gray-900">
@@ -102,7 +198,7 @@ const featuredSponsors = await getFeaturedSponsors(locale);
         <ul class="grid gap-6 md:grid-cols-3">
           {latestNews.map(item => (
             <li class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
-              <time class="text-xs text-gray-400 mb-2 block" datetime={item.publishedAt}>
+              <time class="text-xs text-gray-500 mb-2 block" datetime={item.publishedAt}>
                 {formatEventDate(item.publishedAt, locale, "dateLong")}
               </time>
               <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
@@ -120,26 +216,22 @@ const featuredSponsors = await getFeaturedSponsors(locale);
     </div>
   </section>
 
-  <!-- Sponsors Section -->
-  <section class="py-16 px-4">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-        {locale === "fr" ? "Nos partenaires" : "Our partners"}
-      </h2>
-      {featuredSponsors.length > 0 && (
+  <!-- Partners (only when at least one featured sponsor has a logo) -->
+  {partnersWithLogo.length > 0 && (
+    <section class="py-16 px-4">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+          {locale === "fr" ? "Nos partenaires" : "Our partners"}
+        </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-          {featuredSponsors.map(s => (
-            <a href={s.website} target="_blank" rel="noopener noreferrer"
-               class="grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
-              {s.logo
-                ? <img src={s.logo} alt={s.alt ?? s.name} class="h-12 object-contain" />
-                : <span class="font-semibold text-gray-700">{s.name}</span>
-              }
+          {partnersWithLogo.map((sp) => (
+            <a href={sp.website} target="_blank" rel="noopener noreferrer">
+              <img src={sp.logo} alt={sp.alt ?? sp.name} class="h-12 object-contain" />
             </a>
           ))}
         </div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
 </BaseLayout>
