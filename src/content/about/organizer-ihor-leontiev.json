@@ -4,9 +4,27 @@
   "order": 5,
   "locale": "fr",
   "name": "Ihor Leontiev",
-  "role": "CTO",
+  "role": "Cofondateur et CTO",
   "company": "Dvigunity",
-  "mvp": "Microsoft Regional Director | Azure & IoT MVP",
-  "photo": "/organizers/ihor-leontiev.jpg",
-  "linkedin": "https://www.linkedin.com/in/leontievihor/"
+  "awards": [
+    "Microsoft Regional Director",
+    "Microsoft MVP Azure & IoT"
+  ],
+  "expertise": [
+    "Azure IoT",
+    "IoT Edge",
+    "hybrid, edge and cloud-native",
+    "AI",
+    "Azure"
+  ],
+  "bio": "Ihor Leontiev est cofondateur et CTO de Dvigunity, Microsoft Regional Director et Microsoft MVP (Azure, IoT) depuis 2016. Spécialiste d'Azure IoT et de l'edge, il travaille sur l'articulation entre cloud natif, IA, edge et hybride. Il intervient régulièrement dans la communauté, dernièrement sur l'observabilité et le ROI des agents IA lors de BUILD 2026 //localhost:Paris.",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/leontievihor/"
+  },
+  "translations": {
+    "en": {
+      "role": "Co-founder and CTO",
+      "bio": "Ihor Leontiev is co-founder and CTO of Dvigunity, a Microsoft Regional Director and a Microsoft MVP (Azure, IoT) since 2016. An Azure IoT and edge specialist, he works on how cloud-native, AI, edge and hybrid fit together. He speaks regularly in the community, most recently on observability and ROI for AI agents at BUILD 2026 //localhost:Paris."
+    }
+  }
 }

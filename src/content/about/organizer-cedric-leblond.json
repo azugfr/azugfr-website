@@ -4,9 +4,30 @@
   "order": 3,
   "locale": "fr",
   "name": "Cédric Leblond",
-  "role": "Consultant Cloud",
-  "company": "",
-  "mvp": "Microsoft MVP Azure",
-  "photo": "/organizers/cedric-leblond.jpg",
-  "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/"
+  "role": "Consultant ALM, DevOps et Agile",
+  "awards": [
+    "Microsoft MVP Azure"
+  ],
+  "expertise": [
+    "DevOps",
+    "ALM",
+    "Agile",
+    "Azure",
+    "Kubernetes (AKS)",
+    "Azure DevOps"
+  ],
+  "bio": "Cédric Leblond est consultant ALM, DevOps et Agile et Microsoft MVP Azure depuis 2014. Membre du réseau .NET/Azure Rangers, il a notamment présenté l'hébergement d'une forge logicielle sur Kubernetes et la migration d'applications vers AKS. Il participe à l'organisation d'AZUG FR, dont le Global Azure France.",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/",
+    "github": "https://github.com/CedricLeblond",
+    "x": "https://twitter.com/leblond_c",
+    "website": "http://cedricleblond.blogspot.com",
+    "mvp": "https://mvp.microsoft.com/en-us/PublicProfile/5000596"
+  },
+  "translations": {
+    "en": {
+      "role": "ALM, DevOps and Agile Consultant",
+      "bio": "Cédric Leblond is an ALM, DevOps and Agile consultant and a Microsoft Azure MVP since 2014. A member of the .NET/Azure Rangers, he has spoken about hosting a software forge on Kubernetes and migrating applications to AKS. He helps organize AZUG FR, including Global Azure France."
+    }
+  }
 }

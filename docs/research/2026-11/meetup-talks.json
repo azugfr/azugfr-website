@@ -1,0 +1,332 @@
+{
+ "events": [
+  {
+   "meetupId": "311876300",
+   "title": "Onepoint x AZUG FR : quand l’IA agentique rencontre le DevOps sur Azure",
+   "startDate": "2025-11-25T18:30:00+01:00",
+   "endDate": "2025-11-25T22:00:00+01:00",
+   "venue": {
+    "name": "Onepoint",
+    "address": "14 Av. d'Eylau",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia",
+    "Mohamed Ali Masmoudi"
+   ],
+   "description": "L’**IA agentique** s’invite dans le monde du **DevOps** !\nEn partenariat avec **AZUG FR**, la communauté française des utilisateurs du cloud Microsoft Azure, **Onepoint** vous invite à une soirée immersive dédiée à l’**IA appliquée à Azure**.\nAu programme : une **démo live exclusive** d’un **agent intelligent** pour **Azure Kubernetes Service (AKS)** — une solution capable d’analyser les logs, détecter les incidents et proposer ou déclencher des actions pertinentes.\nNous reviendrons également sur les **annonces marquantes de Microsoft Ignite 2025**, et partagerons un **retour d’expérience concret** sur l’intégration de l’IA dans les pratiques DevOps et l’observabilité sur Azure.\n**🗓️ Agenda**\n**18h30** — Accueil des participants\n**19h00** — Introduction **AZUG FR** & **Onepoint**\n**19h15** — **Retour sur Microsoft Ignite 2025** (30 min + Q&A)\n**20h00** — **Démo live : IA agentique sur AKS** (45 min + Q&A)\n**21h00** — **Networking & buffet** 🍕🥤\n**22h00** — Fin de l’événement",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/311876300/",
+   "talks": [
+    {
+     "title": "Retour sur Microsoft Ignite 2025",
+     "speakers": []
+    },
+    {
+     "title": "Démo live : IA agentique sur AKS",
+     "speakers": []
+    }
+   ],
+   "partner": "Onepoint",
+   "note": "Meetup page lists no speaker names (agenda only)."
+  },
+  {
+   "meetupId": "313716280",
+   "title": "Global Azure France 2026 - #GlobalAzure",
+   "startDate": "2026-04-18T09:00:00+02:00",
+   "endDate": "2026-04-18T14:00:00+02:00",
+   "venue": {
+    "name": "École Supérieure de Génie Informatique",
+    "address": "242 Rue du Faubourg Saint-Antoine",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia",
+    "Aymeric Weinbach",
+    "Jean-Luc Boucho",
+    "Ihor Leontiev",
+    "Ibrahima Mbodji"
+   ],
+   "description": "AZUG FR – Azure User Group France, la communauté française des utilisateurs de Microsoft Azure, et l’ESGI – l’École Supérieure de Génie Informatique – ont le plaisir de vous inviter à Global Azure France 2026.\n\nGlobal Azure est un événement gratuit dédié au cloud Microsoft Azure, organisé les mêmes jours par des groupes d’utilisateurs et communautés du monde entier.\nCet événement, ouvert à tous, aura lieu en France le samedi 18 avril 2026 à partir de 9h, dans les locaux de l’ESGI Paris (12ᵉ arrondissement).\n\nCette journée permettra aux participants de découvrir ou d’approfondir leurs connaissances sur Microsoft Azure et ses services : développement, infrastructure, IA, DevOps… C’est également l’occasion de rencontrer des experts et speakers reconnus ainsi que les membres de la communauté.\n\n🎤 Sessions démarrants à **9h30** :\n🔹 AZUG FR & ESGI 👉 Bienvenue et Introduction\n\n🔹 [Ibrahima Mbodji](https://www.linkedin.com/in/ibnmbodji/) 👉 Du POC à l’industrialisation : bâtir une infrastructure Azure prête pour la GenAI et les agents IA\n\n🔹 [Jonathan JEHANNO](https://www.linkedin.com/in/jonathan-jehanno-57465238/) 👉 Azure Local – Le Cloud Souverain by Microsoft\n\n🔹 [Mabrouk Mahdhi](https://www.linkedin.com/in/mabroukmahdhi/) 👉 Design. Co-Pilot. Deploy. No Slides. Just Blazor.\n\n🔹 [Achraf Ben Alaya](https://www.linkedin.com/in/achrafbenalaya/) 👉 Improving Ops with Azure Copilot and GitHub Copilot\n\n🔹 [Jean-Luc Boucho](https://www.linkedin.com/in/jeanlucboucho/) 👉 Le challenge du ROI de l’IA\n\n🍕 **13h00** – Pause déjeuner conviviale : l’occasion d’échanger librement avec les intervenants et les participants.\n\nN’hésitez pas à réserver votre place pour notre événement !",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/313716280/",
+   "talks": [
+    {
+     "title": "Bienvenue et Introduction",
+     "speakers": [
+      "AZUG FR",
+      "ESGI"
+     ]
+    },
+    {
+     "title": "Du POC à l’industrialisation : bâtir une infrastructure Azure prête pour la GenAI et les agents IA",
+     "speakers": [
+      "Ibrahima Mbodji"
+     ]
+    },
+    {
+     "title": "Azure Local – Le Cloud Souverain by Microsoft",
+     "speakers": [
+      "Jonathan JEHANNO"
+     ]
+    },
+    {
+     "title": "Design. Co-Pilot. Deploy. No Slides. Just Blazor.",
+     "speakers": [
+      "Mabrouk Mahdhi"
+     ]
+    },
+    {
+     "title": "Improving Ops with Azure Copilot and GitHub Copilot",
+     "speakers": [
+      "Achraf Ben Alaya"
+     ]
+    },
+    {
+     "title": "Le challenge du ROI de l’IA",
+     "speakers": [
+      "Jean-Luc Boucho"
+     ]
+    }
+   ],
+   "partner": "ESGI"
+  },
+  {
+   "meetupId": "315082158",
+   "title": "Soirée MUG Paris & AZUG FR : Microsoft Fabric & MongoDB",
+   "startDate": "2026-06-08T18:30:00+02:00",
+   "endDate": "2026-06-08T21:00:00+02:00",
+   "venue": {
+    "name": "Microsoft France",
+    "address": "39 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia"
+   ],
+   "description": "Details\n\n# 🚀 MUG Paris & AZUG FR – Meetup Spécial : Comment Microsoft Fabric s'interface nativement avec MongoDB !\n\nSalut à toutes et à tous ! ✨\nPour ce nouveau rendez-vous de la communauté AZUG FR, nous vous proposons, ensemble la communauté MUG (MongoDB User Group) Paris, une soirée exceptionnelle placée sous le signe de l'innovation et de l'intégration Cloud. Nous aurons le plaisir d'accueillir les équipes de Microsoft pour explorer une synergie technologique majeure : comment connecter nativement la puissance analytique de Microsoft Fabric avec l'agilité de MongoDB. 📊⚡\n\n### 📅 Au programme de la soirée :\n\n18h30 – 19h00 : 📝 Accueil & Networking\nEnregistrement des participants et premiers échanges autour d'un rafraîchissement.\n19h00 – 19h15 : 🎤 Mot d'ouverture\nIntroduction de la soirée et présentation des actualités de la communauté. + Nouveautés de MongoDB\n19h15 – 20h15 : 💡 Tech Talk : Intégration native entre Microsoft Fabric et MongoDB\nPar Frederic Gisbert (Senior Partner Solution Architect @ Microsoft) et Alexandre Danoffre (Partner Solution Architect @ Microsoft).\n20h15 – 21h15 : 🍕 Apéro, Networking & Échanges\nOn prolonge la discussion de manière conviviale avec les speakers et les membres de la communauté autour de pizzas et de boissons.\n\n### 📍 Informations Pratiques :\n\n🗓 Date : Lundi 8 Juin\n⏰ Horaires : 18h30 – 21h15 (CET)\n🏢 Lieu : Microsoft France\n37 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux\n⚠️ Attention : Les places sont limitées ! Ne manquez pas cette opportunité unique d'échanger directement avec des experts de chez Microsoft et de découvrir les meilleures pratiques d'architecture Data actuelles.\n\n👉 Inscrivez-vous dès maintenant pour réserver votre place ! Les inscriptions fermeront dimanche 7 juin 18h.\n\nOn a hâte de vous retrouver pour cette soirée passionnante ! 🙌\n\n#MongoDB #MicrosoftFabric #Microsoft #DataAnalytics #CloudComputing #Database #TechMeetup #Azure",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/315082158/",
+   "talks": [
+    {
+     "title": "Intégration native entre Microsoft Fabric et MongoDB",
+     "speakers": [
+      "Frederic Gisbert",
+      "Alexandre Danoffre"
+     ]
+    }
+   ],
+   "partner": "MUG (MongoDB User Group) Paris; Microsoft"
+  },
+  {
+   "meetupId": "313762069",
+   "title": "BUILD 2026 //LOCALHOST:PARIS",
+   "startDate": "2026-06-10T18:30:00+02:00",
+   "endDate": "2026-06-10T21:30:00+02:00",
+   "venue": {
+    "name": "Microsoft",
+    "address": "42 quai du Président Roosevelt",
+    "city": "Issy-les-Moulineaux",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia",
+    "Ihor Leontiev"
+   ],
+   "description": "[pour l'inscription lire attentivement jusqu'à la fin]\n\n🚀 À l’occasion de **Microsoft Build 2026**, un meetup dédié à l’IA et au développement sera organisé le mercredi 10 juin, 18h30, dans les locaux de Microsoft.\n\nL'événement est organisé par AZUG FR - Azure User Group France, Global AI Paris, Global AI Communauté Virtuelle Francophone, Meetup C# .Net Paris.\n\nCette soirée réunira développeurs, ingénieurs cloud et passionnés d’intelligence artificielle autour des dernières innovations annoncées lors de la Build.\n\n📋 Au programme :\n🔹 Intro et **Récapitulatif des temps forts de Microsoft Build 2026**, par Marius Zaharia, MVP Azure\n🔹 Talk 1 - **Github Copilot dans Visual Studio** : des agents qui deboguent, profilent et testent, par Achraf Ben Alaya, MVP Azure\n🔹 Talk 2 - **De l’observabilité au ROI pour les agents IA sur n’importe quel framework**, par Ihor Leontiev, MVP Azure\n🔹 Networking & échanges avec la communauté\nUne belle opportunité de découvrir des cas d’usage concrets, de partager des retours d’expérience et d’échanger avec l’écosystème tech local.\n\n📅 Mercredi 10 juin, 18h30\n📍 Locaux Microsoft, 37 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux\n🎟️ Pour s’inscrire - Microsoft Reactor : [https://developer.microsoft.com/reactor/events/27302](https://developer.microsoft.com/reactor/events/27302) \\- Attention: toutes inscriptions doivent se faire directement sur le site Microsoft Reactor avant mardi 09/06/2026 16h. L'accès aux locaux ne sera pas possible sans inscription préalable",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/313762069/",
+   "talks": [
+    {
+     "title": "Récapitulatif des temps forts de Microsoft Build 2026",
+     "speakers": [
+      "Marius Zaharia"
+     ]
+    },
+    {
+     "title": "Github Copilot dans Visual Studio : des agents qui deboguent, profilent et testent",
+     "speakers": [
+      "Achraf Ben Alaya"
+     ]
+    },
+    {
+     "title": "De l’observabilité au ROI pour les agents IA sur n’importe quel framework",
+     "speakers": [
+      "Ihor Leontiev"
+     ]
+    }
+   ],
+   "partner": "Microsoft; co-organisé avec Global AI Paris, Global AI Communauté Virtuelle Francophone, Meetup C# .Net Paris"
+  },
+  {
+   "meetupId": "315504913",
+   "title": "Afterwork été 2026 - AZUG FR & Co",
+   "startDate": "2026-07-07T19:00:00+02:00",
+   "endDate": "2026-07-07T21:00:00+02:00",
+   "venue": {
+    "name": "Les Nautes",
+    "address": "1 quai des Célestins",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia"
+   ],
+   "description": "Après des belles rencontres en 2025-2026 sous le signe du cloud, du dev, du devops, de la data et de l'IA, vous êtes invités le mardi 7 juillet, à la terrasse Les Nautes (Paris Plage) pour une dernière soirée avant les vacances d'été dans la compagnie de la communauté AZUG FR et ses membres.\n\nCe sera un afterwork détendu en bords de Seine, sans agenda fixé mais donnant l'opportunité de beaux échanges entre les enthousiastes et passionnés des technologies (Microsoft / Azure en particulier).\n\nVenez nombreux !\n\nNote: L'afterwork est en formule libre : chaque participant règle sa consommation.",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/315504913/",
+   "talks": []
+  },
+  {
+   "meetupId": "316312251",
+   "title": "La rentrée du Cloud avec AZUG FR et PwC  !",
+   "startDate": "2026-09-22T19:00:00+02:00",
+   "endDate": "2026-09-22T22:00:00+02:00",
+   "venue": {
+    "name": "11 rue de Milan",
+    "address": "11 Rue de Milan, 75009 Paris, France",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Marius Zaharia",
+    "Chourouk HJAIEJ",
+    "Cédric Leblond",
+    "Ihor Leontiev"
+   ],
+   "description": "Après la pause estivale, **AZUG FR fait sa rentrée** et vous donne rendez-vous le **22 septembre 2026** chez **PwC France** pour une nouvelle soirée placée sous le signe du Cloud, de l’IA et des nouvelles pratiques d’architecture et d’exploitation.\n\nCette soirée sera l’occasion de se retrouver après l’été, de partager nos expériences, de découvrir les dernières évolutions de l’écosystème Azure et surtout d’échanger entre membres de la communauté.\n\n📋 Au programme :\n🔹 Intro par la communauté AZUG FR\n🔹 Talk 1 - **Construire un assistant IA d'entreprise sécurisé avec Azure OpenAI et Azure AI Search** : des agents qui deboguent, profilent et testent, par Charles NKOLO, Consultant Cloud\n🔹 Talk 2 - **Confidential computing : comment se défendre des 3rd parties ayant accès au matériel**, par Laurent BROTO, Managing Director\n🔹 Networking & échanges avec la communauté\n\nUne belle opportunité de découvrir des cas d’usage concrets, de partager des retours d’expérience et d’échanger avec l’écosystème tech local.\n📅**22 septembre 2026**\n🕖 **À partir de 19h00**\n📍 **PwC France - Experience center**",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/316312251/",
+   "talks": [
+    {
+     "title": "Construire un assistant IA d'entreprise sécurisé avec Azure OpenAI et Azure AI Search",
+     "speakers": [
+      "Charles NKOLO"
+     ]
+    },
+    {
+     "title": "Confidential computing : comment se défendre des 3rd parties ayant accès au matériel",
+     "speakers": [
+      "Laurent BROTO"
+     ]
+    }
+   ],
+   "partner": "PwC France"
+  },
+  {
+   "meetupId": "316280862",
+   "title": "GitHub Dev Days 2026",
+   "startDate": "2026-09-29T18:00:00+02:00",
+   "endDate": "2026-09-29T21:00:00+02:00",
+   "venue": {
+    "name": "Microsoft France",
+    "address": "Microsoft France, 41 Quai du President Roosevelt, Issy les Moulineaux, 92130",
+    "city": "Paris",
+    "mode": "in_person"
+   },
+   "organizers": [
+    "Julien Bichon",
+    "Ihor Leontiev"
+   ],
+   "description": "GitHub Dev Days débarque à Paris ! 🚀\n\nAvec nos amis de GitHub et Microsoft, on vous propose une soirée hands-on autour de GitHub Copilot, du Copilot app et du Copilot CLI, pour tester vraiment ce qu’il sait faire dans vos vrais workflows de dev\n\nAu menu :\n\n* Moins de blabla, plus de code 👩‍💻👨‍💻\n* Des démos live, des ateliers guidés, et des petits hacks pour bosser plus vite avec Copilot dans vos outils préférés.developer.microsoft+1\n\nQue vous utilisiez déjà Copilot tous les jours ou que vous soyez juste curieux, vous êtes les bienvenus.\n📍 Paris\n📅 29 septembre 2026\n💻 Ouvert à tous les devs (débutant, confirmé, curieux, sceptique…)\n\n⚠️ Très important : **la réservation ne se fait PAS sur Meetup**.\nPour avoir une vraie place à l’événement, il faut absolument vous inscrire ici :\n👉 Inscription (obligatoire) : **[https://luma.com/7n9bgsow](https://luma.com/7n9bgsow)**\nUne réponse “Je participe” sur Meetup, c’est cool pour nous, mais ça ne réserve pas votre place.",
+   "sourceUrl": "https://www.meetup.com/azug-fr/events/316280862/",
+   "talks": [],
+   "partner": "GitHub, Microsoft"
+  }
+ ],
+ "speakers": [
+  {
+   "name": "Achraf Ben Alaya",
+   "tagline": "Cloud and Azure Architect, Microsoft MVP, Microsoft Certified Trainer, and DevSecOps Engineer",
+   "bio": "Hi, I’m Achraf Ben Alaya a Cloud and Azure Architect, Microsoft MVP, Microsoft Certified Trainer, and DevSecOps Engineer. (bio truncated in og:description)",
+   "links": {
+    "linkedin": "https://www.linkedin.com/in/achrafbenalaya/",
+    "x": "https://twitter.com/achrafbenalaya"
+   },
+   "photoUrl": "https://cdn.sessionize.com/image/b08d-400o400o2-BishxoeSEK2ocoTQs5gvEi.png",
+   "role": "MVP Azure",
+   "sourceUrls": [
+    "https://sessionize.com/achrafbenalaya/",
+    "https://www.meetup.com/azug-fr/events/313716280/",
+    "https://www.meetup.com/azug-fr/events/313762069/"
+   ]
+  },
+  {
+   "name": "Ibrahima Mbodji",
+   "links": {
+    "linkedin": "https://www.linkedin.com/in/ibnmbodji/"
+   },
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313716280/"
+   ]
+  },
+  {
+   "name": "Jonathan JEHANNO",
+   "links": {
+    "linkedin": "https://www.linkedin.com/in/jonathan-jehanno-57465238/"
+   },
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313716280/"
+   ]
+  },
+  {
+   "name": "Mabrouk Mahdhi",
+   "links": {
+    "linkedin": "https://www.linkedin.com/in/mabroukmahdhi/"
+   },
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313716280/"
+   ]
+  },
+  {
+   "name": "Jean-Luc Boucho",
+   "links": {
+    "linkedin": "https://www.linkedin.com/in/jeanlucboucho/"
+   },
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313716280/"
+   ]
+  },
+  {
+   "name": "Charles NKOLO",
+   "role": "Consultant Cloud",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/316312251/"
+   ]
+  },
+  {
+   "name": "Laurent BROTO",
+   "role": "Managing Director",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/316312251/"
+   ]
+  },
+  {
+   "name": "Marius Zaharia",
+   "role": "MVP Azure",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313762069/"
+   ]
+  },
+  {
+   "name": "Ihor Leontiev",
+   "role": "MVP Azure",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/313762069/"
+   ]
+  },
+  {
+   "name": "Frederic Gisbert",
+   "company": "Microsoft",
+   "role": "Senior Partner Solution Architect",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/315082158/"
+   ]
+  },
+  {
+   "name": "Alexandre Danoffre",
+   "company": "Microsoft",
+   "role": "Partner Solution Architect",
+   "sourceUrls": [
+    "https://www.meetup.com/azug-fr/events/315082158/"
+   ]
+  }
+ ]
+}

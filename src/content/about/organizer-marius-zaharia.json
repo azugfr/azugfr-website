@@ -4,9 +4,31 @@
   "order": 1,
   "locale": "fr",
   "name": "Marius Zaharia",
-  "role": "Principal Engineer / Cloud Guild Leader",
+  "role": "Principal Engineer / Responsable de la guilde Cloud",
   "company": "Société Générale",
-  "mvp": "Microsoft Azure MVP",
-  "photo": "/organizers/marius-zaharia.jpg",
-  "linkedin": "https://www.linkedin.com/in/mzaharia/"
+  "awards": [
+    "Microsoft Azure MVP"
+  ],
+  "expertise": [
+    "Azure",
+    "AWS",
+    "IaaS / PaaS / hybrid architectures",
+    "landing zones",
+    "Azure Policy",
+    "cloud governance"
+  ],
+  "bio": "Marius Zaharia est Principal Engineer et Cloud Guild Leader chez Société Générale, où il met en œuvre des solutions d'infrastructure et d'applications cloud et opère des capacités de landing zone. Microsoft Azure MVP, il suit les technologies cloud (IaaS, PaaS, hybride, Azure et AWS) depuis la fin des années 2000. Organisateur actif de la communauté Azure française et internationale, il intervient régulièrement dans des conférences cloud.",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/mzaharia/",
+    "x": "https://twitter.com/lecampusazure",
+    "website": "http://blog.lecampusazure.net/",
+    "sessionize": "https://sessionize.com/lecampusazure"
+  },
+  "photo": "https://cdn.sessionize.com/image/bc3f-400o400o2-EGdko3f9ofuMNg4pzxtyi9.jpg",
+  "translations": {
+    "en": {
+      "role": "Principal Engineer / Cloud Guild Leader",
+      "bio": "Marius Zaharia is a Principal Engineer and Cloud Guild Leader at Société Générale, where he implements cloud infrastructure and application solutions and operates landing zone capabilities. A Microsoft Azure MVP, he has followed cloud technologies (IaaS, PaaS, hybrid, Azure and AWS) since the late 2000s. He is an active organizer of the French and global Azure community and a regular speaker at cloud conferences."
+    }
+  }
 }

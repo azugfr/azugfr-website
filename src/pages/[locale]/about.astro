@@ -31,7 +31,7 @@ const organizers = (allAbout
   .map((e) => {
     const d = e.data as AboutOrganizer;
     const t = d.translations?.[locale];
-    return { ...d, role: t?.role ?? d.role };
+    return { ...d, role: t?.role ?? d.role, bio: t?.bio ?? d.bio };
   }));
 
 const manifesto = sections.find((s) => s.slug === "manifesto");
@@ -110,15 +110,15 @@ const labels = {
                 {org.company && <p class="text-gray-500 text-xs mt-0.5 truncate">{org.company}</p>}
               </div>
             </div>
-            {org.mvp && (
+            {org.awards?.map((a) => (
               <span class="inline-block self-start text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200 px-2 py-0.5 rounded-full mb-3">
-                {org.mvp}
+                {a}
               </span>
-            )}
+            ))}
             <div class="flex gap-3 text-sm mt-auto">
-              {org.linkedin && (
+              {org.links?.linkedin && (
                 <a
-                  href={org.linkedin}
+                  href={org.links?.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-azure-600 hover:text-azure-800 underline"
@@ -126,9 +126,9 @@ const labels = {
                   LinkedIn
                 </a>
               )}
-              {org.github && (
+              {org.links?.github && (
                 <a
-                  href={org.github}
+                  href={org.links?.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-azure-600 hover:text-azure-800 underline"
