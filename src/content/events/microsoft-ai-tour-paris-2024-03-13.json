@@ -10,7 +10,7 @@
   "venue": {
     "name": "Carrousel du Louvre",
     "city": "Paris",
-    "address": "99 Rue de Rivoli, 75001 Paris, FR",
+    "address": "99 Rue de Rivoli, 75001 Paris",
     "mode": "in_person"
   },
   "registrationUrl": "https://msevents.microsoft.com/event?id=4006187193",

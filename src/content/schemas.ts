@@ -318,8 +318,20 @@ export const aboutOrganizerSchema = z.object({
     .optional(),
   translations: z
     .object({
-      fr: z.object({ role: z.string().optional(), bio: z.string().optional() }).optional(),
-      en: z.object({ role: z.string().optional(), bio: z.string().optional() }).optional(),
+      fr: z
+        .object({
+          role: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          role: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
     })
     .optional(),
 });

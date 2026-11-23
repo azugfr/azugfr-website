@@ -7,13 +7,12 @@
   "role": "Advisory, Tech Strategist",
   "company": "Avanade",
   "awards": [
-    "Microsoft MVP AI Platform (formerly Azure MVP",
-    "first named Windows Azure MVP in January 2012)"
+    "Microsoft MVP AI Platform"
   ],
   "expertise": [
     "Azure",
-    "Azure AI / generative AI",
-    "AI agents",
+    "Azure AI / IA générative",
+    "agents IA",
     "architecture",
     "Microsoft Certified Trainer"
   ],
@@ -28,7 +27,14 @@
   "translations": {
     "en": {
       "role": "Advisory, Tech Strategist",
-      "bio": "Jean-Luc Boucho is an Advisory and Tech Strategist at Avanade and a Microsoft MVP in the AI Platform category. Named a Windows Azure MVP as early as January 2012, he has worked as an IT consultant since 1996 and is a co-founder of AZUG FR. He has led sessions on generative AI and an Azure AI Agent workshop at Global AI Bootcamp Paris."
+      "bio": "Jean-Luc Boucho is an Advisory and Tech Strategist at Avanade and a Microsoft MVP in the AI Platform category. Named a Windows Azure MVP as early as January 2012, he has worked as an IT consultant since 1996 and is a co-founder of AZUG FR. He has led sessions on generative AI and an Azure AI Agent workshop at Global AI Bootcamp Paris.",
+      "expertise": [
+        "Azure",
+        "Azure AI / generative AI",
+        "AI agents",
+        "architecture",
+        "Microsoft Certified Trainer"
+      ]
     }
   }
 }

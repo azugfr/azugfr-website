@@ -152,7 +152,7 @@ export async function getOrganizers(locale: Locale): Promise<AboutOrganizer[]> {
     .map((d) => {
       const t = d.translations?.[locale];
       if (d.locale === locale || !t) return d;
-      return { ...d, role: t.role ?? d.role, bio: t.bio ?? d.bio };
+      return { ...d, role: t.role ?? d.role, bio: t.bio ?? d.bio, expertise: t.expertise ?? d.expertise };
     })
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }

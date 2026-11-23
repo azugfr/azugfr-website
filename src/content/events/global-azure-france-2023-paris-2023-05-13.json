@@ -10,7 +10,7 @@
   "venue": {
     "name": "École Supérieure de Génie Informatique (ESGI)",
     "city": "Paris",
-    "address": "242 Rue du Faubourg Saint-Antoine, Paris, FR",
+    "address": "242 Rue du Faubourg Saint-Antoine",
     "mode": "in_person"
   },
   "registrationUrl": "https://www.eventbrite.fr/e/global-azure-france-2023-globalazure-tickets-583911584267",

@@ -11,12 +11,12 @@
   ],
   "expertise": [
     "Azure",
-    "AI agents / MCP",
-    "generative AI",
+    "Agents IA / MCP",
+    "IA générative",
     "serverless",
     "IoT",
-    "robotics (Poppy-based Poppyrate)",
-    "3D printing"
+    "robotique (Poppyrate, basé sur Poppy)",
+    "impression 3D"
   ],
   "bio": "Aymeric Weinbach est Microsoft MVP depuis plus de dix ans, avec une expertise passée de l'Azure et du cloud natif à l'IA sur Azure et aujourd'hui Microsoft Foundry. Il anime le blog ZeCloud et partage des projets open source autour des agents IA, du serverless et de la robotique. Il intervient régulièrement lors de meetups et de conférences en France et en Europe.",
   "links": {
@@ -30,7 +30,16 @@
   "translations": {
     "en": {
       "role": "AI & Cloud Solution Architect",
-      "bio": "Aymeric Weinbach has been a Microsoft MVP for over ten years, with a focus that moved from Azure and cloud native to Azure AI and now Microsoft Foundry. He runs the ZeCloud blog and shares open source projects on AI agents, serverless and robotics. He speaks regularly at meetups and conferences in France and Europe."
+      "bio": "Aymeric Weinbach has been a Microsoft MVP for over ten years, with a focus that moved from Azure and cloud native to Azure AI and now Microsoft Foundry. He runs the ZeCloud blog and shares open source projects on AI agents, serverless and robotics. He speaks regularly at meetups and conferences in France and Europe.",
+      "expertise": [
+        "Azure",
+        "AI agents / MCP",
+        "generative AI",
+        "serverless",
+        "IoT",
+        "robotics (Poppy-based Poppyrate)",
+        "3D printing"
+      ]
     }
   }
 }

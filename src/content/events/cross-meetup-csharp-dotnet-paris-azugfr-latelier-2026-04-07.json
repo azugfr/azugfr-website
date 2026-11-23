@@ -10,7 +10,7 @@
   "venue": {
     "name": "L'Atelier",
     "city": "Paris",
-    "address": "46 rue de l'Arbre Sec, Paris, FR",
+    "address": "46 rue de l'Arbre Sec",
     "mode": "in_person"
   },
   "host": "L'Atelier",
@@ -19,7 +19,6 @@
   "talks": [
     {
       "title": "L'architecte Azure augmenté avec Copilot",
-      "time": "19:15",
       "speakerSlugs": [
         "michel-perfetti"
       ],
@@ -31,7 +30,6 @@
     },
     {
       "title": "Comment nettoyer 300 repos et survivre grâce au C#",
-      "time": "20:00",
       "speakerSlugs": [
         "marc-kruzik"
       ],

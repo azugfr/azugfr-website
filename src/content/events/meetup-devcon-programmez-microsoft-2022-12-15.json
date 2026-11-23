@@ -10,7 +10,7 @@
   "venue": {
     "name": "Microsoft France",
     "city": "Issy-les-Moulineaux",
-    "address": "41 Quai du President Roosevelt, 92130 Issy-les-Moulineaux, Paris, FR",
+    "address": "41 Quai du President Roosevelt, 92130 Issy-les-Moulineaux",
     "mode": "in_person"
   },
   "registrationUrl": "https://programmez.com/content/programmez-devcon17-inscriptions",

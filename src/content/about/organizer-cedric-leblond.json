@@ -27,7 +27,15 @@
   "translations": {
     "en": {
       "role": "ALM, DevOps and Agile Consultant",
-      "bio": "Cédric Leblond is an ALM, DevOps and Agile consultant and a Microsoft Azure MVP since 2014. A member of the .NET/Azure Rangers, he has spoken about hosting a software forge on Kubernetes and migrating applications to AKS. He helps organize AZUG FR, including Global Azure France."
+      "bio": "Cédric Leblond is an ALM, DevOps and Agile consultant and a Microsoft Azure MVP since 2014. A member of the .NET/Azure Rangers, he has spoken about hosting a software forge on Kubernetes and migrating applications to AKS. He helps organize AZUG FR, including Global Azure France.",
+      "expertise": [
+        "DevOps",
+        "ALM",
+        "Agile",
+        "Azure",
+        "Kubernetes (AKS)",
+        "Azure DevOps"
+      ]
     }
   }
 }
