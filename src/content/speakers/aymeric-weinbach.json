@@ -1,0 +1,16 @@
+{
+  "slug": "aymeric-weinbach",
+  "locale": "fr",
+  "name": "Aymeric Weinbach",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "299036928",
+      "298884827"
+    ]
+  },
+  "company": "ZeCloud",
+  "role": "Architecte Solutions IA & Cloud",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/aymeric-weinbach/"
+  }
+}

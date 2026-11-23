@@ -1,0 +1,20 @@
+{
+  "slug": "ihor-leontiev",
+  "locale": "fr",
+  "name": "Ihor Leontiev",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "307062572",
+      "313762069",
+      "290099528"
+    ],
+    "displayNameVariants": [
+      "Igor Leontiev"
+    ]
+  },
+  "company": "Dvigunity",
+  "role": "Cofondateur et CTO",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/leontievihor/"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "cedric-leblond",
+  "locale": "fr",
+  "name": "Cédric Leblond",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "298884827"
+    ]
+  },
+  "role": "Consultant ALM, DevOps et Agile",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/"
+  }
+}

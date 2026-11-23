@@ -5,7 +5,9 @@
  * Existing speaker files are preserved — only missing fields are filled in.
  *
  * Usage:
- *   node scripts/derive-speakers.mjs [--dry-run]
+ *   node scripts/derive-speakers.mjs [--dry-run] [--check]
+ *
+ * --check lists speaker slugs that have no speaker file and exits 1 (writes nothing).
  */
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
@@ -18,6 +20,7 @@ const ROOT = join(__dirname, "..");
 const EVENTS_DIR = join(ROOT, "src/content/events");
 const SPEAKERS_DIR = join(ROOT, "src/content/speakers");
 const DRY_RUN = process.argv.includes("--dry-run");
+const CHECK = process.argv.includes("--check");
 
 function humanizeName(slug) {
   return slug
@@ -55,7 +58,12 @@ async function main() {
   for (const file of eventFiles) {
     const raw = await readFile(join(EVENTS_DIR, file), "utf8");
     const event = JSON.parse(raw);
-    const slugs = event.speakerSlugs ?? [];
+    const slugs = [
+      ...new Set([
+        ...(event.speakerSlugs ?? []),
+        ...(event.talks ?? []).flatMap((t) => t.speakerSlugs ?? []),
+      ]),
+    ];
     const externalId = event.source?.externalId;
 
     for (const slug of slugs) {
@@ -71,6 +79,19 @@ async function main() {
         entry.derivedFrom.eventSourceIds.push(externalId);
       }
     }
+  }
+
+  if (CHECK) {
+    const missing = [...speakerMap.keys()].filter(
+      (slug) => !existsSync(join(SPEAKERS_DIR, `${slug}.json`))
+    );
+    if (missing.length > 0) {
+      console.error(`Missing speaker files (${missing.length}):`);
+      for (const slug of missing) console.error(`  - ${slug}`);
+      process.exit(1);
+    }
+    console.log(`OK: all ${speakerMap.size} referenced speakers have a file.`);
+    return;
   }
 
   for (const [slug, derived] of speakerMap) {
