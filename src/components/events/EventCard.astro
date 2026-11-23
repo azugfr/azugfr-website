@@ -1,16 +1,20 @@
 ---
-import type { EventEntry } from "@/content/config";
+import type { EventEntry, SpeakerEntry } from "@/content/config";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedRoute, getUiDictionary } from "@/lib/i18n";
 import { deriveEventStatus } from "@/lib/content/eventStatus";
 import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
+import StatusBadge from "@/components/ui/StatusBadge.astro";
+import Avatar from "@/components/ui/Avatar.astro";
 
 interface Props {
   event: EventEntry;
   locale: Locale;
+  /** resolved speakers of the event (optional, shown as a compact avatar stack) */
+  speakers?: SpeakerEntry[];
 }
 
-const { event, locale } = Astro.props;
+const { event, locale, speakers = [] } = Astro.props;
 const dict = getUiDictionary(locale);
 const status = deriveEventStatus(event);
 
@@ -25,22 +29,24 @@ const venueModeLabels: Record<string, Record<Locale, string>> = {
 const modeLabel = event.venue?.mode ? (venueModeLabels[event.venue.mode]?.[locale] ?? event.venue.mode) : null;
 
 const summary = event.summary.length > 150 ? event.summary.slice(0, 150) + "…" : event.summary;
+const talkCount = event.talks?.length ?? 0;
+const stack = speakers.slice(0, 4);
 ---
 
-<li class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3">
+<li
+  data-testid="event-card"
+  class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3"
+>
   <div class="flex items-center gap-2 flex-wrap">
-    {status === "upcoming" ? (
-      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-        {dict.common.upcoming}
-      </span>
-    ) : (
-      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
-        {dict.common.past}
-      </span>
-    )}
+    <StatusBadge {status} {locale} />
     {modeLabel && (
       <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200">
         {modeLabel}
+      </span>
+    )}
+    {talkCount > 0 && (
+      <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+        {dict.events.talksCount(talkCount)}
       </span>
     )}
   </div>
@@ -54,10 +60,21 @@ const summary = event.summary.length > 150 ? event.summary.slice(0, 150) + "…"
     </a>
   </h3>
 
-  <div class="flex items-center gap-3 text-sm text-gray-500 flex-wrap">
+  <div class="flex items-center gap-x-3 gap-y-1 text-sm text-gray-500 flex-wrap">
     <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>{formattedDate}</time>
-    {event.venue?.city && <span>📍 {event.venue.city}</span>}
+    {event.venue?.city && <span>{event.venue.city}</span>}
+    {event.host && <span>{dict.events.hostedBy} {event.host}</span>}
   </div>
 
   <p class="text-sm text-gray-600 leading-relaxed">{summary}</p>
+
+  {stack.length > 0 && (
+    <div class="mt-auto flex items-center -space-x-2" aria-label={dict.events.speakers}>
+      {stack.map((s) => (
+        <span class="rounded-full ring-2 ring-white" title={s.name}>
+          <Avatar name={s.name} src={s.photo} size="sm" />
+        </span>
+      ))}
+    </div>
+  )}
 </li>
