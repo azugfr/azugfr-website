@@ -9,9 +9,14 @@ import type {
 } from "../../content/config";
 import type { Locale } from "../i18n";
 import { resolveLocaleContent } from "../i18n";
+import { toInstant } from "../dates";
 import { deriveEventStatus } from "./eventStatus";
 import { getEventSpeakerSlugs } from "./speakerDerive";
 import { resolveTalk } from "./talks";
+
+const instantOf = (e: { startDate: string; timezone?: string }) => toInstant(e.startDate, e.timezone).getTime();
+const byStartAsc = (a: EventEntry, b: EventEntry) => instantOf(a) - instantOf(b);
+const byStartDesc = (a: EventEntry, b: EventEntry) => instantOf(b) - instantOf(a);
 
 const TIER_PRIORITY: Record<string, number> = {
   platinum: 0,
@@ -35,7 +40,7 @@ export async function getUpcomingEvents(locale: Locale): Promise<EventEntry[]> {
   const all = await getAllEvents(locale);
   return all
     .filter((e) => deriveEventStatus(e) === "upcoming")
-    .sort((a, b) => a.startDate.localeCompare(b.startDate));
+    .sort(byStartAsc);
 }
 
 /** Past and cancelled events, sorted descending by startDate (most recent first) */
@@ -43,7 +48,7 @@ export async function getArchivedEvents(locale: Locale): Promise<EventEntry[]> {
   const all = await getAllEvents(locale);
   return all
     .filter((e) => deriveEventStatus(e) !== "upcoming")
-    .sort((a, b) => b.startDate.localeCompare(a.startDate));
+    .sort(byStartDesc);
 }
 
 /** First upcoming event, or null */
@@ -57,7 +62,7 @@ export async function getLatestPastEvent(locale: Locale): Promise<EventEntry | n
   const all = await getAllEvents(locale);
   const past = all
     .filter((e) => deriveEventStatus(e) === "past")
-    .sort((a, b) => b.startDate.localeCompare(a.startDate));
+    .sort(byStartDesc);
   return past[0] ?? null;
 }
 
@@ -83,7 +88,7 @@ export async function getLatestTalks(
   const bySlug = new Map(speakers.map((s) => [s.slug, s]));
   const past = all
     .filter((e) => deriveEventStatus(e) === "past")
-    .sort((a, b) => b.startDate.localeCompare(a.startDate));
+    .sort(byStartDesc);
   const out: { talk: TalkEntry; event: EventEntry; speakers: SpeakerEntry[] }[] = [];
   for (const event of past) {
     for (const talk of event.talks ?? []) {
@@ -125,7 +130,7 @@ export async function getRelatedEventsForSpeaker(
   const all = await getAllEvents(locale);
   return all
     .filter((e) => getEventSpeakerSlugs(e).includes(speakerSlug))
-    .sort((a, b) => b.startDate.localeCompare(a.startDate));
+    .sort(byStartDesc);
 }
 
 /** Talks attributed to the speaker, with their event, descending by event date */
@@ -135,7 +140,7 @@ export async function getTalksForSpeaker(
 ): Promise<{ talk: TalkEntry; event: EventEntry }[]> {
   const all = await getAllEvents(locale);
   const out: { talk: TalkEntry; event: EventEntry }[] = [];
-  for (const event of [...all].sort((a, b) => b.startDate.localeCompare(a.startDate))) {
+  for (const event of [...all].sort(byStartDesc)) {
     for (const talk of event.talks ?? []) {
       if (talk.speakerSlugs.includes(speakerSlug)) out.push({ talk, event });
     }

@@ -27,11 +27,20 @@ function offsetAt(at: Date, timeZone: string): string {
   return `${m[1]}${m[2].padStart(2, "0")}:${m[3] ?? "00"}`;
 }
 
+function offsetMs(offset: string): number {
+  const sign = offset[0] === "-" ? -1 : 1;
+  return sign * (Number(offset.slice(1, 3)) * 60 + Number(offset.slice(4, 6))) * 60_000;
+}
+
 export function toIsoWithOffset(local: string, timeZone = "Europe/Paris"): string {
   if (hasOffset(local)) return local;
   const base = normaliseLocal(local);
+  // Treat the wall-clock time as UTC, take the zone offset at that guess, then
+  // re-evaluate at the corrected instant so times near a DST change get the right offset.
   const guess = new Date(`${base}Z`);
-  return `${base}${offsetAt(guess, timeZone)}`;
+  const first = offsetAt(guess, timeZone);
+  const corrected = new Date(guess.getTime() - offsetMs(first));
+  return `${base}${offsetAt(corrected, timeZone)}`;
 }
 
 export function toInstant(value: string, timeZone = "Europe/Paris"): Date {
