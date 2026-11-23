@@ -12,6 +12,8 @@
     "test:unit": "vitest run",
     "test:check": "astro check && npm run build",
     "test:browser": "playwright test",
+    "test:e2e": "npm run build && playwright test",
+    "test:ci": "vitest run && astro check && npm run build",
     "sync:events": "node scripts/sync-meetup-events.mjs",
     "sync:news": "node scripts/sync-linkedin-news.mjs",
     "sync": "npm run sync:events && npm run sync:news",
