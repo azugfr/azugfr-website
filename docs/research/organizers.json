@@ -1,0 +1,263 @@
+{
+  "organizers": [
+    {
+      "slug": "marius-zaharia",
+      "name": "Marius Zaharia",
+      "role": "Principal Engineer / Cloud Guild Leader",
+      "roleEn": "Principal Engineer / Cloud Guild Leader",
+      "roleFr": "Principal Engineer / Responsable de la guilde Cloud",
+      "company": "Société Générale",
+      "awards": "Microsoft Azure MVP",
+      "expertise": [
+        "Azure",
+        "AWS",
+        "IaaS / PaaS / hybrid architectures",
+        "landing zones",
+        "Azure Policy",
+        "cloud governance"
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/mzaharia/",
+        "github": null,
+        "x": "https://twitter.com/lecampusazure",
+        "website": "http://blog.lecampusazure.net/",
+        "sessionize": "https://sessionize.com/lecampusazure",
+        "mvp": null
+      },
+      "photoUrl": "https://cdn.sessionize.com/image/bc3f-400o400o2-EGdko3f9ofuMNg4pzxtyi9.jpg",
+      "bioFr": "Marius Zaharia est Principal Engineer et Cloud Guild Leader chez Société Générale, où il met en œuvre des solutions d'infrastructure et d'applications cloud et opère des capacités de landing zone. Microsoft Azure MVP, il suit les technologies cloud (IaaS, PaaS, hybride, Azure et AWS) depuis la fin des années 2000. Organisateur actif de la communauté Azure française et internationale, il intervient régulièrement dans des conférences cloud.",
+      "bioEn": "Marius Zaharia is a Principal Engineer and Cloud Guild Leader at Société Générale, where he implements cloud infrastructure and application solutions and operates landing zone capabilities. A Microsoft Azure MVP, he has followed cloud technologies (IaaS, PaaS, hybrid, Azure and AWS) since the late 2000s. He is an active organizer of the French and global Azure community and a regular speaker at cloud conferences.",
+      "sources": [
+        {
+          "claim": "Title Principal Engineer / Cloud Guild Leader @ Société Générale, Azure MVP, Paris; bio text (landing zones, organizer, speaker); 2026 session",
+          "url": "https://sessionize.com/lecampusazure"
+        },
+        {
+          "claim": "Session 'Modern Architecture in the Cloud of 2026' with same title",
+          "url": "https://sessionize.com/s/lecampusazure/modern-architecture-in-the-cloud-of-2026/151371"
+        },
+        {
+          "claim": "X handle @lecampusazure, LinkedIn mzaharia",
+          "url": "https://sessionize.com/lecampusazure"
+        },
+        {
+          "claim": "Blog blog.lecampusazure.net (from old azug.fr team page, not re-verified)",
+          "url": "https://azug.fr/"
+        }
+      ],
+      "confidence": "high",
+      "notes": "MVP award not verified on mvp.microsoft.com (SPA, not fetchable); since-year unknown. Old azug.fr page said 'Cloud Senior Architect' (outdated). Blog URL may be stale."
+    },
+    {
+      "slug": "aymeric-weinbach",
+      "name": "Aymeric Weinbach",
+      "role": "AI & Cloud Solution Architect — Developer Advocate",
+      "roleEn": "AI & Cloud Solution Architect",
+      "roleFr": "Architecte Solutions IA & Cloud",
+      "company": "ZeCloud",
+      "awards": "Microsoft MVP — AI (Microsoft Foundry)",
+      "expertise": [
+        "Azure",
+        "AI agents / MCP",
+        "generative AI",
+        "serverless",
+        "IoT",
+        "robotics (Poppy-based Poppyrate)",
+        "3D printing"
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/aymeric-weinbach/",
+        "github": "https://github.com/zecloud",
+        "x": "https://twitter.com/aymericw",
+        "website": "https://www.zecloud.fr/",
+        "sessionize": "https://sessionize.com/aymeric-weinbach",
+        "mvp": null
+      },
+      "photoUrl": "https://cdn.sessionize.com/image/09e7-400o400o2-f5-af94-48cc-9e41-ccedcfd8633b.48bdb3e2-0bd6-428f-a933-66134905d951.jpg",
+      "bioFr": "Aymeric Weinbach est Microsoft MVP depuis plus de dix ans, avec une expertise passée de l'Azure et du cloud natif à l'IA sur Azure et aujourd'hui Microsoft Foundry. Il anime le blog ZeCloud et partage des projets open source autour des agents IA, du serverless et de la robotique. Il intervient régulièrement lors de meetups et de conférences en France et en Europe.",
+      "bioEn": "Aymeric Weinbach has been a Microsoft MVP for over ten years, with a focus that moved from Azure and cloud native to Azure AI and now Microsoft Foundry. He runs the ZeCloud blog and shares open source projects on AI agents, serverless and robotics. He speaks regularly at meetups and conferences in France and Europe.",
+      "sources": [
+        {
+          "claim": "MVP for 10+ years; categories Azure & Cloud Native, Azure AI Services, now Microsoft Foundry; open source projects; speaks in France/Europe",
+          "url": "https://github.com/sponsors/zecloud"
+        },
+        {
+          "claim": "Sessionize: 'MVP Microsoft Azure', topics Azure, IoT, Robotics; X @aymericw",
+          "url": "https://sessionize.com/aymeric-weinbach"
+        },
+        {
+          "claim": "Blog ZeCloud; published by ZeCloud SAS; topics AI agents, serverless, robotics",
+          "url": "https://www.zecloud.fr/"
+        },
+        {
+          "claim": "LinkedIn title shows ZECLOUD (search result title only)",
+          "url": "https://www.linkedin.com/in/aymeric-weinbach/"
+        },
+        {
+          "claim": "Search result: 'MVP AI & Azure since 2011' on LinkedIn and X post 14th award July 2025 (not directly verified)",
+          "url": "https://x.com/aymericw"
+        }
+      ],
+      "confidence": "medium",
+      "notes": "Company: LinkedIn search title says ZECLOUD (his own company per zecloud.fr SAS); not independently confirmed as current employer. 'Developer Advocate' title could not be sourced; I dropped it in roleEn/roleFr. Sessionize says 'MVP Azure depuis 8 ans' (old) vs GitHub Sponsors '10+ years'. Since-2011 claim unverified. An instalker.org mirror says 'Former MVP' (stale, ignore). Sessionize photo is a long-standing URL, may be old."
+    },
+    {
+      "slug": "cedric-leblond",
+      "name": "Cédric Leblond",
+      "role": "Consultant ALM, DevOps, Agile",
+      "roleEn": "ALM, DevOps and Agile Consultant",
+      "roleFr": "Consultant ALM, DevOps et Agile",
+      "company": null,
+      "awards": "Microsoft MVP Azure",
+      "expertise": [
+        "DevOps",
+        "ALM",
+        "Agile",
+        "Azure",
+        "Kubernetes (AKS)",
+        "Azure DevOps"
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/",
+        "github": "https://github.com/CedricLeblond",
+        "x": "https://twitter.com/leblond_c",
+        "website": "http://cedricleblond.blogspot.com",
+        "sessionize": null,
+        "mvp": "https://mvp.microsoft.com/en-us/PublicProfile/5000596"
+      },
+      "photoUrl": null,
+      "bioFr": "Cédric Leblond est consultant ALM, DevOps et Agile et Microsoft MVP Azure depuis 2014. Membre du réseau .NET/Azure Rangers, il a notamment présenté l'hébergement d'une forge logicielle sur Kubernetes et la migration d'applications vers AKS. Il participe à l'organisation d'AZUG FR, dont le Global Azure France.",
+      "bioEn": "Cédric Leblond is an ALM, DevOps and Agile consultant and a Microsoft Azure MVP since 2014. A member of the .NET/Azure Rangers, he has spoken about hosting a software forge on Kubernetes and migrating applications to AKS. He helps organize AZUG FR, including Global Azure France.",
+      "sources": [
+        {
+          "claim": "MVP public profile: Azure category, first awarded 2014, focus DevOps/ALM/Agile (via search snippet; page is SPA)",
+          "url": "https://mvp.microsoft.com/en-us/PublicProfile/5000596"
+        },
+        {
+          "claim": "2021 Meritis article: DevOps & Azure consultant, 6 years at firm, MVP Azure, .NET Ranger, co-organizer FlowCon, AZUG FR animator; DevOps Live 2021 talk (forge on Kubernetes)",
+          "url": "https://meritis.fr/actualites/meritis-prend-la-parole-au-salon-devops-live-2021/"
+        },
+        {
+          "claim": "Organizer of Global Azure 2024 France; ALM/DevOps/Agile consultant at Meritis (2024 LinkedIn post)",
+          "url": "https://fr.linkedin.com/posts/ibnmbodji_global-azure-2024-france-globalazure-activity-7148692796651053058-FYE2"
+        },
+        {
+          "claim": "GitHub account and blogspot site",
+          "url": "https://github.com/CedricLeblond"
+        },
+        {
+          "claim": "X @leblond_c, .NET/Azure Ranger (old azug.fr team page)",
+          "url": "https://azug.fr/"
+        }
+      ],
+      "confidence": "low",
+      "notes": "No source dated 2025-2026 found. Employer Meritis is from 2021-2024 sources and the repo already has a Meritis meetup event, but current employer unconfirmed; site's 'Consultant Cloud' not found anywhere. Several people share this name; LinkedIn slug cedric-leblond-cloud-azure not verified (HTTP 999), the MVP profile and Meritis article match. MVP renewal for 2025/2026 not confirmed; a search snippet cited award count discrepancy (7 vs 9). No photo or Sessionize found."
+    },
+    {
+      "slug": "jean-luc-boucho",
+      "name": "Jean-Luc Boucho",
+      "role": "Advisory, Tech Strategist",
+      "roleEn": "Advisory, Tech Strategist",
+      "roleFr": "Advisory, Tech Strategist",
+      "company": "Avanade",
+      "awards": "Microsoft MVP AI Platform (formerly Azure MVP; first named Windows Azure MVP in January 2012)",
+      "expertise": [
+        "Azure",
+        "Azure AI / generative AI",
+        "AI agents",
+        "architecture",
+        "Microsoft Certified Trainer"
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/jeanlucboucho",
+        "github": null,
+        "x": "https://twitter.com/jeanlucboucho",
+        "website": "http://blog.jeanlucboucho.com/",
+        "sessionize": "https://sessionize.com/jean-luc-boucho",
+        "mvp": null
+      },
+      "photoUrl": "https://cdn.sessionize.com/image/8a2f-400o400o2-52-921c-4e0e-9638-1bf13c9b04ee.ee382133-e87e-4f27-a55b-5d83b4e15fda.jpg",
+      "bioFr": "Jean-Luc Boucho est Advisory et Tech Strategist chez Avanade et Microsoft MVP dans la catégorie AI Platform. Nommé MVP Windows Azure dès janvier 2012, il est consultant IT depuis 1996 et co-fondateur d'AZUG FR. Il a notamment animé des sessions sur l'IA générative et un atelier Azure AI Agent lors du Global AI Bootcamp Paris.",
+      "bioEn": "Jean-Luc Boucho is an Advisory and Tech Strategist at Avanade and a Microsoft MVP in the AI Platform category. Named a Windows Azure MVP as early as January 2012, he has worked as an IT consultant since 1996 and is a co-founder of AZUG FR. He has led sessions on generative AI and an Azure AI Agent workshop at Global AI Bootcamp Paris.",
+      "sources": [
+        {
+          "claim": "Sessionize: 'Advisory, Tech Strategist | MVP AI Platform'; X and LinkedIn links",
+          "url": "https://sessionize.com/jean-luc-boucho"
+        },
+        {
+          "claim": "X bio: Advisory Grp Manager @Avanade, Microsoft Azure MVP, AZUG FR co-founder (via search snippet)",
+          "url": "https://x.com/JeanLucBoucho"
+        },
+        {
+          "claim": "Blog: IT consultant since 1996, MCT, named Windows Azure MVP Jan 2012",
+          "url": "http://blog.jeanlucboucho.com/2012/01/je-suis-nomme-mvp-windows-azure.html"
+        },
+        {
+          "claim": "AZUG FR page: Architecte, Cloud Advisor et Tech Strategist chez Avanade, MVP Azure; generative AI session at Global AI Bootcamp Paris (2024)",
+          "url": "https://azug.fr/"
+        },
+        {
+          "claim": "Azure AI Agent workshop at Global AI Bootcamp Paris 2025 credited to Avanade",
+          "url": "https://talk-data.com/topic/azure_ai_agent"
+        },
+        {
+          "claim": "Old team page lists Infosys (outdated)",
+          "url": "https://azug.fr/"
+        }
+      ],
+      "confidence": "medium",
+      "notes": "Site says 'Microsoft AI MVP'; Sessionize says 'MVP AI Platform' (likely exact category name). Avanade confirmed by several sources, but dated sources are 2024-2025; the 'JV Accenture, Microsoft' text is not from a personal source (Avanade is known as Accenture/Microsoft JV, but I didn't cite it). Conflict: old azug.fr page said Infosys. GitHub not found. Blog domain unreachable from sandbox; blog claims came via search snippets."
+    },
+    {
+      "slug": "ihor-leontiev",
+      "name": "Ihor Leontiev",
+      "role": "Co-founder & CTO",
+      "roleEn": "Co-founder and CTO",
+      "roleFr": "Cofondateur et CTO",
+      "company": "Dvigunity",
+      "awards": "Microsoft Regional Director · Microsoft MVP Azure & IoT",
+      "expertise": [
+        "Azure IoT",
+        "IoT Edge",
+        "hybrid, edge and cloud-native",
+        "AI",
+        "Azure"
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/leontievihor/",
+        "github": null,
+        "x": null,
+        "website": null,
+        "sessionize": null,
+        "mvp": null
+      },
+      "photoUrl": null,
+      "bioFr": "Ihor Leontiev est cofondateur et CTO de Dvigunity, Microsoft Regional Director et Microsoft MVP (Azure, IoT) depuis 2016. Spécialiste d'Azure IoT et de l'edge, il travaille sur l'articulation entre cloud natif, IA, edge et hybride. Il intervient régulièrement dans la communauté, dernièrement sur l'observabilité et le ROI des agents IA lors de BUILD 2026 //localhost:Paris.",
+      "bioEn": "Ihor Leontiev is co-founder and CTO of Dvigunity, a Microsoft Regional Director and a Microsoft MVP (Azure, IoT) since 2016. An Azure IoT and edge specialist, he works on how cloud-native, AI, edge and hybrid fit together. He speaks regularly in the community, most recently on observability and ROI for AI agents at BUILD 2026 //localhost:Paris.",
+      "sources": [
+        {
+          "claim": "LinkedIn title: CTO Dvigunity | Regional Director | Azure MVP; co-founder and CTO statement; renomination as MVP in IoT category (search snippets)",
+          "url": "https://www.linkedin.com/in/leontievihor/"
+        },
+        {
+          "claim": "2019 GAB deck: MVP since 2016, RD 2017/18, major player in Azure IoT / IoT Edge",
+          "url": "https://www.slideshare.net/slideshow/gab2019-ihor-leontiev-vincent-thavonekham-ouverture/142474987"
+        },
+        {
+          "claim": "2024 Global Azure Odesa bio: cloud-native and AI across hybrid, edge, IoT (search snippet; host unreachable)",
+          "url": "http://www.usergroup.od.ua/2024/04/global-azure-odesaukraine-2024.html"
+        },
+        {
+          "claim": "Dvigunity registered SAS in Boulogne-Billancourt, created 2021; Leontiev listed as officer",
+          "url": "https://www.pappers.fr/entreprise/dvigunity-899962120"
+        },
+        {
+          "claim": "BUILD 2026 talk on AI agents observability/ROI",
+          "url": "https://www.meetup.com/azug-fr/events/313762069/"
+        }
+      ],
+      "confidence": "low",
+      "notes": "Regional Director status only evidenced by LinkedIn headline and 2019/2023 sources; not found in rd.microsoft.com. No 2025-2026 source. Name spelling varies (Igor/Leontev). No Sessionize/GitHub/photo found. 'Co-founder' is from a snippet of a profile text, not verified directly."
+    }
+  ]
+}
