@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
 import { getLatestNews } from "@/lib/content/contentHelpers";
 
 export async function getStaticPaths() {
@@ -33,6 +34,7 @@ function formatDate(iso: string, loc: Locale): string {
   title={pageTitle}
   description={pageDescription}
   activeRoute="news"
+  canonicalUrl={`${site.url}/${locale}/news`}
 >
   <section class="max-w-5xl mx-auto px-4 py-12">
     <h1 class="text-4xl font-bold text-gray-900 mb-3">

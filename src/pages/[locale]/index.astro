@@ -17,7 +17,7 @@ const latestNews = await getLatestNews(locale, 3);
 const featuredSponsors = await getFeaturedSponsors(locale);
 ---
 
-<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home">
+<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}`}>
 
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-azure-700 to-azure-900 text-white py-20 px-4">

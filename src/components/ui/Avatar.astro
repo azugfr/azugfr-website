@@ -1,0 +1,38 @@
+---
+import { initials } from "@/lib/ui/initials";
+
+interface Props {
+  name: string;
+  src?: string;
+  size?: "sm" | "md" | "lg" | "xl";
+}
+
+const { name, src, size = "md" } = Astro.props;
+
+const sizeClasses = {
+  sm: "w-8 h-8 text-xs",
+  md: "w-12 h-12 text-sm",
+  lg: "w-16 h-16 text-lg",
+  xl: "w-24 h-24 text-2xl",
+} as const;
+const px = { sm: 32, md: 48, lg: 64, xl: 96 } as const;
+---
+
+<span
+  class={`relative shrink-0 rounded-full overflow-hidden bg-azure-100 text-azure-700 font-bold flex items-center justify-center ${sizeClasses[size]}`}
+>
+  <span aria-hidden="true">{initials(name)}</span>
+  {src && (
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      referrerpolicy="no-referrer"
+      width={px[size]}
+      height={px[size]}
+      class="absolute inset-0 w-full h-full object-cover"
+      onerror="this.remove()"
+    />
+  )}
+</span>

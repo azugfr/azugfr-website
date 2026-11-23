@@ -1,27 +1,29 @@
 ---
 import type { Locale } from "@/lib/i18n";
+import { swapLocaleInPath } from "@/lib/i18n";
 
 interface Props {
   locale: Locale;
   currentPath?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, currentPath } = Astro.props;
 
-const frPath = "/fr";
-const enPath = "/en";
+const frPath = swapLocaleInPath(currentPath ?? "/fr", "fr");
+const enPath = swapLocaleInPath(currentPath ?? "/en", "en");
 ---
 
 <div
   role="group"
   aria-label="Changer de langue / Switch language"
   class="flex items-center bg-[#F3F2F1] border border-[#D2D0CE] rounded-lg overflow-hidden
-         w-[88px] h-[40px] md:w-[88px] md:h-[40px]
-         w-[80px] h-[32px] text-xs md:text-sm"
+         w-20 h-8 md:w-[88px] md:h-10 text-xs md:text-sm"
 >
   <a
     href={frPath}
     aria-label="Français"
+    hreflang="fr"
+    lang="fr"
     aria-current={locale === "fr" ? "true" : undefined}
     class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
       ${locale === "fr"
@@ -34,6 +36,8 @@ const enPath = "/en";
   <a
     href={enPath}
     aria-label="English"
+    hreflang="en"
+    lang="en"
     aria-current={locale === "en" ? "true" : undefined}
     class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
       ${locale === "en"

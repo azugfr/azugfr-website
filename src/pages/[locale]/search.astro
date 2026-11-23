@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getUiDictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
 
 export async function getStaticPaths() {
   return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
@@ -12,7 +13,7 @@ const dict = getUiDictionary(locale);
 const pageTitle = locale === "fr" ? "Recherche | AZUG FR" : "Search | AZUG FR";
 ---
 
-<BaseLayout locale={locale} title={pageTitle} activeRoute="search">
+<BaseLayout locale={locale} title={pageTitle} activeRoute="search" canonicalUrl={`${site.url}/${locale}/search`}>
   {/* NOTE: Pagefind search UI requires a production build (npm run build).
       In dev mode, the search box will appear but won't return results. */}
   <section class="max-w-4xl mx-auto px-4 py-12">

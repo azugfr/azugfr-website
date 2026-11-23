@@ -6,12 +6,15 @@ export default {
       colors: {
         // AZUG FR brand palette — expand as design tokens are confirmed
         azure: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          900: "#1e3a8a",
+          50: "#EFF6FC",
+          100: "#DEECF9",
+          200: "#C7E0F4",
+          300: "#71AFE5",
+          500: "#2B88D8",
+          600: "#0078D4",
+          700: "#005A9E",
+          800: "#004578",
+          900: "#003A6C",
         },
       },
       fontFamily: {

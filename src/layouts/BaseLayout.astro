@@ -1,7 +1,8 @@
 ---
 import NavBar from "@/components/site/NavBar.astro";
 import Footer from "@/components/site/Footer.astro";
-import { getAlternateLocale } from "@/lib/i18n";
+import "@/styles/global.css";
+import { getAlternateLocale, getUiDictionary, swapLocaleInPath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { site } from "@/data/site";
 
@@ -12,16 +13,18 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   activeRoute?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { locale, title, description, canonicalUrl, ogImage, activeRoute } = Astro.props;
+const { locale, title, description, canonicalUrl, ogImage, activeRoute, jsonLd } = Astro.props;
+const dict = getUiDictionary(locale);
 const altLocale = getAlternateLocale(locale);
 
 const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}`;
-const altCanonical = `${site.url}/${altLocale}`;
+const altCanonical = site.url + swapLocaleInPath(new URL(resolvedCanonical).pathname, altLocale);
 const resolvedDescription = description ?? site.description[locale];
 const resolvedOgImage = ogImage ?? `${site.url}/og-default.svg`;
-const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`;
+const currentPath = new URL(resolvedCanonical).pathname;
 ---
 
 <!doctype html>
@@ -38,6 +41,7 @@ const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`
     <link rel="alternate" hreflang={locale}    href={resolvedCanonical} />
     <link rel="alternate" hreflang={altLocale} href={altCanonical} />
     <link rel="alternate" hreflang="x-default" href={`${site.url}/fr`} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type"        content="website" />
@@ -47,10 +51,17 @@ const currentPath = canonicalUrl ? new URL(canonicalUrl).pathname : `/${locale}`
     <meta property="og:url"         content={resolvedCanonical} />
     <meta property="og:site_name"   content={site.name} />
     <meta property="og:locale"      content={locale === "fr" ? "fr_FR" : "en_US"} />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")} />
+    )}
   </head>
   <body class="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-white focus:text-azure-700 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow"
+    >{dict.a11y.skipToContent}</a>
     <NavBar locale={locale} activeRoute={activeRoute} currentPath={currentPath} />
-    <main class="flex-1" data-pagefind-body>
+    <main id="main" class="flex-1" data-pagefind-body>
       <slot />
     </main>
     <Footer locale={locale} />
