@@ -7,6 +7,7 @@ import {
   getLocalizedRoute,
   getSupportedLocales,
   resolveLocaleContent,
+  swapLocaleInPath,
 } from "./index";
 
 describe("i18n primitives", () => {
@@ -65,5 +66,23 @@ describe("resolveLocaleContent", () => {
     };
 
     expect(resolveLocaleContent(entry, "en")).toEqual(entry);
+  });
+});
+
+describe("swapLocaleInPath", () => {
+  it("swaps the locale segment and keeps the rest of the path", () => {
+    expect(swapLocaleInPath("/fr/events/x", "en")).toBe("/en/events/x");
+  });
+
+  it("handles the bare locale root", () => {
+    expect(swapLocaleInPath("/fr", "en")).toBe("/en");
+  });
+
+  it("keeps a trailing slash", () => {
+    expect(swapLocaleInPath("/en/", "fr")).toBe("/fr/");
+  });
+
+  it("maps the site root to the target locale", () => {
+    expect(swapLocaleInPath("/", "en")).toBe("/en");
   });
 });
