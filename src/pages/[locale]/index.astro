@@ -36,12 +36,12 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "AZUG FR — Azure User Group France",
-  url: site.url,
+  url: `${site.url}/${locale}/`,
   logo: `${site.url}/azugfr-logo.png`,
   sameAs: Object.values(site.social),
 };
 ---
-<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}`} {jsonLd}>
+<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}/`} {jsonLd}>
 
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-azure-700 to-azure-900 text-white py-20 px-4">
@@ -108,7 +108,7 @@ const jsonLd = {
           </div>
         </div>
       ) : (
-        <div class="bg-gradient-to-br from-azure-50 to-white border border-azure-100 rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-8">
+        <div data-testid="next-event-empty" class="bg-gradient-to-br from-azure-50 to-white border border-azure-100 rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-8">
           <div class="flex-1">
             <h3 class="text-2xl font-bold text-gray-900 mb-3">{dict.home.comingSoonTitle}</h3>
             <p class="text-gray-700 mb-6">{dict.home.comingSoonBody}</p>
@@ -124,7 +124,7 @@ const jsonLd = {
             </div>
           </div>
           {latestPastEvent && (
-            <div class="md:w-80 bg-white border border-gray-200 rounded-xl p-5 self-start">
+            <div data-testid="latest-event" class="md:w-80 bg-white border border-gray-200 rounded-xl p-5 self-start">
               <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">{dict.home.lastEvent}</p>
               <h4 class="font-semibold text-gray-900 mb-2">
                 <a href={getLocalizedRoute(locale, "events", latestPastEvent.slug)} class="hover:text-azure-700 hover:underline">

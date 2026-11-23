@@ -34,7 +34,7 @@ const dict = getUiDictionary(locale);
 
 const allEvents = await getAllEvents(locale);
 const event = allEvents.find((e) => e.slug === slug);
-if (!event) return Astro.redirect(`/${locale}/events`);
+if (!event) return Astro.redirect(`/${locale}/events/`);
 const status = deriveEventStatus(event);
 
 const speakerSlugs = getEventSpeakerSlugs(event);
@@ -45,7 +45,7 @@ const talks = event.talks ?? [];
 
 const title = `${event.title} | AZUG FR`;
 const description = event.summary;
-const canonicalUrl = `${site.url}/${locale}/events/${slug}`;
+const canonicalUrl = `${site.url}/${locale}/events/${slug}/`;
 
 const mode = event.venue?.mode;
 const mapQuery = [event.venue?.name, event.venue?.address, event.venue?.city].filter(Boolean).join(", ");
@@ -88,7 +88,7 @@ const jsonLdRaw = {
             },
           }
         : undefined,
-  organizer: { "@type": "Organization", name: "AZUG FR — Azure User Group France", url: site.url },
+  organizer: { "@type": "Organization", name: "AZUG FR — Azure User Group France", url: `${site.url}/${locale}/` },
   performer: resolvedSpeakers.length
     ? resolvedSpeakers.map((s) => ({ "@type": "Person", name: s.name }))
     : undefined,

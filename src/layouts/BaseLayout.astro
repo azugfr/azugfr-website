@@ -20,7 +20,7 @@ const { locale, title, description, canonicalUrl, ogImage, activeRoute, jsonLd }
 const dict = getUiDictionary(locale);
 const altLocale = getAlternateLocale(locale);
 
-const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}`;
+const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}/`;
 const altCanonical = site.url + swapLocaleInPath(new URL(resolvedCanonical).pathname, altLocale);
 const resolvedDescription = description ?? site.description[locale];
 const resolvedOgImage = ogImage ?? `${site.url}/og-default.svg`;
@@ -40,7 +40,7 @@ const currentPath = new URL(resolvedCanonical).pathname;
     <link rel="canonical" href={resolvedCanonical} />
     <link rel="alternate" hreflang={locale}    href={resolvedCanonical} />
     <link rel="alternate" hreflang={altLocale} href={altCanonical} />
-    <link rel="alternate" hreflang="x-default" href={`${site.url}/fr`} />
+    <link rel="alternate" hreflang="x-default" href={`${site.url}/fr/`} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->

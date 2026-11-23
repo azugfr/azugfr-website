@@ -26,7 +26,7 @@ export function getUiDictionary(locale: Locale): UiDictionary {
 
 /**
  * Returns the canonical localised URL path for a given route key + optional slug.
- * Example: getLocalizedRoute("fr", "events", "global-azure-2024") → "/fr/events/global-azure-2024"
+ * Example: getLocalizedRoute("fr", "events", "global-azure-2024") → "/fr/events/global-azure-2024/"
  */
 export function getLocalizedRoute(
   locale: Locale,
@@ -34,7 +34,7 @@ export function getLocalizedRoute(
   slug?: string,
 ): string {
   const base = `/${locale}/${routeKey}`;
-  return slug ? `${base}/${slug}` : base;
+  return slug ? `${base}/${slug}/` : `${base}/`;
 }
 
 /**
@@ -52,10 +52,12 @@ export function resolveLocaleContent<
 
 /**
  * Swaps the leading /fr or /en segment of a path for another locale.
- * "/fr/events/x" -> "/en/events/x"; "/fr" -> "/en"; anything else -> "/<to>".
+ * "/fr/events/x/" -> "/en/events/x/"; "/fr" -> "/en/"; anything else -> "/<to>/".
+ * The result always ends with a slash (the site uses trailingSlash: "always").
  */
 export function swapLocaleInPath(path: string, to: Locale): string {
   const m = path.match(/^\/(fr|en)(\/.*)?$/);
-  if (!m) return `/${to}`;
-  return `/${to}${m[2] ?? ""}`;
+  if (!m) return `/${to}/`;
+  const rest = m[2] ?? "/";
+  return `/${to}${rest.endsWith("/") ? rest : `${rest}/`}`;
 }

@@ -13,7 +13,7 @@ const dict = getUiDictionary(locale);
 const pageTitle = locale === "fr" ? "Recherche | AZUG FR" : "Search | AZUG FR";
 ---
 
-<BaseLayout locale={locale} title={pageTitle} activeRoute="search" canonicalUrl={`${site.url}/${locale}/search`}>
+<BaseLayout locale={locale} title={pageTitle} activeRoute="search" canonicalUrl={`${site.url}/${locale}/search/`}>
   {/* NOTE: Pagefind search UI requires a production build (npm run build).
       In dev mode, the search box will appear but won't return results. */}
   <section class="max-w-4xl mx-auto px-4 py-12">

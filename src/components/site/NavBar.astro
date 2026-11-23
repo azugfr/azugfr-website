@@ -14,7 +14,7 @@ const { locale, activeRoute, currentPath } = Astro.props;
 const t = getUiDictionary(locale);
 
 const navItems = [
-  { key: "home",      label: t.nav.home,      href: `/${locale}` },
+  { key: "home",      label: t.nav.home,      href: `/${locale}/` },
   { key: "events",    label: t.nav.events,    href: getLocalizedRoute(locale, "events") },
   { key: "news",      label: t.nav.news,      href: getLocalizedRoute(locale, "news") },
   { key: "speakers",  label: t.nav.speakers,  href: getLocalizedRoute(locale, "speakers") },
@@ -28,7 +28,7 @@ const ctaHref  = site.social.meetup;
 
 <header class="w-full bg-white border-b border-[#E1DFDD] h-14 md:h-16 flex items-center px-4 md:px-8">
   <!-- Logo -->
-  <a href={`/${locale}`} aria-label="AZUG FR — Home" class="flex-shrink-0">
+  <a href={`/${locale}/`} aria-label="AZUG FR — Home" class="flex-shrink-0">
     <img src="/azugfr-logo.png" alt="AZUG FR" class="h-8 w-auto" />
   </a>
 

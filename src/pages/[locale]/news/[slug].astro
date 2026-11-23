@@ -27,7 +27,7 @@ const { locale, slug } = Astro.params as { locale: Locale; slug: string };
 const dict = getUiDictionary(locale);
 const entries = await getCollection("news");
 const entry = entries.find((e) => e.data.slug === slug);
-if (!entry) return Astro.redirect(`/${locale}/news`);
+if (!entry) return Astro.redirect(`/${locale}/news/`);
 const item = resolveLocaleContent(entry.data, locale);
 
 const pageTitle = `${item.title} | AZUG FR`;
@@ -48,7 +48,7 @@ function formatDate(iso: string, loc: Locale): string {
   title={pageTitle}
   description={pageDescription}
   activeRoute="news"
-  canonicalUrl={`${site.url}/${locale}/news/${entry.data.slug}`}
+  canonicalUrl={`${site.url}/${locale}/news/${entry.data.slug}/`}
 >
   <article class="max-w-4xl mx-auto px-4 py-12">
     <a

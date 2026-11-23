@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 const { locale, slug } = Astro.params as { locale: Locale; slug: string };
 const dict = getUiDictionary(locale);
 const speaker = await getSpeakerProfile(slug, locale);
-if (!speaker) return Astro.redirect(`/${locale}/speakers`);
+if (!speaker) return Astro.redirect(`/${locale}/speakers/`);
 const relatedEvents = await getRelatedEventsForSpeaker(slug, locale);
 const talkRows = await getTalksForSpeaker(slug, locale);
 const talkEventSlugs = new Set(talkRows.map((r) => r.event.slug));
@@ -39,7 +39,7 @@ const attendedEvents = relatedEvents.filter((e) => !talkEventSlugs.has(e.slug));
 
 const title = `${speaker.name} | AZUG FR`;
 const description = speaker.headline ?? speaker.bio ?? "";
-const canonicalUrl = `${site.url}/${locale}/speakers/${slug}`;
+const canonicalUrl = `${site.url}/${locale}/speakers/${slug}/`;
 
 const subtitle = speaker.headline ?? [speaker.role, speaker.company].filter(Boolean).join(" · ");
 const linkDefs = [

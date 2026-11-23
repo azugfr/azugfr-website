@@ -33,7 +33,7 @@ const title = locale === "fr" ? "Événements | AZUG FR" : "Events | AZUG FR";
 const description = locale === "fr"
   ? "Découvrez les prochains événements et les archives de la communauté Azure en France."
   : "Discover upcoming events and archives from the French Azure community.";
-const canonicalUrl = `${site.url}/${locale}/events`;
+const canonicalUrl = `${site.url}/${locale}/events/`;
 ---
 
 <BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="events">
@@ -46,7 +46,7 @@ const canonicalUrl = `${site.url}/${locale}/events`;
     <section id="upcoming" aria-labelledby="upcoming-h" class="mb-16 scroll-mt-20">
       <h2 id="upcoming-h" class="text-2xl font-semibold text-gray-800 mb-6">{dict.events.upcomingHeading}</h2>
       {upcoming.length === 0 ? (
-        <div class="bg-gray-50 rounded-xl p-8 text-center">
+        <div data-testid="upcoming-empty" class="bg-gray-50 rounded-xl p-8 text-center">
           <p class="text-gray-600 mb-6">{dict.events.noUpcoming}</p>
           <div class="flex justify-center gap-4 flex-wrap">
             <a

@@ -1,3 +1,5 @@
+import { readdirSync } from "node:fs";
+import { join } from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 
 const PAGES = [
@@ -48,8 +50,8 @@ test("fr home renders hero and nav", async ({ page }) => {
   const mainNav = page.getByRole("navigation", { name: "Main navigation" });
 
   await expect(page.getByRole("heading", { level: 1, name: "AZUG FR" })).toBeVisible();
-  await expect(mainNav.locator('a[href="/fr/events"]')).toBeVisible();
-  await expect(mainNav.locator('a[href="/fr/news"]')).toBeVisible();
+  await expect(mainNav.locator('a[href="/fr/events/"]')).toBeVisible();
+  await expect(mainNav.locator('a[href="/fr/news/"]')).toBeVisible();
 });
 
 test("en home renders and can switch locale", async ({ page }) => {
@@ -59,15 +61,15 @@ test("en home renders and can switch locale", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "AZUG FR" })).toBeVisible();
 
   await page.getByRole("link", { name: "Français" }).first().click();
-  await expect(page).toHaveURL(/\/fr\/?$/);
+  await expect(page).toHaveURL(/\/fr\/$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
 });
 
 test("events and news listing pages are reachable", async ({ page }) => {
-  await page.goto("/fr/events");
+  await page.goto("/fr/events/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-  await page.goto("/fr/news");
+  await page.goto("/fr/news/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
@@ -110,6 +112,9 @@ test.describe("upcoming section is honest", () => {
       els.map((el) => el.getAttribute("datetime") ?? ""),
     );
     const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    if (datetimes.length === 0) {
+      await expect(page.locator('#upcoming [data-testid="upcoming-empty"]')).toBeVisible();
+    }
     for (const dt of datetimes) expect(Date.parse(dt)).toBeGreaterThanOrEqual(cutoff);
   });
 
@@ -128,10 +133,13 @@ test.describe("upcoming section is honest", () => {
     // so only <time> elements outside that card are checked against the upcoming cutoff.
     const datetimes = await slot.locator("time[datetime]").evaluateAll((els) =>
       els
-        .filter((el) => !el.closest('[class*="md:w-80"]'))
+        .filter((el) => !el.closest('[data-testid="latest-event"]'))
         .map((el) => el.getAttribute("datetime") ?? ""),
     );
     const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    if (datetimes.length === 0) {
+      await expect(slot.locator('[data-testid="next-event-empty"]')).toBeVisible();
+    }
     for (const dt of datetimes) expect(Date.parse(dt)).toBeGreaterThanOrEqual(cutoff);
   });
 });
@@ -180,17 +188,26 @@ test.describe("Global Azure France editions", () => {
 });
 
 test.describe("locale switch and alternates", () => {
+  test("canonical, hreflang and x-default URLs end with a trailing slash", async ({ page }) => {
+    await page.goto("/fr/events/global-azure-france-2026/");
+    const hrefOf = (sel: string) => page.locator(sel).getAttribute("href");
+    expect(await hrefOf('link[rel="canonical"]')).toMatch(/\/fr\/events\/global-azure-france-2026\/$/);
+    expect(await hrefOf('link[rel="alternate"][hreflang="fr"]')).toMatch(/\/fr\/events\/global-azure-france-2026\/$/);
+    expect(await hrefOf('link[rel="alternate"][hreflang="en"]')).toMatch(/\/en\/events\/global-azure-france-2026\/$/);
+    expect(await hrefOf('link[rel="alternate"][hreflang="x-default"]')).toMatch(/\/fr\/$/);
+  });
+
   test("FR event detail switches to EN and keeps the event", async ({ page }) => {
     await page.goto("/fr/events/global-azure-france-2026/");
     await page.getByRole("link", { name: "English" }).first().click();
-    await expect(page).toHaveURL(/\/en\/events\/global-azure-france-2026\/?$/);
+    await expect(page).toHaveURL(/\/en\/events\/global-azure-france-2026\/$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
   });
 
   test("EN about switches to FR about", async ({ page }) => {
     await page.goto("/en/about/");
     await page.getByRole("link", { name: "Français" }).first().click();
-    await expect(page).toHaveURL(/\/fr\/about\/?$/);
+    await expect(page).toHaveURL(/\/fr\/about\/$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "fr");
   });
 
@@ -198,15 +215,17 @@ test.describe("locale switch and alternates", () => {
     await page.goto("/fr/events/global-azure-france-2026/");
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       "href",
-      /\/en\/events\/global-azure-france-2026\/?$/,
+      /\/en\/events\/global-azure-france-2026\/$/,
     );
   });
 });
 
-test("speakers index lists at least 40 cards and no placeholder speaker", async ({ page }) => {
+test("speakers index lists a card per speaker file and no placeholder speaker and no placeholder speaker", async ({ page }) => {
   await page.goto("/fr/speakers/");
   const cards = page.locator("main ul.grid > li");
-  expect(await cards.count()).toBeGreaterThanOrEqual(40);
+  const speakerFiles = readdirSync(join(process.cwd(), "src/content/speakers")).filter((f) => f.endsWith(".json"));
+  expect(speakerFiles.length).toBeGreaterThan(0);
+  expect(await cards.count()).toBeGreaterThanOrEqual(speakerFiles.length);
   await expect(page.getByText("Marie Dupont")).toHaveCount(0);
 });
 
@@ -233,7 +252,7 @@ test.describe("sitemap and robots", () => {
     expect(res.status()).toBe(200);
     const body = await res.text();
     // Sitemap URLs carry a trailing slash; hreflang uses the en-GB / fr-FR region codes.
-    expect(body).toMatch(/\/fr\/events\/global-azure-france-2026\/?<\/loc>/);
+    expect(body).toMatch(/\/fr\/events\/global-azure-france-2026\/<\/loc>/);
     expect(body).toContain('hreflang="fr-FR"');
     expect(body).toContain('hreflang="en-GB"');
   });

@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
+  trailingSlash: "always",
   // azugfr.github.io is an org/user page → no base path needed
   site: "https://azugfr.github.io",
   integrations: [

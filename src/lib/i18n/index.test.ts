@@ -23,8 +23,8 @@ describe("i18n primitives", () => {
   });
 
   it("builds localized routes with and without slug", () => {
-    expect(getLocalizedRoute("fr", "events")).toBe("/fr/events");
-    expect(getLocalizedRoute("en", "news", "my-post")).toBe("/en/news/my-post");
+    expect(getLocalizedRoute("fr", "events")).toBe("/fr/events/");
+    expect(getLocalizedRoute("en", "news", "my-post")).toBe("/en/news/my-post/");
   });
 });
 
@@ -71,11 +71,11 @@ describe("resolveLocaleContent", () => {
 
 describe("swapLocaleInPath", () => {
   it("swaps the locale segment and keeps the rest of the path", () => {
-    expect(swapLocaleInPath("/fr/events/x", "en")).toBe("/en/events/x");
+    expect(swapLocaleInPath("/fr/events/x/", "en")).toBe("/en/events/x/");
   });
 
   it("handles the bare locale root", () => {
-    expect(swapLocaleInPath("/fr", "en")).toBe("/en");
+    expect(swapLocaleInPath("/fr", "en")).toBe("/en/");
   });
 
   it("keeps a trailing slash", () => {
@@ -83,6 +83,6 @@ describe("swapLocaleInPath", () => {
   });
 
   it("maps the site root to the target locale", () => {
-    expect(swapLocaleInPath("/", "en")).toBe("/en");
+    expect(swapLocaleInPath("/", "en")).toBe("/en/");
   });
 });
