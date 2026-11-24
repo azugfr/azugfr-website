@@ -198,9 +198,12 @@ export const sponsorsSchema = z.object({
   // locale-neutral
   slug: z.string(),
   name: z.string(),
-  tier: z.string().optional(),
+  /** annual, honor (honorary), host, platinum, gold, silver, bronze */
+  tier: z.enum(["annual", "honor", "host", "platinum", "gold", "silver", "bronze"]).optional(),
   website: z.string(),
   logo: z.string().optional(),
+  /** Text shown in place of a logo when none exists (defaults to name) */
+  wordmark: z.string().optional(),
   featured: z.boolean().optional(),
   /** Sponsorship year, e.g. 2026 for an annual sponsor */
   year: z.number().int().optional(),
@@ -303,7 +306,12 @@ export const aboutOrganizerSchema = z.object({
   company: z.string().optional(),
   photo: z
     .string()
-    .refine((v) => v.startsWith("https://"), "organizer photo must be a remote https URL")
+    // A remote https URL, or a site path to a file under public/ (e.g. /speakers/<slug>.jpg);
+    // the content integrity test checks that local files exist.
+    .refine(
+      (v) => v.startsWith("https://") || v.startsWith("/"),
+      "organizer photo must be a remote https URL or a path to a file in public/",
+    )
     .optional(),
   awards: z.array(z.string()).optional(),
   expertise: z.array(z.string()).optional(),

@@ -9,42 +9,31 @@ interface Props {
 
 const { locale, currentPath } = Astro.props;
 
-const frPath = swapLocaleInPath(currentPath ?? "/fr", "fr");
-const enPath = swapLocaleInPath(currentPath ?? "/en", "en");
+const options: { code: Locale; label: string }[] = [
+  { code: "fr", label: "Français" },
+  { code: "en", label: "English" },
+];
 ---
 
 <div
   role="group"
   aria-label="Changer de langue / Switch language"
-  class="flex items-center bg-[#F3F2F1] border border-[#D2D0CE] rounded-lg overflow-hidden
-         w-20 h-8 md:w-[88px] md:h-10 text-xs md:text-sm"
+  class="flex items-center border border-trait rounded-btn overflow-hidden w-20 lg:w-[88px] h-9 lg:h-10 t-meta"
 >
-  <a
-    href={frPath}
-    aria-label="Français"
-    hreflang="fr"
-    lang="fr"
-    aria-current={locale === "fr" ? "true" : undefined}
-    class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
-      ${locale === "fr"
-        ? "bg-[#0078D4] text-white font-semibold"
-        : "text-[#323130] font-normal hover:bg-[#E1DFDD]"
+  {options.map(({ code, label }) => (
+    <a
+      href={swapLocaleInPath(currentPath ?? `/${code}`, code)}
+      aria-label={label}
+      hreflang={code}
+      lang={code}
+      aria-current={locale === code ? "true" : undefined}
+      class={`flex-1 flex items-center justify-center h-full transition-colors ${
+        locale === code
+          ? "bg-azur text-papier font-semibold"
+          : "text-encre hover:bg-ciel-soft"
       }`}
-  >
-    FR
-  </a>
-  <a
-    href={enPath}
-    aria-label="English"
-    hreflang="en"
-    lang="en"
-    aria-current={locale === "en" ? "true" : undefined}
-    class={`flex-1 flex items-center justify-center h-full text-sm font-sans transition-colors
-      ${locale === "en"
-        ? "bg-[#0078D4] text-white font-semibold"
-        : "text-[#323130] font-normal hover:bg-[#E1DFDD]"
-      }`}
-  >
-    EN
-  </a>
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
 </div>

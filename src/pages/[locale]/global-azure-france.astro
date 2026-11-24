@@ -28,7 +28,7 @@ const editions = globalAzureData.editions.map((edition) => {
   const stats = [
     sessions > 0 ? dict.ga.sessions(sessions) : null,
     speakers > 0 ? dict.ga.speakers(speakers) : null,
-  ].filter(Boolean).join(" · ");
+  ].filter(Boolean).join(", ");
   return { edition, event, status, date, description, stats };
 });
 
@@ -56,59 +56,53 @@ const labels = {
 >
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-[#0078D4] to-[#004E8C] text-white py-20">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-        Global Azure France
-      </h1>
-      <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-        {pageDescription}
-      </p>
+  <section class="on-ciel bg-ciel text-encre">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
+      <h1 class="t-h1 mb-4">Global Azure France</h1>
+      <p class="text-lead measure">{pageDescription}</p>
     </div>
   </section>
 
   <!-- About -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.about}</h2>
-    <p class="text-gray-700 text-lg leading-relaxed">{globalAzureData.about[locale]}</p>
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+    <h2 class="t-h2 mb-4">{labels.about}</h2>
+    <p class="measure">{globalAzureData.about[locale]}</p>
   </section>
 
   <!-- Editions -->
-  <section class="bg-gray-50 py-12">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-8">{labels.editions}</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <section class="bg-brume py-12">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <h2 class="t-h2 mb-8">{labels.editions}</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {editions.map(({ edition, event, status, date, description, stats }) => {
-          const btnPrimary = "inline-block bg-[#0078D4] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#005A9E] transition-colors";
-          const btnSecondary = "inline-block border border-[#0078D4] text-[#005A9E] text-sm font-medium px-4 py-2 rounded-lg hover:bg-azure-50 transition-colors";
           const registerUrl = event?.registrationUrl ?? edition.url;
           return (
-            <article data-testid="ga-edition" data-year={String(edition.year)} class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col gap-3">
+            <article data-testid="ga-edition" data-year={String(edition.year)} class="bg-papier rounded-panel border border-trait p-6 flex flex-col gap-3">
               <div>
-                <h3 class="text-xl font-bold text-[#0078D4]">{edition.year}</h3>
-                <p class="text-sm font-semibold text-gray-800 mt-0.5">{edition.city}</p>
-                {date && <p class="text-xs text-gray-500 mt-1">{date}</p>}
+                <h3 class="t-h2 t-num">{edition.year}</h3>
+                <p class="t-h3 mt-1">{edition.city}</p>
+                {date && <p class="t-meta text-gris mt-1">{date}</p>}
               </div>
               {description && (
-                <p class="text-gray-700 text-sm leading-relaxed flex-1">{description}</p>
+                <p class="t-meta text-encre flex-1">{description}</p>
               )}
-              {stats && <p class="text-xs text-gray-500">{stats}</p>}
-              <div class="flex flex-wrap gap-2 mt-auto">
+              {stats && <p class="t-meta text-gris">{stats}</p>}
+              <div class="flex flex-wrap gap-x-5 gap-y-2 mt-auto">
                 {status === "upcoming" && registerUrl ? (
-                  <a href={registerUrl} target="_blank" rel="noopener noreferrer" class={btnPrimary}>
+                  <a href={registerUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                     {dict.ga.register}
                   </a>
                 ) : event ? (
-                  <a href={getLocalizedRoute(locale, "events", event.slug)} class={btnSecondary}>
+                  <a href={getLocalizedRoute(locale, "events", event.slug)} class="link">
                     {dict.ga.viewAgenda}
                   </a>
                 ) : edition.url ? (
-                  <a href={edition.url} target="_blank" rel="noopener noreferrer" class={btnSecondary}>
+                  <a href={edition.url} target="_blank" rel="noopener noreferrer" class="link">
                     {dict.ga.meetupPage}
                   </a>
                 ) : null}
                 {edition.recap && (
-                  <a href={edition.recap[locale]} target="_blank" rel="noopener noreferrer" class={btnSecondary}>
+                  <a href={edition.recap[locale]} target="_blank" rel="noopener noreferrer" class="link">
                     {dict.ga.recap}
                   </a>
                 )}
@@ -121,24 +115,14 @@ const labels = {
   </section>
 
   <!-- CTA -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.stayInformed}</h2>
-    <p class="text-gray-700 text-lg leading-relaxed mb-6">{labels.ctaBody}</p>
-    <div class="flex flex-wrap gap-4">
-      <a
-        href={site.social.meetup}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-[#0078D4] text-white px-5 py-2.5 rounded-lg hover:bg-[#005A9E] transition-colors font-medium"
-      >
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+    <h2 class="t-h2 mb-4">{labels.stayInformed}</h2>
+    <p class="measure mb-6">{labels.ctaBody}</p>
+    <div class="flex flex-wrap gap-3">
+      <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
         {labels.meetup}
       </a>
-      <a
-        href={site.social.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-[#0078D4] text-white px-5 py-2.5 rounded-lg hover:bg-[#005A9E] transition-colors font-medium"
-      >
+      <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
         {labels.linkedin}
       </a>
     </div>

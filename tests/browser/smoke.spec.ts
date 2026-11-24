@@ -261,8 +261,26 @@ test.describe("sitemap and robots", () => {
   test("robots.txt points at the sitemap", async ({ request }) => {
     const res = await request.get("/robots.txt");
     expect(res.status()).toBe(200);
-    expect(await res.text()).toContain("Sitemap:");
+    expect(await res.text()).toContain("Sitemap: https://azug.fr/sitemap-index.xml");
   });
+
+  test("canonical URLs use the azug.fr custom domain", async ({ page }) => {
+    await page.goto("/fr/");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://azug.fr/fr/");
+  });
+
+  // Pages of the legacy static site (master before the cutover) redirect to their new homes.
+  for (const [legacy, target] of [
+    ["/gab.html", "/fr/global-azure-france/"],
+    ["/gabparis.html", "/fr/global-azure-france/"],
+    ["/blog.html", "/fr/news/"],
+    ["/single-post.html", "/fr/news/"],
+  ] as const) {
+    test(`legacy ${legacy} redirects to ${target}`, async ({ page }) => {
+      await page.goto(legacy);
+      await expect(page).toHaveURL(new RegExp(`${target.replace(/\//g, "\\/")}$`));
+    });
+  }
 });
 
 test.describe("sponsors", () => {
@@ -279,10 +297,42 @@ test.describe("sponsors", () => {
     });
   }
 
+  for (const locale of ["fr", "en"] as const) {
+    test(`${locale} home shows Microsoft as the honorary sponsor, once, with its loaded logo`, async ({ page }) => {
+      await page.goto(`/${locale}/`);
+      const block = page.getByTestId("honor-sponsor");
+      await expect(block).toBeVisible();
+      await expect(block).toContainText(locale === "fr" ? "Sponsor d'honneur" : "Honorary sponsor");
+      const logoName = locale === "fr" ? "Logo Microsoft" : "Microsoft logo";
+      const logo = block.getByRole("img", { name: logoName });
+      await expect(logo).toHaveAttribute("src", "/sponsors/microsoft.svg");
+      expect(await logo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+      await expect(block.getByRole("link", { name: logoName })).toHaveAttribute("href", "https://www.microsoft.com/fr-fr/");
+      // Annual and honorary sponsors sit side by side in one band; the Microsoft logo appears once on the page.
+      await expect(page.getByTestId("annual-sponsor")).toBeVisible();
+      await expect(page.getByRole("img", { name: logoName })).toHaveCount(1);
+    });
+  }
+
+  for (const path of ["/fr/", "/en/", "/fr/about/"]) {
+    test(`${path} says AZUG FR is part of MTG France`, async ({ page }) => {
+      await page.goto(path);
+      const line = page.getByTestId("mtg-network");
+      await expect(line).toContainText(path.startsWith("/fr") ? "communauté parisienne" : "Paris community");
+      await expect(line.getByRole("link", { name: "MTG France" })).toHaveAttribute("href", "https://www.mtg-france.org/");
+      await expect(page.locator("footer").getByRole("link", { name: "MTG France" })).toHaveAttribute(
+        "href",
+        "https://www.mtg-france.org/",
+      );
+    });
+  }
+
   test("about lists Rubrik first with its annual tier label", async ({ page }) => {
     await page.goto("/fr/about/");
     const cards = page.locator("#sponsors [data-testid^='sponsor-']");
     await expect(cards.first()).toHaveAttribute("data-testid", "sponsor-rubrik");
     await expect(cards.first()).toContainText("Sponsor annuel 2026");
+    await expect(cards.nth(1)).toHaveAttribute("data-testid", "sponsor-microsoft-france");
+    await expect(cards.nth(1)).toContainText("Sponsor d'honneur");
   });
 });

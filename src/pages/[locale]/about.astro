@@ -31,7 +31,7 @@ const sections = (allAbout
 
 const dict = getUiDictionary(locale);
 const organizers = await getOrganizers(locale);
-const sponsorOrder: Record<string, number> = { annual: 0, platinum: 1, gold: 2, silver: 3, bronze: 4, host: 5 };
+const sponsorOrder: Record<string, number> = { annual: 0, honor: 1, platinum: 2, gold: 3, silver: 4, bronze: 5, host: 6 };
 const sponsors = (await getAllSponsors(locale)).sort(
   (a, b) => (sponsorOrder[a.tier ?? ""] ?? 9) - (sponsorOrder[b.tier ?? ""] ?? 9),
 );
@@ -65,38 +65,38 @@ const labels = {
   activeRoute="about"
   canonicalUrl={`${site.url}/${locale}/about/`}
 >
-  <div class="max-w-5xl mx-auto px-4 py-12">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
 
     <!-- Hero -->
-    <section class="mb-12 text-center">
-      <h1 class="text-4xl font-bold text-gray-900 mb-3">{heroTitle}</h1>
-      <p class="text-xl text-azure-600 font-medium">{heroTagline}</p>
+    <section class="mb-12 md:mb-16">
+      <h1 class="t-h1 mb-4">{heroTitle}</h1>
+      <p class="text-lead measure">{heroTagline}</p>
     </section>
 
     <!-- Manifesto -->
     <section class="mb-12">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.manifesto}</h2>
-      <blockquote class="border-l-4 border-azure-600 pl-6 italic text-gray-700 text-lg leading-relaxed">
+      <h2 class="t-h2 mb-4">{labels.manifesto}</h2>
+      <blockquote class="border-l-4 border-azur pl-6 text-lead measure">
         {manifesto?.body}
       </blockquote>
     </section>
 
     <!-- Mission -->
     <section class="mb-12">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.mission}</h2>
-      <p class="text-gray-700 text-lg leading-relaxed">{mission?.body}</p>
+      <h2 class="t-h2 mb-4">{labels.mission}</h2>
+      <p class="measure">{mission?.body}</p>
     </section>
 
     <!-- History -->
     <section class="mb-12">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{labels.history}</h2>
-      <p class="text-gray-700 text-lg leading-relaxed">{history?.body}</p>
+      <h2 class="t-h2 mb-4">{labels.history}</h2>
+      <p class="measure">{history?.body}</p>
     </section>
 
     <!-- Organizers -->
     <section id="board" class="mb-12 scroll-mt-20">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{dict.about.board}</h2>
-      <ul class="grid gap-6 md:grid-cols-2">
+      <h2 class="t-h2 mb-6">{dict.about.board}</h2>
+      <ul class="border-t border-trait">
         {organizers.map((org) => {
           const links = [
             { key: "linkedin", label: "LinkedIn", href: org.links?.linkedin },
@@ -107,52 +107,47 @@ const labels = {
             { key: "mvp", label: dict.about.mvpProfile, href: org.links?.mvp },
           ].filter((l) => Boolean(l.href));
           return (
-            <li class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col gap-4 hover:shadow-md transition-shadow">
-              <div class="flex items-center gap-4">
-                <Avatar name={org.name} src={org.photo} size="xl" />
-                <div class="min-w-0">
-                  <h3 class="text-lg font-semibold text-gray-900">{org.name}</h3>
-                  <p class="text-sm text-azure-700">{org.role}</p>
-                  {org.company && <p class="text-sm text-gray-600">{org.company}</p>}
-                </div>
-              </div>
-              {org.awards && org.awards.length > 0 && (
-                <ul class="flex flex-wrap gap-2" aria-label={dict.about.awards}>
-                  {org.awards.map((award) => (
-                    <li class="inline-flex items-center gap-1 text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200 px-2 py-0.5 rounded-full">
-                      <svg class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.8 4.7 17.6l1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
-                      </svg>
-                      {award}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {org.bio && <p class="text-sm text-gray-700 leading-relaxed">{org.bio}</p>}
-              {org.expertise && org.expertise.length > 0 && (
-                <ul class="flex flex-wrap gap-2" aria-label={dict.about.expertise}>
-                  {org.expertise.map((tag) => (
-                    <li class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">{tag}</li>
-                  ))}
-                </ul>
-              )}
-              <div class="mt-auto flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                {links.map((l) => (
-                  <a
-                    href={l.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${org.name} — ${l.label}`}
-                    class="text-azure-700 hover:underline"
-                  >
-                    {l.label}
-                  </a>
-                ))}
-                {speakerSlugs.has(org.slug) && (
-                  <a href={getLocalizedRoute(locale, "speakers", org.slug)} class="text-azure-700 hover:underline">
-                    {dict.about.seeTalks}
-                  </a>
+            <li class="border-b border-trait py-6 flex gap-5">
+              {org.photo && <Avatar name={org.name} src={org.photo} size="xl" />}
+              <div class="min-w-0 flex flex-col gap-2">
+                <h3 class="t-h3">{org.name}</h3>
+                <p class="t-meta text-gris">
+                  <span>{org.role}</span>
+                  {org.company && <span class="ml-4">{org.company}</span>}
+                </p>
+                {org.awards && org.awards.length > 0 && (
+                  <ul class="t-meta flex flex-wrap gap-x-5" aria-label={dict.about.awards}>
+                    {org.awards.map((award) => (
+                      <li>{award}</li>
+                    ))}
+                  </ul>
                 )}
+                {org.bio && <p class="measure">{org.bio}</p>}
+                {org.expertise && org.expertise.length > 0 && (
+                  <ul class="t-meta text-gris flex flex-wrap gap-x-5" aria-label={dict.about.expertise}>
+                    {org.expertise.map((tag) => (
+                      <li>{tag}</li>
+                    ))}
+                  </ul>
+                )}
+                <div class="flex flex-wrap gap-x-5 gap-y-2 t-meta">
+                  {links.map((l) => (
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${org.name} — ${l.label}`}
+                      class="link"
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                  {speakerSlugs.has(org.slug) && (
+                    <a href={getLocalizedRoute(locale, "speakers", org.slug)} class="link">
+                      {dict.about.seeTalks}
+                    </a>
+                  )}
+                </div>
               </div>
             </li>
           );
@@ -164,38 +159,27 @@ const labels = {
     {sponsors.length > 0 && (
       <section id="sponsors" class="mb-12 scroll-mt-20">
         <SponsorGrid sponsors={sponsors} locale={locale} title={dict.sponsors.title} />
-        <p class="mt-6 text-sm text-gray-600">
-          <a href={`mailto:${site.contactEmail}`} class="text-azure-700 underline hover:text-azure-800">{dict.sponsors.becomeSponsor}</a>
+        <p class="mt-6">
+          <a href={`mailto:${site.contactEmail}`} class="link">{dict.sponsors.becomeSponsor}</a>
         </p>
       </section>
     )}
 
     <!-- Community links -->
     <section id="community" class="mb-4 scroll-mt-20">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{labels.community}</h2>
-      <div class="flex flex-wrap gap-4">
-        <a
-          href={site.social.meetup}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
-        >
+      <h2 class="t-h2 mb-6">{labels.community}</h2>
+      <p class="mb-6 measure" data-testid="mtg-network">
+        {dict.network.before}{" "}
+        <a href={site.network.url} target="_blank" rel="noopener noreferrer" class="link">{site.network.name}</a>{dict.network.after}
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
           {labels.meetup}
         </a>
-        <a
-          href={site.social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
-        >
+        <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
           {labels.linkedin}
         </a>
-        <a
-          href={site.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-azure-600 text-white px-5 py-2.5 rounded-lg hover:bg-azure-700 transition-colors font-medium"
-        >
+        <a href={site.social.github} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
           {labels.github}
         </a>
       </div>

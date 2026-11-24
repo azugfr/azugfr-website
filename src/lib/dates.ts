@@ -80,3 +80,27 @@ export function getBuildNow(): Date {
     ?.AZUG_NOW;
   return override ? new Date(override) : new Date();
 }
+
+export interface EventDateParts {
+  /** Day of month without padding, e.g. "18" */
+  day: string;
+  /** Short month, e.g. "avr." (fr) or "Apr" (en) */
+  month: string;
+  year: string;
+}
+
+/** Day, short month and year of an event start in its own time zone (for date blocks). */
+export function formatEventDateParts(
+  value: string,
+  locale: "fr" | "en",
+  timeZone = "Europe/Paris",
+): EventDateParts {
+  const parts = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone,
+  }).formatToParts(toInstant(value, timeZone));
+  const pick = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return { day: pick("day"), month: pick("month"), year: pick("year") };
+}

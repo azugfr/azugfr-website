@@ -207,7 +207,7 @@ describe("content integrity", () => {
     expect(badValues).toEqual([]);
   });
 
-  it("10. local image paths exist under public/, organizer photos are remote https, no /organizers/ paths", () => {
+  it("10. local image paths exist under public/, organizer photos are https or local, no /organizers/ paths", () => {
     const failures: string[] = [];
     for (const { file, collection, data } of allContentFiles) {
       for (const { key, value } of walk(data)) {
@@ -217,7 +217,10 @@ describe("content integrity", () => {
         }
       }
       if (collection === "about" && data.type === "organizer" && data.photo !== undefined) {
-        if (!String(data.photo).startsWith("https://")) failures.push(`about/${file}: photo is not https`);
+        const photo = String(data.photo);
+        if (!photo.startsWith("https://") && !photo.startsWith("/")) {
+          failures.push(`about/${file}: photo is neither https nor a site path`);
+        }
       }
     }
     expect(failures, failures.join("\n")).toEqual([]);
@@ -317,6 +320,9 @@ describe("content integrity", () => {
     expect(new Set(annualYears).size, "duplicate annual sponsor year").toBe(annualYears.length);
     const rubrik = sponsors.find(({ data }) => data.slug === "rubrik")?.data;
     expect(rubrik).toMatchObject({ tier: "annual", year: 2026, featured: true });
+    const microsoft = sponsors.find(({ data }) => data.slug === "microsoft-france")?.data;
+    expect(microsoft).toMatchObject({ tier: "honor", featured: true });
+    expect(sponsorsSchema.safeParse({ ...microsoft, tier: "not-a-tier" }).success).toBe(false);
   });
 
   it("15. organizers with expertise also have English expertise", () => {

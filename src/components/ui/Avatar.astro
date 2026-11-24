@@ -10,16 +10,16 @@ interface Props {
 const { name, src, size = "md" } = Astro.props;
 
 const sizeClasses = {
-  sm: "w-8 h-8 text-xs",
-  md: "w-12 h-12 text-sm",
-  lg: "w-16 h-16 text-lg",
-  xl: "w-24 h-24 text-2xl",
+  sm: "w-8 h-8 text-meta",
+  md: "w-12 h-12 text-meta",
+  lg: "w-16 h-16 text-lead",
+  xl: "w-24 h-24 text-[28px]",
 } as const;
 const px = { sm: 32, md: 48, lg: 64, xl: 96 } as const;
 ---
 
 <span
-  class={`relative shrink-0 rounded-full overflow-hidden bg-azure-100 text-azure-700 font-bold flex items-center justify-center ${sizeClasses[size]}`}
+  class={`relative shrink-0 rounded-full overflow-hidden bg-ciel-soft text-encre font-bold flex items-center justify-center ${sizeClasses[size]}`}
 >
   <span aria-hidden="true">{initials(name)}</span>
   {src && (

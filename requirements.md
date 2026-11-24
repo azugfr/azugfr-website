@@ -62,7 +62,7 @@ The target experience must support both **French (`fr`) and English (`en`)**, wi
 - User authentication or personalized dashboards.
 - Headless CMS integration beyond the specified build-time sync feeds.
 - Real-time data fetching in production pages.
-- Visual redesign beyond what is required to align implementation with Penpot and the design system.
+- Further visual redesign beyond `docs/DESIGN-2026-11.md`, which is the approved visual reference and supersedes Penpot.
 - First-milestone implementation of `/global-azure-france`.
 
 ## 3. Assumptions and Constraints
@@ -72,7 +72,7 @@ The target experience must support both **French (`fr`) and English (`en`)**, wi
 - Deployment target is GitHub Pages, so asset paths and base path behavior must be compatible with static hosting.
 - Content files committed to `src/content` must be sufficient for local builds and preview environments even when external APIs are unavailable.
 - Meetup and RSS ingestion runs at build-time or via explicit sync scripts before build.
-- Penpot is the visual source of truth, but content schemas and checked-in content files are the implementation source of truth.
+- `docs/DESIGN-2026-11.md` is the visual source of truth (it replaces Penpot), but content schemas and checked-in content files are the implementation source of truth.
 - Speaker profiles are primarily derived from event data, with optional manual overrides stored in `src/content/speakers`.
 - Archived events are required in addition to upcoming events.
 - News detail pages are required in the first implementation phase.
@@ -105,7 +105,7 @@ Implications:
 
 ### Site Shell and Navigation
 
-- **R1**: WHEN a visitor opens any page, THE SYSTEM SHALL render a consistent global header, navigation, footer, and brand treatment aligned with the Penpot design system.
+- **R1**: WHEN a visitor opens any page, THE SYSTEM SHALL render a consistent global header, navigation, footer, and brand treatment aligned with `docs/DESIGN-2026-11.md`.
 - **R2**: WHEN a visitor navigates the site, THE SYSTEM SHALL expose only statically generated routes and assets compatible with GitHub Pages hosting.
 - **R3**: WHERE a route is part of the primary information architecture, THE SYSTEM SHALL include it in navigation, footer links, or contextual links as appropriate to the page design.
 - **R4**: IF a requested content page does not exist, THEN THE SYSTEM SHALL serve a static not-found experience consistent with the design system.
@@ -130,8 +130,8 @@ _These requirements reflect the design decisions implemented in the Penpot desig
 - **R4k**: WHEN the language toggle is rendered, THE SYSTEM SHALL meet a minimum touch target of 40×32px on mobile and 88×40px on desktop, with visible keyboard focus indicators and an accessible label on the control.
 - **R4l**: WHEN switching locale via the language toggle, THE SYSTEM SHALL navigate to the equivalent page in the selected locale rather than returning the visitor to the home page.
 - **R4m**: IF a localized equivalent of the current page does not exist, THEN THE SYSTEM SHALL navigate to the localized home page and notify the visitor rather than linking to a broken route.
-- **R4n**: WHEN the language toggle is rendered, THE SYSTEM SHALL use the `Source Sans Pro` typeface at 14px (desktop) / 12px (mobile) consistent with the rest of the navigation bar.
-- **R4o**: WHEN the design system is maintained in Penpot, THE SYSTEM SHALL keep a canonical `LanguageToggle` specimen in the `NavBar-specimen` board within the `0 · Design System` page as the single visual source of truth for the component.
+- **R4n**: WHEN the language toggle is rendered, THE SYSTEM SHALL use the Archivo typeface at 15px, consistent with the rest of the navigation bar.
+- **R4o**: WHEN the design system is documented, THE SYSTEM SHALL describe the `LanguageToggle` styling in `docs/DESIGN-2026-11.md` (the earlier Penpot specimen is superseded).
 
 ### Home
 

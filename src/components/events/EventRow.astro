@@ -1,0 +1,57 @@
+---
+import type { EventEntry } from "@/content/config";
+import type { Locale } from "@/lib/i18n";
+import { getLocalizedRoute, getUiDictionary } from "@/lib/i18n";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { formatEventDateParts, toIsoWithOffset } from "@/lib/dates";
+import StatusBadge from "@/components/ui/StatusBadge.astro";
+
+interface Props {
+  event: EventEntry;
+  locale: Locale;
+  /** show the year under the month (upcoming list; past events sit under a year heading) */
+  showYear?: boolean;
+  /** heading level of the title; h3 under the page sections, h4 under a year heading */
+  headingLevel?: "h3" | "h4";
+}
+
+const { event, locale, showYear = false, headingLevel: Heading = "h3" } = Astro.props;
+const dict = getUiDictionary(locale);
+const status = deriveEventStatus(event);
+const isUpcoming = status === "upcoming";
+
+const parts = formatEventDateParts(event.startDate, locale, event.timezone);
+const talkCount = event.talks?.length ?? 0;
+const href = getLocalizedRoute(locale, "events", event.slug);
+---
+
+<li
+  data-testid="event-row"
+  class:list={[
+    "relative grid grid-cols-[4.5rem_1fr] sm:grid-cols-[6rem_1fr_auto] items-baseline gap-x-4 py-4 px-3 border-l-4 hover:bg-ciel-soft transition-colors",
+    isUpcoming ? "border-rouge" : "border-transparent",
+  ]}
+>
+  <time datetime={toIsoWithOffset(event.startDate, event.timezone)} class="t-num block">
+    <span class:list={["t-day block", isUpcoming ? "text-rouge" : "text-encre"]}>{parts.day}</span>
+    <span class="t-meta block text-gris">{parts.month}{showYear && ` ${parts.year}`}</span>
+  </time>
+
+  <div class="min-w-0">
+    <Heading class="t-h3">
+      <a href={href} class="text-encre after:absolute after:inset-0 hover:underline underline-offset-4">
+        {event.title}
+      </a>
+    </Heading>
+    <p class="t-meta text-gris mt-1 flex flex-wrap gap-x-4">
+      {event.venue?.name && <span>{event.venue.name}</span>}
+      {event.venue?.city && <span>{event.venue.city}</span>}
+      {event.host && <span>{dict.events.hostedBy} {event.host}</span>}
+    </p>
+    {status === "cancelled" && <p class="mt-2"><StatusBadge {status} {locale} /></p>}
+  </div>
+
+  {talkCount > 0 && (
+    <p class="t-meta text-gris col-start-2 sm:col-start-3 mt-1 sm:mt-0 t-num">{dict.events.talksCount(talkCount)}</p>
+  )}
+</li>

@@ -7,8 +7,7 @@ import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { deriveEventStatus } from "@/lib/content/eventStatus";
 import { site } from "@/data/site";
-import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
-import Avatar from "@/components/ui/Avatar.astro";
+import { formatEventDate, formatEventDateParts, toIsoWithOffset } from "@/lib/dates";
 import StatusBadge from "@/components/ui/StatusBadge.astro";
 import TalkList from "@/components/events/TalkList.astro";
 
@@ -42,6 +41,7 @@ const profiles = await Promise.all(speakerSlugs.map((s) => getSpeakerProfile(s, 
 const resolvedSpeakers = profiles.filter((s): s is NonNullable<typeof s> => Boolean(s));
 const speakersBySlug = Object.fromEntries(resolvedSpeakers.map((s) => [s.slug, s]));
 const talks = event.talks ?? [];
+const parts = formatEventDateParts(event.startDate, locale, event.timezone);
 
 const title = `${event.title} | AZUG FR`;
 const description = event.summary;
@@ -109,66 +109,59 @@ function venueModeLabel(m: string): string {
 ---
 
 <BaseLayout {locale} {title} {description} {canonicalUrl} {jsonLd} activeRoute="events">
-  <article class="max-w-6xl mx-auto px-4 py-12">
-    <a
-      href={getLocalizedRoute(locale, "events")}
-      class="text-azure-700 hover:underline text-sm inline-flex items-center gap-1"
-    >
-      ← {dict.common.backTo} {dict.nav.events}
+  <article class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <a href={getLocalizedRoute(locale, "events")} class="link">
+      {dict.common.backTo} {dict.nav.events}
     </a>
 
-    <header class="mt-6 mb-10">
-      <div class="mb-3"><StatusBadge {status} {locale} /></div>
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600">
-        <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>
-          {formatEventDate(event.startDate, locale, "dateLong", event.timezone)}
-        </time>
-        <span>
-          {formatEventDate(event.startDate, locale, "time", event.timezone)}{event.endDate && `–${formatEventDate(event.endDate, locale, "time", event.timezone)}`}
-        </span>
-        {event.venue?.city && <span>{event.venue.city}</span>}
-        {mode && (
-          <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200">
-            {venueModeLabel(mode)}
+    <header class="mt-8 mb-10 md:mb-14 grid gap-4 md:grid-cols-[9rem_1fr] md:gap-10">
+      <div class="t-num">
+        <span class:list={["t-day-xl block", status === "upcoming" ? "text-rouge" : "text-encre"]}>{parts.day}</span>
+        <span class="text-lead block text-encre">{parts.month} {parts.year}</span>
+      </div>
+      <div>
+        {status !== "past" && <p class="mb-3"><StatusBadge {status} {locale} /></p>}
+        <h1 class="t-h1">{event.title}</h1>
+        <p class="t-meta text-gris mt-4 flex flex-wrap gap-x-5 gap-y-1">
+          <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>
+            {formatEventDate(event.startDate, locale, "dateLong", event.timezone)}
+          </time>
+          <span class="t-num">
+            {formatEventDate(event.startDate, locale, "time", event.timezone)}{event.endDate && `–${formatEventDate(event.endDate, locale, "time", event.timezone)}`}
           </span>
-        )}
+          {event.venue?.city && <span>{event.venue.city}</span>}
+          {mode && <span>{venueModeLabel(mode)}</span>}
+        </p>
       </div>
     </header>
 
-    <div class="lg:grid lg:grid-cols-3 lg:gap-10">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-12">
       <div class="lg:col-span-2 space-y-12">
         {(event.description || event.summary) && (
-          <p class="text-gray-700 leading-relaxed whitespace-pre-line">{event.description ?? event.summary}</p>
+          <p class="measure whitespace-pre-line">{event.description ?? event.summary}</p>
         )}
 
         {talks.length > 0 && (
           <section aria-labelledby="agenda-h">
-            <h2 id="agenda-h" class="text-2xl font-bold mb-6">{dict.events.agenda}</h2>
+            <h2 id="agenda-h" class="t-h2 mb-6">{dict.events.agenda}</h2>
             <TalkList {talks} {speakersBySlug} {locale} />
           </section>
         )}
 
         {resolvedSpeakers.length > 0 && (
           <section aria-labelledby="speakers-h">
-            <h2 id="speakers-h" class="text-2xl font-bold mb-6">{dict.events.speakers}</h2>
-            <ul class="grid gap-4 sm:grid-cols-2">
+            <h2 id="speakers-h" class="t-h2 mb-6">{dict.events.speakers}</h2>
+            <ul class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
               {resolvedSpeakers.map((s) => (
-                <li class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl hover:shadow-sm">
-                  <Avatar name={s.name} src={s.photo} size="md" />
-                  <div class="min-w-0">
-                    <a
-                      href={getLocalizedRoute(locale, "speakers", s.slug)}
-                      class="font-semibold hover:text-azure-700 transition-colors"
-                    >
-                      {s.name}
-                    </a>
-                    {(s.headline || s.role || s.company) && (
-                      <p class="text-sm text-gray-600">
-                        {s.headline ?? [s.role, s.company].filter(Boolean).join(" · ")}
-                      </p>
-                    )}
-                  </div>
+                <li>
+                  <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="t-h3 text-encre hover:underline underline-offset-4">
+                    {s.name}
+                  </a>
+                  {(s.headline || s.role || s.company) && (
+                    <p class="t-meta text-gris">
+                      {s.headline ?? [s.role, s.company].filter(Boolean).join(", ")}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -176,53 +169,37 @@ function venueModeLabel(m: string): string {
         )}
       </div>
 
-      <aside class="mt-10 lg:mt-0 space-y-6">
-        <div class="rounded-xl border border-gray-200 p-6">
-          <h2 class="text-lg font-semibold mb-3">{dict.events.venue}</h2>
+      <aside class="mt-12 lg:mt-0">
+        <div class="bg-brume rounded-panel p-6">
+          <h2 class="t-h3 mb-3">{dict.events.venue}</h2>
           {mode === "online" ? (
-            <p class="text-gray-700">{venueModeLabel("online")}</p>
+            <p>{venueModeLabel("online")}</p>
           ) : event.venue ? (
             <>
-              {event.venue.name && <p class="font-medium text-gray-900">{event.venue.name}</p>}
-              {event.venue.address && <p class="text-gray-700">{event.venue.address}</p>}
-              {event.venue.city && <p class="text-gray-700">{event.venue.city}</p>}
+              {event.venue.name && <p class="font-semibold">{event.venue.name}</p>}
+              {event.venue.address && <p>{event.venue.address}</p>}
+              {event.venue.city && <p>{event.venue.city}</p>}
               {mapQuery && (
-                <a
-                  href={mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 inline-block text-azure-700 hover:underline text-sm"
-                >
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block link t-meta">
                   {dict.events.openMap}
                 </a>
               )}
             </>
           ) : null}
           {event.host && (
-            <p class="mt-4 text-sm text-gray-600">{dict.events.hostedBy} <span class="font-medium">{event.host}</span></p>
+            <p class="mt-4 t-meta text-gris">{dict.events.hostedBy} <span class="font-semibold">{event.host}</span></p>
+          )}
+          {showRegister && (
+            <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full mt-6">
+              {dict.ga.register}
+            </a>
+          )}
+          {showMeetup && (
+            <a href={meetupEventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary w-full mt-6">
+              {dict.events.viewOnMeetup}
+            </a>
           )}
         </div>
-
-        {showRegister && (
-          <a
-            href={event.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block bg-azure-600 hover:bg-azure-700 text-white rounded-lg px-6 py-3 w-full text-center font-semibold transition-colors"
-          >
-            {dict.ga.register}
-          </a>
-        )}
-        {showMeetup && (
-          <a
-            href={meetupEventUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block border border-azure-600 text-azure-700 hover:bg-azure-50 rounded-lg px-6 py-3 w-full text-center font-semibold transition-colors"
-          >
-            {dict.events.viewOnMeetup}
-          </a>
-        )}
       </aside>
     </div>
   </article>

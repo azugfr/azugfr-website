@@ -1,0 +1,24 @@
+---
+/**
+ * The AZUG FR logo cloud, drawn as a large decorative outline behind the home hero.
+ * Like the logo: an outer ring left open at the lower left, and an inner ring around a soft fill.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const cloud =
+  "M170 360 A95 95 0 0 1 180 200 A150 150 0 0 1 440 150 A110 110 0 0 1 560 330 A45 45 0 0 1 515 360 Z";
+---
+<svg class={className} viewBox="0 0 640 420" fill="none" aria-hidden="true" focusable="false">
+  <g transform="translate(365 270) scale(0.84) translate(-365 -270)">
+    <path d={cloud} class="fill-ciel-soft stroke-ciel" stroke-width="4" opacity="0.85" />
+  </g>
+  <path
+    d="M118 318 A95 95 0 0 1 180 200 A150 150 0 0 1 440 150 A110 110 0 0 1 560 330 A45 45 0 0 1 515 360 L250 360"
+    class="stroke-ciel"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

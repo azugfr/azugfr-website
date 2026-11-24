@@ -19,7 +19,8 @@ const byStartAsc = (a: EventEntry, b: EventEntry) => instantOf(a) - instantOf(b)
 const byStartDesc = (a: EventEntry, b: EventEntry) => instantOf(b) - instantOf(a);
 
 const TIER_PRIORITY: Record<string, number> = {
-  annual: -1,
+  annual: -2,
+  honor: -1,
   platinum: 0,
   gold: 1,
   silver: 2,
@@ -191,7 +192,7 @@ export async function getSpeakerProfile(slug: string, locale: Locale): Promise<S
   };
 }
 
-/** Sponsors with featured=true, sorted by tier priority (platinum > gold > silver > bronze > other) */
+/** Sponsors with featured=true, sorted by tier priority (annual > honor > platinum > gold > silver > bronze > other) */
 export async function getFeaturedSponsors(locale: Locale): Promise<SponsorEntry[]> {
   const entries = await getCollection("sponsors");
   return entries
@@ -202,6 +203,15 @@ export async function getFeaturedSponsors(locale: Locale): Promise<SponsorEntry[
       const pb = b.tier ? (TIER_PRIORITY[b.tier] ?? 99) : 99;
       return pa - pb;
     });
+}
+
+/** Logo-bearing featured sponsors for the home partners strip, without the annual and honor sponsors shown in their own band */
+export function getHomePartners(
+  featured: SponsorEntry[],
+  annual?: SponsorEntry,
+  honor?: SponsorEntry,
+): SponsorEntry[] {
+  return featured.filter((s) => Boolean(s.logo) && s !== annual && s !== honor);
 }
 
 /** All sponsors, locale-resolved */

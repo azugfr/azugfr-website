@@ -284,9 +284,10 @@ Most sponsor data is locale-neutral; only marketing copy is localized.
 
 - `slug: string`
 - `name: string`
-- `tier?: string`
+- `tier?: "annual" | "honor" | "host" | "platinum" | "gold" | "silver" | "bronze"`
 - `website: string`
 - `logo?: string`
+- `wordmark?: string` (text shown when there is no logo; defaults to `name`)
 - `featured?: boolean`
 
 **Locale-specific fields** (top level = canonical locale):
@@ -383,8 +384,8 @@ These are design-time planning helpers, not necessarily runtime modules, but the
   - CTA/button styles
   - metadata row
 - Make layout primitives locale-neutral so labels and copy can be injected per locale.
-- Translate Penpot patterns into Astro + Tailwind primitives rather than one-off page CSS.
-- Use the Penpot design system page as the visual anchor for spacing, typography, logo usage, and card patterns.
+- Translate the visual identity in `docs/DESIGN-2026-11.md` (tokens, type, layout) into Astro + Tailwind primitives rather than one-off page CSS. That document replaces Penpot as the visual reference.
+- Use the tokens and type roles defined in `src/styles/global.css` for spacing, typography and colour.
 - For pages not explicitly available in Penpot, reuse established primitives from Home, Events, and About patterns.
 
 ## 9. Error Handling Matrix
@@ -425,7 +426,7 @@ These are design-time planning helpers, not necessarily runtime modules, but the
 
 ### Manual Validation
 
-- Visual review against Penpot for:
+- Visual review against `docs/DESIGN-2026-11.md` for:
   - Home
   - Events list/detail
   - Speakers list/detail

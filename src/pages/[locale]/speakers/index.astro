@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Avatar from "@/components/ui/Avatar.astro";
 import {
   getAllSpeakers,
   getSpeakerProfile,
@@ -30,6 +29,17 @@ const speakers = await Promise.all(
 );
 speakers.sort((a, b) => a.name.localeCompare(b.name, locale));
 
+// A–Z roster: one heading per initial (accents folded so "Émile" sits under E)
+const initialOf = (name: string) =>
+  (name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")[0] ?? "#").toUpperCase();
+const letters: { letter: string; items: typeof speakers }[] = [];
+for (const sp of speakers) {
+  const letter = initialOf(sp.name);
+  const last = letters[letters.length - 1];
+  if (last && last.letter === letter) last.items.push(sp);
+  else letters.push({ letter, items: [sp] });
+}
+
 const title = locale === "fr" ? "Intervenants | AZUG FR" : "Speakers | AZUG FR";
 const description =
   locale === "fr"
@@ -39,46 +49,35 @@ const canonicalUrl = `${site.url}/${locale}/speakers/`;
 ---
 
 <BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="speakers">
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-4">
       {locale === "fr" ? "Intervenants" : "Speakers"}
     </h1>
-    <p class="text-gray-600 mb-10">{description}</p>
+    <p class="text-lead measure mb-10">{description}</p>
 
     {speakers.length === 0 ? (
-      <p class="text-gray-500">{dict.common.noResults}</p>
+      <p class="text-gris">{dict.common.noResults}</p>
     ) : (
-      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {speakers.map((s) => {
-          const subtitle = s.headline ?? [s.role, s.company].filter(Boolean).join(" · ");
-          return (
-            <li class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col gap-3">
-              <div class="flex items-center gap-4">
-                <Avatar name={s.name} src={s.photo} size="lg" />
-                <div class="min-w-0">
-                  <h2 class="font-semibold text-gray-900">
-                    <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="hover:text-azure-700 hover:underline">{s.name}</a>
-                  </h2>
-                  {subtitle && <p class="text-sm text-gray-600 mt-1">{subtitle}</p>}
-                </div>
-              </div>
-              {s.isOrganizer && (
-                <span class="self-start text-xs font-medium bg-azure-50 text-azure-700 border border-azure-200 px-2 py-0.5 rounded-full">
-                  {dict.speakers.organizerBadge}
-                </span>
-              )}
-              {s.expertise && s.expertise.length > 0 && (
-                <div class="flex flex-wrap gap-1">
-                  {s.expertise.slice(0, 3).map((tag) => (
-                    <span class="text-xs bg-azure-50 text-azure-700 px-2 py-1 rounded-full">{tag}</span>
-                  ))}
-                </div>
-              )}
-              <p class="text-xs text-gray-500 mt-auto">{dict.speakers.talksCount(s.count)}</p>
-            </li>
-          );
-        })}
-      </ul>
+      letters.map(({ letter, items }) => (
+        <section aria-labelledby={`letter-${letter}`} class="mb-10">
+          <h2 id={`letter-${letter}`} class="t-h2 border-b border-trait pb-2 mb-6">{letter}</h2>
+          <ul class="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((s) => {
+              const subtitle = s.headline ?? [s.role, s.company].filter(Boolean).join(", ");
+              return (
+                <li>
+                  <h3 class="t-h3">
+                    <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="text-encre hover:underline underline-offset-4">{s.name}</a>
+                  </h3>
+                  <p class="t-meta text-gris">{dict.speakers.talksCount(s.count)}</p>
+                  {subtitle && <p class="t-meta text-gris">{subtitle}</p>}
+                  {s.isOrganizer && <p class="t-meta text-encre font-semibold">{dict.speakers.organizerBadge}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))
     )}
   </section>
 </BaseLayout>

@@ -21,7 +21,6 @@ const linkGroups = [
       { label: t.footer.board,                                        href: `${getLocalizedRoute(locale, "about")}#board` },
       { label: t.footer.contact,                                      href: `mailto:${site.contactEmail}` },
     ],
-    ctas: [] as { label: string; href: string }[],
   },
   {
     heading: locale === "fr" ? "Événements" : "Events",
@@ -49,34 +48,32 @@ const linkGroups = [
       { label: t.footer.news,                                     href: getLocalizedRoute(locale, "news") },
       { label: t.sponsors.title,                                  href: `${getLocalizedRoute(locale, "about")}#sponsors` },
     ],
-    ctas: [] as { label: string; href: string }[],
   },
 ];
 
 const socials = [
-  { label: "LinkedIn",    href: site.social.linkedin, icon: "in" },
-  { label: "Twitter / X", href: site.social.twitter,  icon: "𝕏" },
-  { label: "GitHub",      href: site.social.github,   icon: "⌥" },
-  { label: "Meetup",      href: site.social.meetup,   icon: "M" },
+  { label: "LinkedIn",    href: site.social.linkedin },
+  { label: "Twitter / X", href: site.social.twitter },
+  { label: "GitHub",      href: site.social.github },
+  { label: "Meetup",      href: site.social.meetup },
 ];
+
+const linkClass = "text-meta text-givre underline underline-offset-4 decoration-transparent hover:decoration-givre hover:text-papier transition-colors w-fit";
 ---
 
-<footer class="bg-[#0B1929] text-white">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+<footer class="on-encre bg-encre text-papier">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
     <!-- 3 link columns -->
     {linkGroups.map(({ heading, links, ctas }) => (
       <div class="flex flex-col gap-2">
-        <h3 class="text-sm font-bold text-white mb-1">{heading}</h3>
+        <h2 class="t-foot-h text-papier mb-1">{heading}</h2>
         {links.map(({ label, href }) => (
-          <a href={href} class="text-sm text-[#8FA8C8] hover:text-white transition-colors">
+          <a href={href} class={linkClass}>
             {label}
           </a>
         ))}
-        {ctas && ctas.map((cta) => (
-          <a
-            href={cta.href}
-            class="mt-1 inline-flex items-center justify-center px-3 py-1.5 rounded border border-[#0078D4] text-[#4FA8E8] text-sm font-semibold hover:bg-[#0078D4] hover:text-white transition-colors w-fit"
-          >
+        {ctas?.map((cta) => (
+          <a href={cta.href} class="btn btn-secondary mt-2 !min-h-0 py-1.5 px-3 text-meta w-fit">
             {cta.label}
           </a>
         ))}
@@ -85,31 +82,32 @@ const socials = [
 
     <!-- Follow us column -->
     <div class="flex flex-col gap-2">
-      <h3 class="text-sm font-bold text-white mb-1">{locale === "fr" ? "Nous suivre" : "Follow us"}</h3>
-      {socials.map(({ label, href, icon }) => (
+      <h2 class="t-foot-h text-papier mb-1">{locale === "fr" ? "Nous suivre" : "Follow us"}</h2>
+      {socials.map(({ label, href }) => (
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          class="flex items-center gap-2 text-sm text-[#8FA8C8] hover:text-white transition-colors group"
+          class={linkClass}
         >
-          <span class="w-6 h-6 flex items-center justify-center rounded bg-white/10 text-xs font-bold group-hover:bg-[#0078D4] transition-colors flex-shrink-0">
-            {icon}
-          </span>
           {label}
         </a>
       ))}
     </div>
   </div>
 
-  <!-- Bottom bar: logo + copyright + tagline -->
-  <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <a href={`/${locale}/`} aria-label="AZUG FR — Home" class="flex-shrink-0">
-        <img src="/azugfr-logo.png" alt="AZUG FR" class="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+  <!-- Bottom bar: wordmark + copyright -->
+  <div class="border-t border-papier/15">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <a href={`/${locale}/`} aria-label="AZUG FR — Home" class="t-brand text-papier w-fit">
+        AZUG FR
       </a>
-      <p class="text-xs text-gray-400 text-center">{copyrightLabel}</p>
+      <p class="text-meta text-givre">
+        {t.network.member}{" "}
+        <a href={site.network.url} target="_blank" rel="noopener noreferrer" class="text-papier underline underline-offset-4 hover:decoration-2">{site.network.name}</a>
+      </p>
+      <p class="text-meta text-givre">{copyrightLabel}</p>
     </div>
   </div>
 </footer>
