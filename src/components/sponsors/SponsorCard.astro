@@ -1,49 +1,49 @@
 ---
 import type { SponsorEntry } from "@/content/config";
 import type { Locale } from "@/lib/i18n/index";
+import { getUiDictionary } from "@/lib/i18n/index";
 
 interface Props {
   sponsor: SponsorEntry;
   locale: Locale;
 }
 
-const { sponsor } = Astro.props;
+const { sponsor, locale } = Astro.props;
+const dict = getUiDictionary(locale);
 
 const tierClasses: Record<string, string> = {
-  platinum: "bg-azure-100 text-azure-700 border border-azure-200",
-  gold: "bg-yellow-100 text-yellow-700 border border-yellow-200",
-  silver: "bg-gray-100 text-gray-600 border border-gray-300",
-  bronze: "bg-orange-100 text-orange-700 border border-orange-200",
+  annual: "bg-azure-50 text-azure-700 border border-azure-200",
+  host: "bg-gray-100 text-gray-700 border border-gray-300",
+  platinum: "bg-azure-50 text-azure-700 border border-azure-200",
+  gold: "bg-yellow-100 text-yellow-800 border border-yellow-200",
+  silver: "bg-gray-100 text-gray-700 border border-gray-300",
+  bronze: "bg-orange-100 text-orange-800 border border-orange-200",
 };
 
-const tierClass = sponsor.tier
-  ? (tierClasses[sponsor.tier.toLowerCase()] ?? "bg-gray-100 text-gray-600 border border-gray-300")
+const tierKey = sponsor.tier?.toLowerCase();
+const tierClass = tierKey
+  ? (tierClasses[tierKey] ?? "bg-gray-100 text-gray-700 border border-gray-300")
   : "";
+const tierLabel = tierKey
+  ? `${dict.sponsors.tiers[tierKey] ?? sponsor.tier}${sponsor.year ? ` ${sponsor.year}` : ""}`
+  : null;
 ---
 
 <a
   href={sponsor.website}
   target="_blank"
   rel="noopener noreferrer"
-  class="bg-white rounded-lg border border-gray-200 p-6 flex flex-col items-center gap-3 hover:shadow-md transition-shadow"
+  data-testid={`sponsor-${sponsor.slug}`}
+  class="bg-white rounded-xl border border-gray-200 p-6 flex flex-col items-center gap-3 hover:shadow-md transition-shadow h-full"
 >
   {
     sponsor.logo ? (
-      <img
-        src={sponsor.logo}
-        alt={sponsor.alt ?? sponsor.name}
-        class="h-12 object-contain"
-      />
+      <img src={sponsor.logo} alt={sponsor.alt ?? sponsor.name} class="h-12 max-w-[180px] object-contain" />
     ) : (
-      <span class="font-semibold text-gray-700">{sponsor.name}</span>
+      <span class="h-12 flex items-center text-xl font-semibold text-gray-800">{sponsor.name}</span>
     )
   }
-  <span class="text-sm text-gray-600 text-center">{sponsor.name}</span>
-  {
-    sponsor.tier && (
-      <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${tierClass}`}>
-        {sponsor.tier}
-      </span>
-    )
-  }
+  {sponsor.logo && <span class="text-sm font-medium text-gray-700 text-center">{sponsor.name}</span>}
+  {tierLabel && <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${tierClass}`}>{tierLabel}</span>}
+  {sponsor.description && <p class="text-sm text-gray-600 text-center">{sponsor.description}</p>}
 </a>

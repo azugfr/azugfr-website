@@ -1,0 +1,18 @@
+{
+  "slug": "rubrik",
+  "locale": "fr",
+  "name": "Rubrik",
+  "tier": "annual",
+  "year": 2026,
+  "website": "https://www.rubrik.com/",
+  "logo": "/sponsors/rubrik.svg",
+  "alt": "Logo Rubrik",
+  "description": "Rubrik est le sponsor annuel 2026 de la communauté AZUG FR.",
+  "featured": true,
+  "translations": {
+    "en": {
+      "alt": "Rubrik logo",
+      "description": "Rubrik is the 2026 annual sponsor of the AZUG FR community."
+    }
+  }
+}

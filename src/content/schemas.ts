@@ -202,6 +202,8 @@ export const sponsorsSchema = z.object({
   website: z.string(),
   logo: z.string().optional(),
   featured: z.boolean().optional(),
+  /** Sponsorship year, e.g. 2026 for an annual sponsor */
+  year: z.number().int().optional(),
   // locale-specific (canonical)
   locale: localeEnum,
   description: z.string().optional(),

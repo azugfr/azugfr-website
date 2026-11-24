@@ -307,6 +307,18 @@ describe("content integrity", () => {
     ]);
   });
 
+  it("16. sponsors: logos exist in public/, at most one annual sponsor per year, annual sponsors carry a year", () => {
+    for (const { file, data } of sponsors) {
+      expect(sponsorsSchema.safeParse(data).success, file).toBe(true);
+      if (data.logo) expect(existsSync(join(ROOT, "public", data.logo)), `${file} logo ${data.logo}`).toBe(true);
+      if (data.tier === "annual") expect(Number.isInteger(data.year), `${file} year`).toBe(true);
+    }
+    const annualYears = sponsors.filter(({ data }) => data.tier === "annual").map(({ data }) => data.year);
+    expect(new Set(annualYears).size, "duplicate annual sponsor year").toBe(annualYears.length);
+    const rubrik = sponsors.find(({ data }) => data.slug === "rubrik")?.data;
+    expect(rubrik).toMatchObject({ tier: "annual", year: 2026, featured: true });
+  });
+
   it("15. organizers with expertise also have English expertise", () => {
     const failures = about
       .filter(({ data }) => data.type === "organizer" && data.expertise?.length)

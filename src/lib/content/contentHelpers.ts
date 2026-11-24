@@ -19,6 +19,7 @@ const byStartAsc = (a: EventEntry, b: EventEntry) => instantOf(a) - instantOf(b)
 const byStartDesc = (a: EventEntry, b: EventEntry) => instantOf(b) - instantOf(a);
 
 const TIER_PRIORITY: Record<string, number> = {
+  annual: -1,
   platinum: 0,
   gold: 1,
   silver: 2,

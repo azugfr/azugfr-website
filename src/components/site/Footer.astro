@@ -47,6 +47,7 @@ const linkGroups = [
       { label: locale === "fr" ? "Intervenants" : "Speakers", href: getLocalizedRoute(locale, "speakers") },
       { label: t.footer.resources,                                href: getLocalizedRoute(locale, "resources") },
       { label: t.footer.news,                                     href: getLocalizedRoute(locale, "news") },
+      { label: t.sponsors.title,                                  href: `${getLocalizedRoute(locale, "about")}#sponsors` },
     ],
     ctas: [] as { label: string; href: string }[],
   },

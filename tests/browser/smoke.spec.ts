@@ -230,11 +230,12 @@ test("speakers index lists a card per speaker file and no placeholder speaker", 
 });
 
 test.describe("footer", () => {
-  test("no Sponsors or Code de conduite links; Contact is mailto; upcoming links to #upcoming", async ({ page }) => {
+  test("no Code de conduite link; Sponsors goes to the about sponsors section; Contact is mailto; upcoming links to #upcoming", async ({ page }) => {
     await page.goto("/fr/");
     const footer = page.locator("footer");
     const labels = await footer.locator("a").allInnerTexts();
-    expect(labels.filter((t) => /sponsors|code de conduite/i.test(t))).toEqual([]);
+    expect(labels.filter((t) => /code de conduite/i.test(t))).toEqual([]);
+    await expect(footer.getByRole("link", { name: "Nos sponsors", exact: true })).toHaveAttribute("href", "/fr/about/#sponsors");
 
     await expect(footer.getByRole("link", { name: "Contact", exact: true })).toHaveAttribute("href", /^mailto:/);
     await expect(footer.getByRole("link", { name: "À venir", exact: true })).toHaveAttribute("href", /#upcoming$/);
@@ -261,5 +262,27 @@ test.describe("sitemap and robots", () => {
     const res = await request.get("/robots.txt");
     expect(res.status()).toBe(200);
     expect(await res.text()).toContain("Sitemap:");
+  });
+});
+
+test.describe("sponsors", () => {
+  for (const locale of ["fr", "en"] as const) {
+    test(`${locale} home highlights Rubrik as the 2026 annual sponsor with a loaded logo`, async ({ page }) => {
+      await page.goto(`/${locale}/`);
+      const block = page.getByTestId("annual-sponsor");
+      await expect(block).toBeVisible();
+      await expect(block).toContainText(locale === "fr" ? "Sponsor annuel 2026" : "2026 annual sponsor");
+      const logo = block.getByRole("img", { name: locale === "fr" ? "Logo Rubrik" : "Rubrik logo" });
+      await expect(logo).toBeVisible();
+      expect(await logo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+      await expect(block.getByRole("link")).toHaveAttribute("href", "https://www.rubrik.com/");
+    });
+  }
+
+  test("about lists Rubrik first with its annual tier label", async ({ page }) => {
+    await page.goto("/fr/about/");
+    const cards = page.locator("#sponsors [data-testid^='sponsor-']");
+    await expect(cards.first()).toHaveAttribute("data-testid", "sponsor-rubrik");
+    await expect(cards.first()).toContainText("Sponsor annuel 2026");
   });
 });

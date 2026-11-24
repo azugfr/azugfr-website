@@ -6,7 +6,8 @@ import type { Locale } from "@/lib/i18n";
 import type { AboutSection } from "@/content/config";
 import Avatar from "@/components/ui/Avatar.astro";
 import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
-import { getOrganizers } from "@/lib/content/contentHelpers";
+import { getOrganizers, getAllSponsors } from "@/lib/content/contentHelpers";
+import SponsorGrid from "@/components/sponsors/SponsorGrid.astro";
 
 export function getStaticPaths() {
   return [
@@ -30,6 +31,10 @@ const sections = (allAbout
 
 const dict = getUiDictionary(locale);
 const organizers = await getOrganizers(locale);
+const sponsorOrder: Record<string, number> = { annual: 0, platinum: 1, gold: 2, silver: 3, bronze: 4, host: 5 };
+const sponsors = (await getAllSponsors(locale)).sort(
+  (a, b) => (sponsorOrder[a.tier ?? ""] ?? 9) - (sponsorOrder[b.tier ?? ""] ?? 9),
+);
 const speakerSlugs = new Set((await getCollection("speakers")).map((e) => e.data.slug));
 
 const manifesto = sections.find((s) => s.slug === "manifesto");
@@ -154,6 +159,16 @@ const labels = {
         })}
       </ul>
     </section>
+
+    <!-- Sponsors -->
+    {sponsors.length > 0 && (
+      <section id="sponsors" class="mb-12 scroll-mt-20">
+        <SponsorGrid sponsors={sponsors} locale={locale} title={dict.sponsors.title} />
+        <p class="mt-6 text-sm text-gray-600">
+          <a href={`mailto:${site.contactEmail}`} class="text-azure-700 underline hover:text-azure-800">{dict.sponsors.becomeSponsor}</a>
+        </p>
+      </section>
+    )}
 
     <!-- Community links -->
     <section id="community" class="mb-4 scroll-mt-20">

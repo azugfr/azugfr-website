@@ -26,7 +26,9 @@ const featuredEvent = await getFeaturedEvent(locale);
 const latestPastEvent = featuredEvent ? null : await getLatestPastEvent(locale);
 const latestTalks = await getLatestTalks(locale, 6);
 const latestNews = await getLatestNews(locale, 3);
-const partnersWithLogo = (await getFeaturedSponsors(locale)).filter((s) => Boolean(s.logo));
+const featuredSponsors = await getFeaturedSponsors(locale);
+const annualSponsor = featuredSponsors.find((s) => s.tier === "annual");
+const partnersWithLogo = featuredSponsors.filter((s) => Boolean(s.logo) && s !== annualSponsor);
 const speakerBySlug = new Map((await getAllSpeakers(locale)).map((sp) => [sp.slug, sp]));
 
 const featuredStatus = featuredEvent ? deriveEventStatus(featuredEvent) : null;
@@ -215,6 +217,30 @@ const jsonLd = {
       )}
     </div>
   </section>
+
+  <!-- Annual sponsor -->
+  {annualSponsor && (
+    <section class="py-16 px-4 bg-gray-50 border-t border-gray-100" data-testid="annual-sponsor" aria-labelledby="annual-sponsor-title">
+      <div class="max-w-3xl mx-auto text-center">
+        <p id="annual-sponsor-title" class="text-sm font-semibold uppercase tracking-wide text-azure-700">
+          {annualSponsor.year ? dict.sponsors.annualTitle(annualSponsor.year) : dict.sponsors.tiers.annual}
+        </p>
+        <a
+          href={annualSponsor.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center justify-center rounded-xl bg-white border border-gray-200 px-10 py-6 hover:shadow-md transition-shadow"
+        >
+          {annualSponsor.logo ? (
+            <img src={annualSponsor.logo} alt={annualSponsor.alt ?? annualSponsor.name} class="h-14 max-w-[240px] object-contain" />
+          ) : (
+            <span class="text-2xl font-semibold text-gray-900">{annualSponsor.name}</span>
+          )}
+        </a>
+        <p class="mt-6 text-gray-600">{dict.sponsors.thanks(annualSponsor.name)}</p>
+      </div>
+    </section>
+  )}
 
   <!-- Partners (only when at least one featured sponsor has a logo) -->
   {partnersWithLogo.length > 0 && (

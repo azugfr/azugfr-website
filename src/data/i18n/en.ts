@@ -79,6 +79,20 @@ export const en: UiDictionary = {
     website: "Website",
     mvpProfile: "MVP profile",
   },
+  sponsors: {
+    title: "Our sponsors",
+    annualTitle: (year: number) => `${year} annual sponsor`,
+    thanks: (name: string) => `Thank you to ${name} for supporting the AZUG FR community.`,
+    tiers: {
+      annual: "Annual sponsor",
+      host: "Event host",
+      platinum: "Platinum",
+      gold: "Gold",
+      silver: "Silver",
+      bronze: "Bronze",
+    },
+    becomeSponsor: "Become a sponsor",
+  },
   ga: {
     viewAgenda: "View the agenda",
     meetupPage: "Meetup page",

@@ -77,6 +77,20 @@ export const fr = {
     website: "Site web",
     mvpProfile: "Profil MVP",
   },
+  sponsors: {
+    title: "Nos sponsors",
+    annualTitle: (year: number) => `Sponsor annuel ${year}`,
+    thanks: (name: string) => `Merci à ${name} de soutenir la communauté AZUG FR.`,
+    tiers: {
+      annual: "Sponsor annuel",
+      host: "Hôte d'événements",
+      platinum: "Platine",
+      gold: "Or",
+      silver: "Argent",
+      bronze: "Bronze",
+    } as Record<string, string>,
+    becomeSponsor: "Devenir sponsor",
+  },
   ga: {
     viewAgenda: "Voir le programme",
     meetupPage: "Page Meetup",
