@@ -1,0 +1,28 @@
+{
+  "slug": "meetup-mongodb-user-group-paris-2026-06-08",
+  "locale": "fr",
+  "title": "Nouveau meetup avec MongoDB User Group Paris le 8 juin",
+  "summary": "AZUG FR organise un meetup en collaboration avec MongoDB User Group Paris le lundi 8 juin à 18h30 chez Microsoft France.",
+  "content": "Nouveau meetup AZUG FR - Azure User Group France ! en collaboration avec MongoDB User Group Paris ! Lundi 8 juin 18h30 chez Microsoft France.\n\nInscription : https://www.meetup.com/azug-fr/events/315082158/",
+  "publishedAt": "2026-06-03T08:32:01.146Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7467855600245325825/",
+  "tags": [
+    "Meetup",
+    "MongoDB",
+    "Azure",
+    "Cloud"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7467855600245325825",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "New meetup with MongoDB User Group Paris on 8 June",
+      "summary": "AZUG FR is organising a meetup in collaboration with MongoDB User Group Paris on Monday 8 June at 6:30pm at Microsoft France.",
+      "content": "New AZUG FR - Azure User Group France meetup! In collaboration with MongoDB User Group Paris! Monday 8 June, 6:30pm at Microsoft France.\n\nRegistration: https://www.meetup.com/azug-fr/events/315082158/"
+    }
+  }
+}

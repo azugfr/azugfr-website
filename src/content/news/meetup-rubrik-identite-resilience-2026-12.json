@@ -1,0 +1,29 @@
+{
+  "slug": "meetup-rubrik-identite-resilience-2026-12",
+  "locale": "fr",
+  "title": "Soirée AZUG FR chez Rubrik le 16 décembre : identité et résilience dans Azure",
+  "summary": "AZUG FR donne rendez-vous le mercredi 16 décembre 2026 à 19h chez Rubrik France, à Paris, pour sa dernière soirée de l'année consacrée à l'identité et à la résilience dans Azure.",
+  "content": "Rendez-vous le 16 décembre 2026 chez Rubrik pour la dernière soirée AZUG FR - Azure User Group France de l'année, placée sous le signe de l'identité et de la résilience dans Azure.\n\nCette soirée sera l'occasion de faire le point sur deux sujets clés pour sécuriser vos environnements Azure, de partager nos retours d'expérience, d'échanger entre membres de la communauté et de partager une coupe de champagne avant les fêtes de fin d'année !\n\nAu programme :\n- Intro par la communauté AZUG FR\n- Topic 1 – L'identité dans Azure : les récentes attaques et les risques associés, par Pierre-Francois Guglielmi, Advisory Solution Architect\n- Topic 2 – Azure Backup : avantages et challenges, par Pierre-Francois Guglielmi, Advisory Solution Architect\n- Networking & échanges avec la communauté\n\nUne belle opportunité de découvrir des cas d'usage concrets, de confronter les bonnes pratiques et d'échanger avec l'écosystème.\n\nAfin de confirmer votre présence, merci de remplir le formulaire suivant : https://docs.google.com/forms/d/e/1FAIpQLSejUKht-phdHGlyWAwxqu2zlIjygO3L47THfPhFLGn4slT0ng/viewform\n\nMercredi 16 décembre 2026, à partir de 19h00\nRubrik France – Morning Laffitte : 34 Rue Laffitte, 75009 Paris\n\nPage de l'événement : https://www.meetup.com/azug-fr/events/317553267/",
+  "publishedAt": "2026-11-24T07:37:55.491Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7530897475595988992/",
+  "tags": [
+    "Meetup",
+    "Rubrik",
+    "Identité",
+    "Résilience",
+    "Azure"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7530897475595988992",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "AZUG FR evening at Rubrik on 16 December: identity and resilience in Azure",
+      "summary": "AZUG FR invites you on Wednesday 16 December 2026 at 7pm to Rubrik France in Paris for its last evening of the year, focused on identity and resilience in Azure.",
+      "content": "Join us on 16 December 2026 at Rubrik for the last AZUG FR - Azure User Group France evening of the year, focused on identity and resilience in Azure.\n\nThis evening will be a chance to review two key topics for securing your Azure environments, to share our experience, to exchange with fellow community members and to share a glass of champagne before the end-of-year holidays!\n\nAgenda:\n- Intro by the AZUG FR community\n- Topic 1 – Identity in Azure: recent attacks and the associated risks, by Pierre-Francois Guglielmi, Advisory Solution Architect\n- Topic 2 – Azure Backup: benefits and challenges, by Pierre-Francois Guglielmi, Advisory Solution Architect\n- Networking and discussions with the community\n\nA great opportunity to discover concrete use cases, compare good practices and talk with the ecosystem.\n\nTo confirm your attendance, please fill in the following form: https://docs.google.com/forms/d/e/1FAIpQLSejUKht-phdHGlyWAwxqu2zlIjygO3L47THfPhFLGn4slT0ng/viewform\n\nWednesday 16 December 2026, from 7:00pm\nRubrik France – Morning Laffitte: 34 Rue Laffitte, 75009 Paris\n\nEvent page: https://www.meetup.com/azug-fr/events/317553267/"
+    }
+  }
+}
