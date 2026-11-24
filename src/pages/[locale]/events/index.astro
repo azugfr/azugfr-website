@@ -1,0 +1,83 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EventRow from "@/components/events/EventRow.astro";
+import { getUpcomingEvents, getArchivedEvents, groupByYear } from "@/lib/content/contentHelpers";
+import { getUiDictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const upcoming = await getUpcomingEvents(locale);
+const archived = await getArchivedEvents(locale);
+const years = groupByYear(archived);
+
+const title = locale === "fr" ? "Événements | AZUG FR" : "Events | AZUG FR";
+const description = locale === "fr"
+  ? "Découvrez les prochains événements et les archives de la communauté Azure en France."
+  : "Discover upcoming events and archives from the French Azure community.";
+const canonicalUrl = `${site.url}/${locale}/events/`;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="events">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-10 md:mb-14">
+      {locale === "fr" ? "Événements" : "Events"}
+    </h1>
+
+    <!-- Upcoming section -->
+    <section id="upcoming" aria-labelledby="upcoming-h" class="mb-14 md:mb-20 scroll-mt-20">
+      <h2 id="upcoming-h" class="t-h2 mb-6">{dict.events.upcomingHeading}</h2>
+      {upcoming.length === 0 ? (
+        <div data-testid="upcoming-empty" class="bg-brume rounded-panel p-6 md:p-8">
+          <p class="text-lead measure mb-6">{dict.events.noUpcoming}</p>
+          <div class="flex flex-wrap gap-3">
+            <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              {dict.home.followMeetup}
+            </a>
+            <a href={`mailto:${site.contactEmail}`} class="btn btn-secondary">
+              {dict.home.proposeTalk}
+            </a>
+          </div>
+        </div>
+      ) : (
+        <ul class="border-t border-trait divide-y divide-trait border-b">
+          {upcoming.map((event) => <EventRow {event} {locale} showYear />)}
+        </ul>
+      )}
+    </section>
+
+    <!-- Past section -->
+    <section id="past" aria-labelledby="past-h" class="scroll-mt-20">
+      <h2 id="past-h" class="t-h2 mb-6">{dict.events.pastHeading}</h2>
+      {archived.length === 0 ? (
+        <p class="text-gris">{dict.common.noResults}</p>
+      ) : (
+        <>
+          <nav aria-label={dict.events.byYear} class="flex flex-wrap gap-x-6 gap-y-2 mb-4">
+            {years.map(({ year, events }) => (
+              <a href={`#year-${year}`} class="link t-num">
+                {year} <span class="text-gris">({events.length})</span>
+              </a>
+            ))}
+          </nav>
+          {years.map(({ year, events }) => (
+            <>
+              {/* The year is a large heading; it sits under the section's h2 so heading levels stay in order */}
+              <h3 id={`year-${year}`} class="t-h2 t-num mt-12 mb-4 scroll-mt-20">
+                {year}
+              </h3>
+              <ul class="border-t border-trait divide-y divide-trait border-b">
+                {events.map((event) => <EventRow {event} {locale} headingLevel="h4" />)}
+              </ul>
+            </>
+          ))}
+        </>
+      )}
+    </section>
+  </div>
+</BaseLayout>

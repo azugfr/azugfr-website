@@ -1,0 +1,14 @@
+{
+  "type": "section",
+  "slug": "mission",
+  "order": 2,
+  "locale": "fr",
+  "title": "Notre mission",
+  "body": "Notre mission : créer un espace bienveillant où chacun — du débutant à l'expert — peut apprendre, partager et progresser sur Azure et l'écosystème Microsoft Cloud.",
+  "translations": {
+    "en": {
+      "title": "Our Mission",
+      "body": "Our mission: create a welcoming space where everyone — from beginner to expert — can learn, share and grow on Azure and the Microsoft Cloud ecosystem."
+    }
+  }
+}

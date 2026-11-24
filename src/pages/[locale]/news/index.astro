@@ -1,0 +1,75 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+import { getLatestNews } from "@/lib/content/contentHelpers";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const news = await getLatestNews(locale);
+
+const pageTitle = locale === "fr" ? "Actualités | AZUG FR" : "News | AZUG FR";
+const pageDescription =
+  locale === "fr"
+    ? "Les dernières nouvelles de la communauté AZUG FR."
+    : "The latest news from the AZUG FR community.";
+
+function formatDate(iso: string, loc: Locale): string {
+  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="news"
+  canonicalUrl={`${site.url}/${locale}/news/`}
+>
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-4">
+      {locale === "fr" ? "Actualités" : "News"}
+    </h1>
+    <p class="text-lead measure mb-10">
+      {pageDescription}
+    </p>
+
+    {
+      news.length === 0 ? (
+        <p class="text-gris">{dict.common.noResults}</p>
+      ) : (
+        <ul class="border-t border-trait">
+          {news.map((item) => (
+            <li class="relative border-b border-trait py-5 px-2 md:grid md:grid-cols-[11rem_1fr_6rem] md:gap-x-6 md:items-baseline hover:bg-ciel-soft transition-colors">
+              <time class="t-meta t-num text-gris block" datetime={item.publishedAt}>
+                {formatDate(item.publishedAt, locale)}
+              </time>
+              <div class="mt-1 md:mt-0">
+                <h2 class="t-h3">
+                  <a
+                    href={getLocalizedRoute(locale, "news", item.slug)}
+                    class="text-encre after:absolute after:inset-0 hover:underline underline-offset-4"
+                  >
+                    {item.title}
+                  </a>
+                </h2>
+                <p class="mt-2 measure">{item.summary}</p>
+              </div>
+              <p class="t-meta text-gris mt-2 md:mt-0 md:text-right">LinkedIn</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

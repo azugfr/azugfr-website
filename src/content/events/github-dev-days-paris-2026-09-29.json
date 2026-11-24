@@ -1,0 +1,36 @@
+{
+  "slug": "github-dev-days-paris-2026-09-29",
+  "locale": "fr",
+  "title": "GitHub Dev Days 2026",
+  "summary": "Soirée hands-on autour de GitHub Copilot, du Copilot app et du Copilot CLI, chez Microsoft France à Issy-les-Moulineaux.",
+  "description": "GitHub Dev Days arrive à Paris. Avec GitHub et Microsoft, AZUG FR propose une soirée hands-on autour de GitHub Copilot, du Copilot app et du Copilot CLI pour tester ce qu'ils savent faire dans de vrais workflows de développement : démos live, ateliers guidés et astuces pour travailler plus vite avec Copilot. Ouvert à tous les développeurs, débutants comme confirmés. La réservation ne se fait pas sur Meetup : l'inscription est obligatoire sur luma.com/7n9bgsow.",
+  "startDate": "2026-09-29T18:00:00",
+  "endDate": "2026-09-29T21:00:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "Microsoft France",
+    "address": "41 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux",
+    "city": "Issy-les-Moulineaux",
+    "mode": "in_person"
+  },
+  "host": "GitHub & Microsoft",
+  "registrationUrl": "https://luma.com/7n9bgsow",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/316280862/",
+  "tags": [
+    "GitHub",
+    "GitHub Copilot",
+    "Developer"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "316280862",
+    "lastSyncedAt": "2026-11-23T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "GitHub Dev Days 2026",
+      "summary": "Hands-on evening on GitHub Copilot, the Copilot app and the Copilot CLI, at Microsoft France in Issy-les-Moulineaux.",
+      "description": "GitHub Dev Days comes to Paris. With GitHub and Microsoft, AZUG FR offers a hands-on evening on GitHub Copilot, the Copilot app and the Copilot CLI to try what they can do in real development workflows: live demos, guided workshops and tips to work faster with Copilot. Open to all developers, beginners and experienced alike. Booking is not done on Meetup: registration is mandatory at luma.com/7n9bgsow."
+    }
+  }
+}

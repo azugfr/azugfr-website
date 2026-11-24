@@ -1,0 +1,39 @@
+---
+import type { Locale } from "@/lib/i18n";
+import { swapLocaleInPath } from "@/lib/i18n";
+
+interface Props {
+  locale: Locale;
+  currentPath?: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+const options: { code: Locale; label: string }[] = [
+  { code: "fr", label: "Français" },
+  { code: "en", label: "English" },
+];
+---
+
+<div
+  role="group"
+  aria-label="Changer de langue / Switch language"
+  class="flex items-center border border-trait rounded-btn overflow-hidden w-20 lg:w-[88px] h-9 lg:h-10 t-meta"
+>
+  {options.map(({ code, label }) => (
+    <a
+      href={swapLocaleInPath(currentPath ?? `/${code}`, code)}
+      aria-label={label}
+      hreflang={code}
+      lang={code}
+      aria-current={locale === code ? "true" : undefined}
+      class={`flex-1 flex items-center justify-center h-full transition-colors ${
+        locale === code
+          ? "bg-azur text-papier font-semibold"
+          : "text-encre hover:bg-ciel-soft"
+      }`}
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
+</div>

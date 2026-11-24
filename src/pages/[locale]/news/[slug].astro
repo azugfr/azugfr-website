@@ -1,0 +1,105 @@
+---
+import { getCollection } from "astro:content";
+import { linkify } from "@/lib/ui/linkify";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, getLocalizedRoute, resolveLocaleContent } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  const locales: Locale[] = ["fr", "en"];
+  const paths = [];
+  for (const locale of locales) {
+    const entries = await getCollection("news");
+    for (const entry of entries) {
+      paths.push({ params: { locale, slug: entry.data.slug } });
+    }
+  }
+  const seen = new Set<string>();
+  return paths.filter((p) => {
+    const key = `${p.params.locale}:${p.params.slug}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const dict = getUiDictionary(locale);
+const entries = await getCollection("news");
+const entry = entries.find((e) => e.data.slug === slug);
+if (!entry) return Astro.redirect(`/${locale}/news/`);
+const item = resolveLocaleContent(entry.data, locale);
+
+const pageTitle = `${item.title} | AZUG FR`;
+const pageDescription = item.summary;
+
+function formatDate(iso: string, loc: Locale): string {
+  return new Date(iso).toLocaleDateString(loc === "fr" ? "fr-FR" : "en-GB", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="news"
+  canonicalUrl={`${site.url}/${locale}/news/${entry.data.slug}/`}
+>
+  <article class="max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <a href={getLocalizedRoute(locale, "news")} class="link">
+      {dict.common.backTo}
+      {locale === "fr" ? "Actualités" : "News"}
+    </a>
+
+    <header class="mt-8 mb-8">
+      <h1 class="t-h1 mb-4">{item.title}</h1>
+      <p class="t-meta text-gris flex flex-wrap gap-x-5 gap-y-1">
+        <time datetime={item.publishedAt} class="t-num">
+          {formatDate(item.publishedAt, locale)}
+        </time>
+        {item.author && <span>{item.author}</span>}
+        <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" class="link">
+          {locale === "fr" ? "Voir la source" : "View source"}
+        </a>
+      </p>
+    </header>
+
+    {
+      item.image && (
+        <img
+          src={item.image}
+          alt={item.title}
+          class="w-full rounded-panel mb-8 object-cover max-h-64"
+        />
+      )
+    }
+
+    {
+      item.content ? (
+        <div class="measure whitespace-pre-line" set:html={linkify(item.content)} />
+      ) : (
+        <div class="bg-brume rounded-panel p-6 md:p-8">
+          <p class="text-lead measure mb-6">{item.summary}</p>
+          <a
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            {
+              locale === "fr"
+                ? "Lire l'article complet sur LinkedIn"
+                : "Read full article on LinkedIn"
+            }
+          </a>
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

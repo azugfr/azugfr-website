@@ -1,0 +1,16 @@
+{
+  "slug": "cedric-leblond",
+  "locale": "fr",
+  "name": "Cédric Leblond",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "298884827"
+    ]
+  },
+  "photo": "/speakers/cedric-leblond.jpg",
+  "company": "Meritis",
+  "role": "Consultant Cloud et architecte Azure",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/"
+  }
+}

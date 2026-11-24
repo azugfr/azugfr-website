@@ -1,0 +1,10 @@
+{
+  "slug": "ari-kouts",
+  "locale": "fr",
+  "name": "Ari Kouts",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "299674046"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "soiree-mug-paris-azugfr-microsoft-fabric-mongodb-2026-06-08",
+  "locale": "fr",
+  "title": "Soirée MUG Paris & AZUG FR : Microsoft Fabric & MongoDB",
+  "summary": "Soirée commune AZUG FR et MUG (MongoDB User Group) Paris chez Microsoft France autour de l'intégration native entre Microsoft Fabric et MongoDB.",
+  "description": "AZUG FR et la communauté MUG (MongoDB User Group) Paris organisent une soirée chez Microsoft France consacrée à la façon de connecter nativement la puissance analytique de Microsoft Fabric avec l'agilité de MongoDB. Programme : 18h30 accueil et networking, 19h00 mot d'ouverture avec les actualités de la communauté et les nouveautés de MongoDB, 19h15 tech talk « Intégration native entre Microsoft Fabric et MongoDB » par Frederic Gisbert (Senior Partner Solution Architect, Microsoft) et Alexandre Danoffre (Partner Solution Architect, Microsoft), puis apéro et networking. Les places sont limitées et les inscriptions ferment le dimanche 7 juin à 18h.",
+  "startDate": "2026-06-08T18:30:00",
+  "endDate": "2026-06-08T21:00:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "Microsoft France",
+    "address": "39 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux",
+    "city": "Issy-les-Moulineaux",
+    "mode": "in_person"
+  },
+  "host": "MUG Paris & Microsoft",
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/315082158/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/315082158/",
+  "speakerSlugs": [
+    "frederic-gisbert",
+    "alexandre-danoffre"
+  ],
+  "talks": [
+    {
+      "title": "Intégration native entre Microsoft Fabric et MongoDB",
+      "abstract": "Comment connecter nativement la puissance analytique de Microsoft Fabric avec l'agilité de MongoDB.",
+      "time": "19:15",
+      "speakerSlugs": [
+        "frederic-gisbert",
+        "alexandre-danoffre"
+      ],
+      "translations": {
+        "en": {
+          "title": "Native integration between Microsoft Fabric and MongoDB",
+          "abstract": "How to natively connect the analytics power of Microsoft Fabric with the agility of MongoDB."
+        }
+      }
+    }
+  ],
+  "tags": [
+    "Azure",
+    "Data",
+    "Microsoft Fabric",
+    "MongoDB"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "315082158",
+    "lastSyncedAt": "2026-11-23T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "MUG Paris & AZUG FR evening: Microsoft Fabric & MongoDB",
+      "summary": "Joint evening of AZUG FR and the MUG (MongoDB User Group) Paris at Microsoft France on the native integration between Microsoft Fabric and MongoDB.",
+      "description": "AZUG FR and the MUG (MongoDB User Group) Paris community host an evening at Microsoft France on how to natively connect the analytics power of Microsoft Fabric with the agility of MongoDB. Agenda: 6:30 pm welcome and networking, 7:00 pm opening remarks with community news and MongoDB updates, 7:15 pm tech talk \"Native integration between Microsoft Fabric and MongoDB\" by Frederic Gisbert (Senior Partner Solution Architect, Microsoft) and Alexandre Danoffre (Partner Solution Architect, Microsoft), followed by drinks and networking. Seats are limited and registration closes on Sunday 7 June at 6 pm."
+    }
+  }
+}

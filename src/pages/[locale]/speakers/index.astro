@@ -1,0 +1,83 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  getAllSpeakers,
+  getSpeakerProfile,
+  getTalksForSpeaker,
+  getRelatedEventsForSpeaker,
+} from "@/lib/content/contentHelpers";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const base = await getAllSpeakers(locale);
+const profiles = (await Promise.all(base.map((s) => getSpeakerProfile(s.slug, locale)))).filter(
+  (p): p is NonNullable<typeof p> => Boolean(p),
+);
+const speakers = await Promise.all(
+  profiles.map(async (p) => {
+    const talks = await getTalksForSpeaker(p.slug, locale);
+    const count = talks.length > 0 ? talks.length : (await getRelatedEventsForSpeaker(p.slug, locale)).length;
+    return { ...p, count };
+  }),
+);
+speakers.sort((a, b) => a.name.localeCompare(b.name, locale));
+
+// A–Z roster: one heading per initial (accents folded so "Émile" sits under E)
+const initialOf = (name: string) =>
+  (name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")[0] ?? "#").toUpperCase();
+const letters: { letter: string; items: typeof speakers }[] = [];
+for (const sp of speakers) {
+  const letter = initialOf(sp.name);
+  const last = letters[letters.length - 1];
+  if (last && last.letter === letter) last.items.push(sp);
+  else letters.push({ letter, items: [sp] });
+}
+
+const title = locale === "fr" ? "Intervenants | AZUG FR" : "Speakers | AZUG FR";
+const description =
+  locale === "fr"
+    ? "Les expertes et experts qui partagent leurs connaissances lors de nos événements."
+    : "The experts who share their knowledge at our events.";
+const canonicalUrl = `${site.url}/${locale}/speakers/`;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="speakers">
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-4">
+      {locale === "fr" ? "Intervenants" : "Speakers"}
+    </h1>
+    <p class="text-lead measure mb-10">{description}</p>
+
+    {speakers.length === 0 ? (
+      <p class="text-gris">{dict.common.noResults}</p>
+    ) : (
+      letters.map(({ letter, items }) => (
+        <section aria-labelledby={`letter-${letter}`} class="mb-10">
+          <h2 id={`letter-${letter}`} class="t-h2 border-b border-trait pb-2 mb-6">{letter}</h2>
+          <ul class="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((s) => {
+              const subtitle = s.headline ?? [s.role, s.company].filter(Boolean).join(", ");
+              return (
+                <li>
+                  <h3 class="t-h3">
+                    <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="text-encre hover:underline underline-offset-4">{s.name}</a>
+                  </h3>
+                  <p class="t-meta text-gris">{dict.speakers.talksCount(s.count)}</p>
+                  {subtitle && <p class="t-meta text-gris">{subtitle}</p>}
+                  {s.isOrganizer && <p class="t-meta text-encre font-semibold">{dict.speakers.organizerBadge}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))
+    )}
+  </section>
+</BaseLayout>

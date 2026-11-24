@@ -1,0 +1,29 @@
+{
+  "slug": "global-azure-france-2026-sessions-speakers",
+  "locale": "fr",
+  "title": "Global Azure France 2026 : sessions et speakers annoncés",
+  "summary": "Le programme de l'événement du samedi 18 avril (9h-13h) est dévoilé : cinq sessions sur les copilots, Azure Local, Blazor, l'industrialisation de la GenAI et le ROI de l'IA.",
+  "content": "Annonce des sessions & speakers - Événement du samedi 18 avril\n\nNotre événement du samedi 18 avril approche à grands pas, et nous sommes ravis de vous dévoiler le programme et les speakers qui animeront cette journée dédiée au Cloud, à l'IA et à Azure.\n\nAu programme :\n\n- Achraf Ben Alaya\nImproving Ops with Azure Copilot and GitHub Copilot\nComment les copilots transforment concrètement les opérations et la productivité des équipes techniques.\n\n- Jonathan JEHANNO\nAzure Local – Le Cloud Souverain by Microsoft\nUn focus sur Azure Local et les enjeux de souveraineté du cloud.\n\n- Mabrouk Mahdhi\nDesign. Co-Pilot. Deploy. No Slides. Just Blazor.\nUne session 100 % demo, orientée pratique, sans slides et avec Blazor.\n\n- Ibrahima Mbodji\nDu POC à l'industrialisation : bâtir une infrastructure Azure prête pour la GenAI et les agents IA\nRetour d'expérience et bonnes pratiques pour passer à l'échelle avec l'IA générative.\n\n- Jean-Luc Boucho\nLe challenge du ROI de l'IA\nComment mesurer, piloter et maximiser la valeur business des projets IA.\n\nQuand ? Samedi 18 avril de 9h à 13h\nOù ? Plus d'informations et inscriptions ici : https://www.meetup.com/azug-fr/events/313716280/\n\nQue vous soyez architecte, développeur, ops ou décisionnaire, cette journée est faite pour vous.\n\nHâte de vous retrouver !",
+  "publishedAt": "2026-04-09T17:20:36.236Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7448057290366083072/",
+  "tags": [
+    "Global Azure",
+    "Sessions",
+    "Speakers",
+    "Azure",
+    "IA"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7448057290366083072",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Global Azure France 2026: sessions and speakers announced",
+      "summary": "The programme for Saturday 18 April (9am-1pm) is out: five sessions on copilots, Azure Local, Blazor, industrialising GenAI and the ROI of AI.",
+      "content": "Sessions and speakers announcement - Saturday 18 April event\n\nOur Saturday 18 April event is fast approaching, and we are delighted to unveil the programme and the speakers who will host this day dedicated to Cloud, AI and Azure.\n\nProgramme:\n\n- Achraf Ben Alaya\nImproving Ops with Azure Copilot and GitHub Copilot\nHow copilots concretely transform operations and the productivity of technical teams.\n\n- Jonathan JEHANNO\nAzure Local – The Sovereign Cloud by Microsoft\nA focus on Azure Local and cloud sovereignty issues.\n\n- Mabrouk Mahdhi\nDesign. Co-Pilot. Deploy. No Slides. Just Blazor.\nA 100% demo session, practice-oriented, with no slides and with Blazor.\n\n- Ibrahima Mbodji\nFrom POC to industrialisation: building an Azure infrastructure ready for GenAI and AI agents\nExperience report and good practices for scaling with generative AI.\n\n- Jean-Luc Boucho\nThe challenge of AI ROI\nHow to measure, steer and maximise the business value of AI projects.\n\nWhen? Saturday 18 April, 9am to 1pm\nWhere? More information and registration here: https://www.meetup.com/azug-fr/events/313716280/\n\nWhether you are an architect, developer, ops engineer or decision-maker, this day is for you.\n\nLooking forward to seeing you!"
+    }
+  }
+}

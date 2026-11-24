@@ -1,0 +1,355 @@
+import { z } from "astro/zod";
+
+// ---------------------------------------------------------------------------
+// Shared locale enum
+// ---------------------------------------------------------------------------
+const localeEnum = z.enum(["fr", "en"]);
+
+export const slugRe = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const slugArray = z.array(z.string().regex(slugRe));
+const hhmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
+
+// ---------------------------------------------------------------------------
+// talks (embedded in events)
+// ---------------------------------------------------------------------------
+const talkTranslation = z.object({
+  title: z.string().optional(),
+  abstract: z.string().optional(),
+});
+
+export const talkSchema = z.object({
+  title: z.string().min(1),
+  abstract: z.string().optional(),
+  /** local start time, optional (used by the agenda timeline) */
+  time: hhmm.optional(),
+  /** may be [] when the source names no speaker */
+  speakerSlugs: slugArray,
+  slidesUrl: z.string().url().optional(),
+  videoUrl: z.string().url().optional(),
+  translations: z
+    .object({ fr: talkTranslation.optional(), en: talkTranslation.optional() })
+    .optional(),
+});
+
+export type TalkEntry = z.infer<typeof talkSchema>;
+
+// ---------------------------------------------------------------------------
+// events
+// ---------------------------------------------------------------------------
+export const eventsSchema = z.object({
+  // locale-neutral
+  slug: z.string(),
+  startDate: z.string(),
+  endDate: z.string().optional(),
+  timezone: z.string(),
+  // only "cancelled" is meaningful; upcoming/past are derived from dates
+  status: z.enum(["upcoming", "past", "cancelled"]).optional(),
+  venue: z
+    .object({
+      name: z.string().optional(),
+      city: z.string().optional(),
+      address: z.string().optional(),
+      mode: z.enum(["in_person", "online", "hybrid"]),
+    })
+    .optional(),
+  registrationUrl: z.string().optional(),
+  meetupUrl: z.string().optional(),
+  heroImage: z.string().optional(),
+  speakerSlugs: slugArray.optional(),
+  talks: z.array(talkSchema).optional(),
+  /** partner/host company as named in the source (e.g. "Onepoint") */
+  host: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  source: z.object({
+    provider: z.literal("meetup"),
+    externalId: z.string(),
+    lastSyncedAt: z.string(),
+  }),
+  // locale-specific (canonical)
+  locale: localeEnum,
+  title: z.string(),
+  summary: z.string(),
+  description: z.string().optional(),
+  // translations
+  translations: z
+    .object({
+      fr: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+          description: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+          description: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export type EventEntry = z.infer<typeof eventsSchema>;
+
+// ---------------------------------------------------------------------------
+// news
+// ---------------------------------------------------------------------------
+export const newsSchema = z.object({
+  // locale-neutral
+  slug: z.string(),
+  publishedAt: z.string(),
+  author: z.string().optional(),
+  sourceUrl: z.string(),
+  image: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  source: z.object({
+    provider: z.literal("linkedin-rss"),
+    externalId: z.string(),
+    lastSyncedAt: z.string(),
+  }),
+  // locale-specific (canonical)
+  locale: localeEnum,
+  title: z.string(),
+  summary: z.string(),
+  content: z.string().optional(),
+  // translations
+  translations: z
+    .object({
+      fr: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+          content: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+          content: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export type NewsEntry = z.infer<typeof newsSchema>;
+
+// ---------------------------------------------------------------------------
+// speakers
+// ---------------------------------------------------------------------------
+export const speakersSchema = z.object({
+  // locale-neutral
+  slug: z.string().regex(slugRe),
+  name: z.string(),
+  photo: z.string().optional(),
+  company: z.string().optional(),
+  role: z.string().optional(),
+  location: z.string().optional(),
+  links: z
+    .object({
+      website: z.string().optional(),
+      linkedin: z.string().optional(),
+      github: z.string().optional(),
+      x: z.string().optional(),
+      sessionize: z.string().url().optional(),
+    })
+    .optional(),
+  derivedFrom: z
+    .object({
+      eventSourceIds: z.array(z.string()).optional(),
+      displayNameVariants: z.array(z.string()).optional(),
+    })
+    .optional(),
+  // locale-specific (canonical)
+  locale: localeEnum,
+  headline: z.string().optional(),
+  bio: z.string().optional(),
+  expertise: z.array(z.string()).optional(),
+  // translations
+  translations: z
+    .object({
+      fr: z
+        .object({
+          headline: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          headline: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export type SpeakerEntry = z.infer<typeof speakersSchema>;
+
+// ---------------------------------------------------------------------------
+// sponsors
+// ---------------------------------------------------------------------------
+export const sponsorsSchema = z.object({
+  // locale-neutral
+  slug: z.string(),
+  name: z.string(),
+  /** annual, honor (honorary), host, platinum, gold, silver, bronze */
+  tier: z.enum(["annual", "honor", "host", "platinum", "gold", "silver", "bronze"]).optional(),
+  website: z.string(),
+  logo: z.string().optional(),
+  /** Text shown in place of a logo when none exists (defaults to name) */
+  wordmark: z.string().optional(),
+  featured: z.boolean().optional(),
+  /** Sponsorship year, e.g. 2026 for an annual sponsor */
+  year: z.number().int().optional(),
+  // locale-specific (canonical)
+  locale: localeEnum,
+  description: z.string().optional(),
+  alt: z.string().optional(),
+  // translations
+  translations: z
+    .object({
+      fr: z
+        .object({
+          description: z.string().optional(),
+          alt: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          description: z.string().optional(),
+          alt: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export type SponsorEntry = z.infer<typeof sponsorsSchema>;
+
+// ---------------------------------------------------------------------------
+// resources
+// ---------------------------------------------------------------------------
+export const resourcesSchema = z.object({
+  // locale-neutral
+  slug: z.string(),
+  type: z.enum(["slides", "video", "article", "repository", "other"]),
+  url: z.string(),
+  eventSlug: z.string().optional(),
+  speakerSlugs: z.array(z.string()).optional(),
+  publishedAt: z.string().optional(),
+  // locale-specific (canonical)
+  locale: localeEnum,
+  title: z.string(),
+  summary: z.string().optional(),
+  // translations
+  translations: z
+    .object({
+      fr: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          title: z.string().optional(),
+          summary: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export type ResourceEntry = z.infer<typeof resourcesSchema>;
+
+// ---------------------------------------------------------------------------
+// about — sections + organizers
+// ---------------------------------------------------------------------------
+export const aboutSectionSchema = z.object({
+  type: z.literal("section"),
+  slug: z.string(),
+  order: z.number(),
+  locale: localeEnum,
+  title: z.string(),
+  body: z.string(),
+  translations: z
+    .object({
+      fr: z
+        .object({
+          title: z.string().optional(),
+          body: z.string().optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          title: z.string().optional(),
+          body: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export const aboutOrganizerSchema = z.object({
+  type: z.literal("organizer"),
+  slug: z.string().regex(slugRe),
+  order: z.number().optional(),
+  locale: localeEnum,
+  name: z.string(),
+  role: z.string(),
+  company: z.string().optional(),
+  photo: z
+    .string()
+    // A remote https URL, or a site path to a file under public/ (e.g. /speakers/<slug>.jpg);
+    // the content integrity test checks that local files exist.
+    .refine(
+      (v) => v.startsWith("https://") || v.startsWith("/"),
+      "organizer photo must be a remote https URL or a path to a file in public/",
+    )
+    .optional(),
+  awards: z.array(z.string()).optional(),
+  expertise: z.array(z.string()).optional(),
+  bio: z.string().optional(),
+  links: z
+    .object({
+      linkedin: z.string().url().optional(),
+      github: z.string().url().optional(),
+      x: z.string().url().optional(),
+      website: z.string().url().optional(),
+      sessionize: z.string().url().optional(),
+      mvp: z.string().url().optional(),
+    })
+    .optional(),
+  translations: z
+    .object({
+      fr: z
+        .object({
+          role: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
+      en: z
+        .object({
+          role: z.string().optional(),
+          bio: z.string().optional(),
+          expertise: z.array(z.string()).optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+});
+
+export const aboutSchema = z.discriminatedUnion("type", [
+  aboutSectionSchema,
+  aboutOrganizerSchema,
+]);
+
+export type AboutSection = z.infer<typeof aboutSectionSchema>;
+export type AboutOrganizer = z.infer<typeof aboutOrganizerSchema>;

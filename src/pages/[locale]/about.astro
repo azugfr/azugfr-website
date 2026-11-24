@@ -1,0 +1,189 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { site } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import type { AboutSection } from "@/content/config";
+import Avatar from "@/components/ui/Avatar.astro";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import { getOrganizers, getAllSponsors } from "@/lib/content/contentHelpers";
+import SponsorGrid from "@/components/sponsors/SponsorGrid.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: "fr" } },
+    { params: { locale: "en" } },
+  ];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+
+const allAbout = await getCollection("about");
+
+const sections = (allAbout
+  .filter((e) => e.data.type === "section")
+  .sort((a, b) => (a.data as AboutSection).order - (b.data as AboutSection).order)
+  .map((e) => {
+    const d = e.data as AboutSection;
+    const t = d.translations?.[locale];
+    return { ...d, title: t?.title ?? d.title, body: t?.body ?? d.body };
+  }));
+
+const dict = getUiDictionary(locale);
+const organizers = await getOrganizers(locale);
+const sponsorOrder: Record<string, number> = { annual: 0, honor: 1, platinum: 2, gold: 3, silver: 4, bronze: 5, host: 6 };
+const sponsors = (await getAllSponsors(locale)).sort(
+  (a, b) => (sponsorOrder[a.tier ?? ""] ?? 9) - (sponsorOrder[b.tier ?? ""] ?? 9),
+);
+const speakerSlugs = new Set((await getCollection("speakers")).map((e) => e.data.slug));
+
+const manifesto = sections.find((s) => s.slug === "manifesto");
+const mission   = sections.find((s) => s.slug === "mission");
+const history   = sections.find((s) => s.slug === "history");
+
+const pageTitle = locale === "fr" ? "À propos | AZUG FR" : "About | AZUG FR";
+const heroTitle = locale === "fr" ? "À propos" : "About";
+const heroTagline =
+  locale === "fr"
+    ? "La communauté Azure en France"
+    : "The Azure community in France";
+
+const labels = {
+  manifesto: locale === "fr" ? "Notre manifeste" : "Our Manifesto",
+  mission: locale === "fr" ? "Notre mission" : "Our Mission",
+  history: locale === "fr" ? "Notre histoire" : "Our History",
+  community: locale === "fr" ? "Rejoignez la communauté" : "Join the Community",
+  meetup: "Meetup",
+  linkedin: "LinkedIn",
+  github: "GitHub",
+};
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  activeRoute="about"
+  canonicalUrl={`${site.url}/${locale}/about/`}
+>
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+
+    <!-- Hero -->
+    <section class="mb-12 md:mb-16">
+      <h1 class="t-h1 mb-4">{heroTitle}</h1>
+      <p class="text-lead measure">{heroTagline}</p>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="mb-12">
+      <h2 class="t-h2 mb-4">{labels.manifesto}</h2>
+      <blockquote class="border-l-4 border-azur pl-6 text-lead measure">
+        {manifesto?.body}
+      </blockquote>
+    </section>
+
+    <!-- Mission -->
+    <section class="mb-12">
+      <h2 class="t-h2 mb-4">{labels.mission}</h2>
+      <p class="measure">{mission?.body}</p>
+    </section>
+
+    <!-- History -->
+    <section class="mb-12">
+      <h2 class="t-h2 mb-4">{labels.history}</h2>
+      <p class="measure">{history?.body}</p>
+    </section>
+
+    <!-- Organizers -->
+    <section id="board" class="mb-12 scroll-mt-20">
+      <h2 class="t-h2 mb-6">{dict.about.board}</h2>
+      <ul class="border-t border-trait">
+        {organizers.map((org) => {
+          const links = [
+            { key: "linkedin", label: "LinkedIn", href: org.links?.linkedin },
+            { key: "github", label: "GitHub", href: org.links?.github },
+            { key: "x", label: "X", href: org.links?.x },
+            { key: "website", label: dict.about.website, href: org.links?.website },
+            { key: "sessionize", label: "Sessionize", href: org.links?.sessionize },
+            { key: "mvp", label: dict.about.mvpProfile, href: org.links?.mvp },
+          ].filter((l) => Boolean(l.href));
+          return (
+            <li class="border-b border-trait py-6 flex gap-5">
+              {org.photo && <Avatar name={org.name} src={org.photo} size="xl" />}
+              <div class="min-w-0 flex flex-col gap-2">
+                <h3 class="t-h3">{org.name}</h3>
+                <p class="t-meta text-gris">
+                  <span>{org.role}</span>
+                  {org.company && <span class="ml-4">{org.company}</span>}
+                </p>
+                {org.awards && org.awards.length > 0 && (
+                  <ul class="t-meta flex flex-wrap gap-x-5" aria-label={dict.about.awards}>
+                    {org.awards.map((award) => (
+                      <li>{award}</li>
+                    ))}
+                  </ul>
+                )}
+                {org.bio && <p class="measure">{org.bio}</p>}
+                {org.expertise && org.expertise.length > 0 && (
+                  <ul class="t-meta text-gris flex flex-wrap gap-x-5" aria-label={dict.about.expertise}>
+                    {org.expertise.map((tag) => (
+                      <li>{tag}</li>
+                    ))}
+                  </ul>
+                )}
+                <div class="flex flex-wrap gap-x-5 gap-y-2 t-meta">
+                  {links.map((l) => (
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${org.name} — ${l.label}`}
+                      class="link"
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                  {speakerSlugs.has(org.slug) && (
+                    <a href={getLocalizedRoute(locale, "speakers", org.slug)} class="link">
+                      {dict.about.seeTalks}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <!-- Sponsors -->
+    {sponsors.length > 0 && (
+      <section id="sponsors" class="mb-12 scroll-mt-20">
+        <SponsorGrid sponsors={sponsors} locale={locale} title={dict.sponsors.title} />
+        <p class="mt-6">
+          <a href={`mailto:${site.contactEmail}`} class="link">{dict.sponsors.becomeSponsor}</a>
+        </p>
+      </section>
+    )}
+
+    <!-- Community links -->
+    <section id="community" class="mb-4 scroll-mt-20">
+      <h2 class="t-h2 mb-6">{labels.community}</h2>
+      <p class="mb-6 measure" data-testid="mtg-network">
+        {dict.network.before}{" "}
+        <a href={site.network.url} target="_blank" rel="noopener noreferrer" class="link">{site.network.name}</a>{dict.network.after}
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          {labels.meetup}
+        </a>
+        <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          {labels.linkedin}
+        </a>
+        <a href={site.social.github} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          {labels.github}
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

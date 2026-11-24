@@ -1,0 +1,283 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SponsorMark from "@/components/sponsors/SponsorMark.astro";
+import HeroCloud from "@/components/site/HeroCloud.astro";
+import { site } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import { formatEventDate, formatEventDateParts, toIsoWithOffset } from "@/lib/dates";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import {
+  getFeaturedEvent,
+  getLatestPastEvent,
+  getLatestNews,
+  getLatestTalks,
+  getFeaturedSponsors,
+  getHomePartners,
+  getAllSpeakers,
+} from "@/lib/content/contentHelpers";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const featuredEvent = await getFeaturedEvent(locale);
+const latestPastEvent = featuredEvent ? null : await getLatestPastEvent(locale);
+const latestTalks = await getLatestTalks(locale, 6);
+const latestNews = await getLatestNews(locale, 3);
+const featuredSponsors = await getFeaturedSponsors(locale);
+const annualSponsor = featuredSponsors.find((s) => s.tier === "annual");
+const honorSponsor = featuredSponsors.find((s) => s.tier === "honor");
+// Annual and honorary sponsors have their own band; they do not repeat in the partners grid
+const partnersWithLogo = getHomePartners(featuredSponsors, annualSponsor, honorSponsor);
+const sponsorBand = [
+  annualSponsor && {
+    sponsor: annualSponsor,
+    testId: "annual-sponsor",
+    label: annualSponsor.year ? dict.sponsors.annualTitle(annualSponsor.year) : dict.sponsors.tiers.annual,
+  },
+  honorSponsor && { sponsor: honorSponsor, testId: "honor-sponsor", label: dict.sponsors.tiers.honor },
+].filter((entry) => entry !== undefined);
+const wordmarkOf = (s: { name: string; wordmark?: string }) => s.wordmark ?? s.name;
+let thanksLine = "";
+if (annualSponsor && honorSponsor) {
+  thanksLine = dict.sponsors.thanksBoth(annualSponsor.name, wordmarkOf(honorSponsor));
+} else if (annualSponsor) {
+  thanksLine = dict.sponsors.thanks(wordmarkOf(annualSponsor));
+} else if (honorSponsor) {
+  thanksLine = dict.sponsors.thanks(wordmarkOf(honorSponsor));
+}
+const speakerBySlug = new Map((await getAllSpeakers(locale)).map((sp) => [sp.slug, sp]));
+
+const featuredStatus = featuredEvent ? deriveEventStatus(featuredEvent) : null;
+const featuredTalks = (featuredEvent?.talks ?? []).slice(0, 3);
+const featuredParts = featuredEvent
+  ? formatEventDateParts(featuredEvent.startDate, locale, featuredEvent.timezone)
+  : null;
+const latestParts = latestPastEvent
+  ? formatEventDateParts(latestPastEvent.startDate, locale, latestPastEvent.timezone)
+  : null;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AZUG FR — Azure User Group France",
+  url: `${site.url}/${locale}/`,
+  logo: `${site.url}/azugfr-logo.png`,
+  sameAs: Object.values(site.social),
+};
+---
+<BaseLayout locale={locale} title={site.name + " — " + site.description[locale]} activeRoute="home" canonicalUrl={`${site.url}/${locale}/`} {jsonLd}>
+
+  <!-- Hero: wordmark, tagline and the latest talk titles as a timetable -->
+  <section class="on-ciel relative overflow-hidden bg-aube text-encre">
+    <HeroCloud class="pointer-events-none absolute -right-40 -top-10 w-[26rem] opacity-40 md:-right-48 md:-top-12 md:w-[34rem] md:opacity-50 lg:-right-40 lg:-top-16 lg:w-[46rem] lg:opacity-100" />
+    <div class="relative max-w-6xl mx-auto px-4 md:px-8 pt-12 md:pt-20 pb-12 md:pb-16">
+      <h1 class="t-wordmark">AZUG FR</h1>
+      <p class="mt-6 text-lead max-w-[32rem]">{dict.home.tagline}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          {dict.home.followMeetup}
+        </a>
+        <a href={`mailto:${site.contactEmail}`} class="btn btn-secondary">
+          {dict.home.proposeTalk}
+        </a>
+      </div>
+      <p class="mt-8 t-meta text-gris max-w-[32rem]" data-testid="mtg-network">
+        {dict.network.before}{" "}
+        <a href={site.network.url} target="_blank" rel="noopener noreferrer" class="link">{site.network.name}</a>{dict.network.after}
+      </p>
+
+      {latestTalks.length > 0 && (
+        <>
+          <h2 class="sr-only">{dict.home.latestTalks}</h2>
+          <ul class="mt-12 md:mt-16 border-t border-encre/15">
+            {latestTalks.map(({ talk, event, speakers }) => {
+              const when = formatEventDateParts(event.startDate, locale, event.timezone);
+              return (
+                <li class="relative border-b border-encre/15 py-4 md:py-5 px-2 lg:grid lg:grid-cols-[1fr_14rem] lg:gap-x-8 lg:items-baseline hover:bg-ciel-soft transition-colors">
+                  <a
+                    href={getLocalizedRoute(locale, "events", event.slug)}
+                    class="t-talk block text-encre after:absolute after:inset-0 hover:underline underline-offset-4"
+                  >
+                    {talk.title}
+                  </a>
+                  <div class="mt-2 lg:mt-0 flex justify-between gap-4 lg:flex-col lg:gap-0 lg:text-right">
+                    <p>{speakers.map((sp) => sp.name).join(", ")}</p>
+                    <p class="t-num shrink-0">
+                      <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>
+                        {`${when.day} ${when.month} ${when.year}`}
+                      </time>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+          <p class="mt-6">
+            <a href={`${getLocalizedRoute(locale, "events")}#past`} class="link">{dict.home.allEvents}</a>
+          </p>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- Next event -->
+  <section data-testid="next-event" class="py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <h2 class="t-h2 mb-8">{dict.home.nextEvent}</h2>
+      {featuredEvent && featuredStatus && featuredParts ? (
+        <div class="grid gap-6 md:grid-cols-[9rem_1fr] md:gap-10">
+          <time datetime={toIsoWithOffset(featuredEvent.startDate, featuredEvent.timezone)} class="t-num block">
+            <span class="t-day-xl block text-rouge">{featuredParts.day}</span>
+            <span class="text-lead block text-encre">{featuredParts.month} {featuredParts.year}</span>
+          </time>
+          <div>
+            <h3 class="t-h2">
+              <a href={getLocalizedRoute(locale, "events", featuredEvent.slug)} class="text-encre hover:underline underline-offset-4">
+                {featuredEvent.title}
+              </a>
+            </h3>
+            <p class="t-meta text-gris mt-2 flex flex-wrap gap-x-4">
+              <span>{formatEventDate(featuredEvent.startDate, locale, "dateLong", featuredEvent.timezone)}</span>
+              {featuredEvent.venue?.name && <span>{featuredEvent.venue.name}</span>}
+              {featuredEvent.venue?.city && <span>{featuredEvent.venue.city}</span>}
+            </p>
+            <p class="mt-4 measure">{featuredEvent.summary}</p>
+            {featuredTalks.length > 0 && (
+              <ul class="mt-6 border-t border-trait measure">
+                {featuredTalks.map((t) => (
+                  <li class="py-3 border-b border-trait">
+                    <span class="t-h3 block">{t.title}</span>
+                    {t.speakerSlugs.length > 0 && (
+                      <span class="t-meta text-gris">
+                        {t.speakerSlugs.map((slug) => speakerBySlug.get(slug)?.name).filter(Boolean).join(", ")}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {featuredStatus === "upcoming" && featuredEvent.registrationUrl && (
+              <p class="mt-6">
+                <a href={featuredEvent.registrationUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                  {dict.ga.register}
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div data-testid="next-event-empty" class="grid gap-10 md:grid-cols-[1fr_22rem] md:items-start">
+          <div>
+            <p class="text-lead measure">{dict.home.comingSoonBody}</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href={site.social.meetup} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                {dict.home.followMeetup}
+              </a>
+              <a href={`mailto:${site.contactEmail}`} class="btn btn-secondary">
+                {dict.home.proposeTalk}
+              </a>
+            </div>
+          </div>
+          {latestPastEvent && latestParts && (
+            <div data-testid="latest-event" class="relative bg-brume rounded-panel p-6 hover:bg-ciel-soft transition-colors">
+              <h3 class="t-meta text-gris">{dict.home.lastEvent}</h3>
+              <div class="mt-4 grid grid-cols-[auto_1fr] gap-x-5 items-start">
+                <time datetime={toIsoWithOffset(latestPastEvent.startDate, latestPastEvent.timezone)} class="t-num block">
+                  <span class="t-day block text-encre">{latestParts.day}</span>
+                  <span class="t-meta block text-gris">{latestParts.month} {latestParts.year}</span>
+                </time>
+                <div>
+                  <p class="t-h3">
+                    <a href={getLocalizedRoute(locale, "events", latestPastEvent.slug)} class="text-encre after:absolute after:inset-0 hover:underline underline-offset-4">
+                      {latestPastEvent.title}
+                    </a>
+                  </p>
+                  {latestPastEvent.talks?.length ? (
+                    <p class="t-meta text-gris mt-1">{dict.events.talksCount(latestPastEvent.talks.length)}</p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- News: text rows, no cards -->
+  <section class="pb-12 md:pb-16" aria-labelledby="home-news-h">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <div class="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
+        <h2 id="home-news-h" class="t-h2">{dict.home.latestNews}</h2>
+        <a href={getLocalizedRoute(locale, "news")} class="link">{dict.home.allNews}</a>
+      </div>
+      {latestNews.length > 0 ? (
+        <ul class="border-t border-trait">
+          {latestNews.map((item) => (
+            <li class="relative border-b border-trait py-4 px-2 md:grid md:grid-cols-[8rem_1fr_6rem] md:gap-x-6 md:items-baseline hover:bg-ciel-soft transition-colors">
+              <time class="t-meta t-num text-gris block" datetime={item.publishedAt}>
+                {formatEventDate(item.publishedAt, locale, "date")}
+              </time>
+              <h3 class="t-h3 mt-1 md:mt-0 [text-wrap:pretty]">
+                <a href={getLocalizedRoute(locale, "news", item.slug)} class="text-encre after:absolute after:inset-0 hover:underline underline-offset-4">
+                  {item.title}
+                </a>
+              </h3>
+              <p class="t-meta text-gris mt-1 md:mt-0 md:text-right">LinkedIn</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gris">{dict.common.noResults}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Sponsors band -->
+  {sponsorBand.length > 0 && (
+    <section class="bg-brume py-12 md:py-16" aria-labelledby="sponsors-band-h">
+      <div class="max-w-6xl mx-auto px-4 md:px-8">
+        <h2 id="sponsors-band-h" class="t-h2 mb-8">{dict.sponsors.bandTitle(annualSponsor?.year ?? new Date().getFullYear())}</h2>
+        <div class="grid gap-8 sm:grid-cols-2 max-w-3xl">
+          {sponsorBand.map(({ sponsor, testId, label }) => (
+            <div data-testid={testId}>
+              <p class="t-meta text-gris mb-3">{label}</p>
+              <a
+                href={sponsor.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center rounded-panel bg-papier border border-trait px-6 py-4 hover:bg-ciel-soft transition-colors"
+              >
+                <SponsorMark {sponsor} size="lg" />
+              </a>
+            </div>
+          ))}
+        </div>
+        <p class="mt-8 measure">{thanksLine}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Partners (only when at least one featured sponsor has a logo) -->
+  {partnersWithLogo.length > 0 && (
+    <section class="py-12 md:py-16" aria-labelledby="partners-h">
+      <div class="max-w-6xl mx-auto px-4 md:px-8">
+        <h2 id="partners-h" class="t-h2 mb-8">
+          {locale === "fr" ? "Nos partenaires" : "Our partners"}
+        </h2>
+        <div class="flex flex-wrap gap-x-10 gap-y-6 items-center">
+          {partnersWithLogo.map((sp) => (
+            <a href={sp.website} target="_blank" rel="noopener noreferrer">
+              <img src={sp.logo} alt={sp.alt ?? sp.name} class="h-12 object-contain" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+</BaseLayout>

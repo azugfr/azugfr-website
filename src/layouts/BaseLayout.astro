@@ -1,0 +1,70 @@
+---
+import NavBar from "@/components/site/NavBar.astro";
+import Footer from "@/components/site/Footer.astro";
+import "@fontsource-variable/archivo/wdth.css";
+import "@/styles/global.css";
+import { getAlternateLocale, getUiDictionary, swapLocaleInPath } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  activeRoute?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { locale, title, description, canonicalUrl, ogImage, activeRoute, jsonLd } = Astro.props;
+const dict = getUiDictionary(locale);
+const altLocale = getAlternateLocale(locale);
+
+const resolvedCanonical = canonicalUrl ?? `${site.url}/${locale}/`;
+const altCanonical = site.url + swapLocaleInPath(new URL(resolvedCanonical).pathname, altLocale);
+const resolvedDescription = description ?? site.description[locale];
+const resolvedOgImage = ogImage ?? `${site.url}/og-default.svg`;
+const currentPath = new URL(resolvedCanonical).pathname;
+---
+
+<!doctype html>
+<html lang={locale} data-pagefind-meta={`language:${locale}`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={resolvedDescription} />
+
+    <link rel="canonical" href={resolvedCanonical} />
+    <link rel="alternate" hreflang={locale}    href={resolvedCanonical} />
+    <link rel="alternate" hreflang={altLocale} href={altCanonical} />
+    <link rel="alternate" hreflang="x-default" href={`${site.url}/fr/`} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={resolvedDescription} />
+    <meta property="og:image"       content={resolvedOgImage} />
+    <meta property="og:url"         content={resolvedCanonical} />
+    <meta property="og:site_name"   content={site.name} />
+    <meta property="og:locale"      content={locale === "fr" ? "fr_FR" : "en_US"} />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")} />
+    )}
+  </head>
+  <body class="min-h-screen flex flex-col bg-papier text-encre font-sans">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-papier focus:text-azur-deep focus:px-4 focus:py-2 focus:rounded-btn focus:border focus:border-trait"
+    >{dict.a11y.skipToContent}</a>
+    <NavBar locale={locale} activeRoute={activeRoute} currentPath={currentPath} />
+    <main id="main" class="flex-1" data-pagefind-body>
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

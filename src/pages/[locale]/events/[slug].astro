@@ -1,0 +1,206 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAllEvents, getSpeakerProfile } from "@/lib/content/contentHelpers";
+import { getEventSpeakerSlugs } from "@/lib/content/speakerDerive";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { site } from "@/data/site";
+import { formatEventDate, formatEventDateParts, toIsoWithOffset } from "@/lib/dates";
+import StatusBadge from "@/components/ui/StatusBadge.astro";
+import TalkList from "@/components/events/TalkList.astro";
+
+export async function getStaticPaths() {
+  const locales: Locale[] = ["fr", "en"];
+  const paths: { params: { locale: Locale; slug: string } }[] = [];
+  const entries = await getCollection("events");
+  const seen = new Set<string>();
+  for (const locale of locales) {
+    for (const entry of entries) {
+      const key = `${locale}:${entry.data.slug}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        paths.push({ params: { locale, slug: entry.data.slug } });
+      }
+    }
+  }
+  return paths;
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const dict = getUiDictionary(locale);
+
+const allEvents = await getAllEvents(locale);
+const event = allEvents.find((e) => e.slug === slug);
+if (!event) return Astro.redirect(`/${locale}/events/`);
+const status = deriveEventStatus(event);
+
+const speakerSlugs = getEventSpeakerSlugs(event);
+const profiles = await Promise.all(speakerSlugs.map((s) => getSpeakerProfile(s, locale)));
+const resolvedSpeakers = profiles.filter((s): s is NonNullable<typeof s> => Boolean(s));
+const speakersBySlug = Object.fromEntries(resolvedSpeakers.map((s) => [s.slug, s]));
+const talks = event.talks ?? [];
+const parts = formatEventDateParts(event.startDate, locale, event.timezone);
+
+const title = `${event.title} | AZUG FR`;
+const description = event.summary;
+const canonicalUrl = `${site.url}/${locale}/events/${slug}/`;
+
+const mode = event.venue?.mode;
+const mapQuery = [event.venue?.name, event.venue?.address, event.venue?.city].filter(Boolean).join(", ");
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+const externalId = event.source.externalId;
+const meetupEventUrl = /^\d+$/.test(externalId)
+  ? `https://www.meetup.com/azug-fr/events/${externalId}/`
+  : undefined;
+const showRegister = status === "upcoming" && Boolean(event.registrationUrl);
+const showMeetup = !showRegister && status !== "cancelled" && Boolean(meetupEventUrl);
+
+const modeUrls = {
+  in_person: "https://schema.org/OfflineEventAttendanceMode",
+  online: "https://schema.org/OnlineEventAttendanceMode",
+  hybrid: "https://schema.org/MixedEventAttendanceMode",
+} as const;
+
+const jsonLdRaw = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: event.title,
+  description: event.summary,
+  startDate: toIsoWithOffset(event.startDate, event.timezone),
+  endDate: event.endDate ? toIsoWithOffset(event.endDate, event.timezone) : undefined,
+  eventStatus:
+    status === "cancelled" ? "https://schema.org/EventCancelled" : "https://schema.org/EventScheduled",
+  eventAttendanceMode: mode ? modeUrls[mode] : undefined,
+  location:
+    mode === "online"
+      ? { "@type": "VirtualLocation", url: meetupEventUrl ?? canonicalUrl }
+      : event.venue
+        ? {
+            "@type": "Place",
+            name: event.venue.name,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: event.venue.address,
+              addressLocality: event.venue.city,
+              addressCountry: "FR",
+            },
+          }
+        : undefined,
+  organizer: { "@type": "Organization", name: "AZUG FR — Azure User Group France", url: `${site.url}/${locale}/` },
+  performer: resolvedSpeakers.length
+    ? resolvedSpeakers.map((s) => ({ "@type": "Person", name: s.name }))
+    : undefined,
+  url: canonicalUrl,
+  inLanguage: locale,
+};
+// JSON round-trip strips undefined keys at every depth
+const jsonLd = JSON.parse(JSON.stringify(jsonLdRaw));
+
+function venueModeLabel(m: string): string {
+  const labels: Record<string, Record<Locale, string>> = {
+    in_person: { fr: "En présentiel", en: "In person" },
+    online: { fr: "En ligne", en: "Online" },
+    hybrid: { fr: "Hybride", en: "Hybrid" },
+  };
+  return labels[m]?.[locale] ?? m;
+}
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} {jsonLd} activeRoute="events">
+  <article class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <a href={getLocalizedRoute(locale, "events")} class="link">
+      {dict.common.backTo} {dict.nav.events}
+    </a>
+
+    <header class="mt-8 mb-10 md:mb-14 grid gap-4 md:grid-cols-[9rem_1fr] md:gap-10">
+      <div class="t-num">
+        <span class:list={["t-day-xl block", status === "upcoming" ? "text-rouge" : "text-encre"]}>{parts.day}</span>
+        <span class="text-lead block text-encre">{parts.month} {parts.year}</span>
+      </div>
+      <div>
+        {status !== "past" && <p class="mb-3"><StatusBadge {status} {locale} /></p>}
+        <h1 class="t-h1">{event.title}</h1>
+        <p class="t-meta text-gris mt-4 flex flex-wrap gap-x-5 gap-y-1">
+          <time datetime={toIsoWithOffset(event.startDate, event.timezone)}>
+            {formatEventDate(event.startDate, locale, "dateLong", event.timezone)}
+          </time>
+          <span class="t-num">
+            {formatEventDate(event.startDate, locale, "time", event.timezone)}{event.endDate && `–${formatEventDate(event.endDate, locale, "time", event.timezone)}`}
+          </span>
+          {event.venue?.city && <span>{event.venue.city}</span>}
+          {mode && <span>{venueModeLabel(mode)}</span>}
+        </p>
+      </div>
+    </header>
+
+    <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+      <div class="lg:col-span-2 space-y-12">
+        {(event.description || event.summary) && (
+          <p class="measure whitespace-pre-line">{event.description ?? event.summary}</p>
+        )}
+
+        {talks.length > 0 && (
+          <section aria-labelledby="agenda-h">
+            <h2 id="agenda-h" class="t-h2 mb-6">{dict.events.agenda}</h2>
+            <TalkList {talks} {speakersBySlug} {locale} />
+          </section>
+        )}
+
+        {resolvedSpeakers.length > 0 && (
+          <section aria-labelledby="speakers-h">
+            <h2 id="speakers-h" class="t-h2 mb-6">{dict.events.speakers}</h2>
+            <ul class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {resolvedSpeakers.map((s) => (
+                <li>
+                  <a href={getLocalizedRoute(locale, "speakers", s.slug)} class="t-h3 text-encre hover:underline underline-offset-4">
+                    {s.name}
+                  </a>
+                  {(s.headline || s.role || s.company) && (
+                    <p class="t-meta text-gris">
+                      {s.headline ?? [s.role, s.company].filter(Boolean).join(", ")}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+
+      <aside class="mt-12 lg:mt-0">
+        <div class="bg-brume rounded-panel p-6">
+          <h2 class="t-h3 mb-3">{dict.events.venue}</h2>
+          {mode === "online" ? (
+            <p>{venueModeLabel("online")}</p>
+          ) : event.venue ? (
+            <>
+              {event.venue.name && <p class="font-semibold">{event.venue.name}</p>}
+              {event.venue.address && <p>{event.venue.address}</p>}
+              {event.venue.city && <p>{event.venue.city}</p>}
+              {mapQuery && (
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block link t-meta">
+                  {dict.events.openMap}
+                </a>
+              )}
+            </>
+          ) : null}
+          {event.host && (
+            <p class="mt-4 t-meta text-gris">{dict.events.hostedBy} <span class="font-semibold">{event.host}</span></p>
+          )}
+          {showRegister && (
+            <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full mt-6">
+              {dict.ga.register}
+            </a>
+          )}
+          {showMeetup && (
+            <a href={meetupEventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary w-full mt-6">
+              {dict.events.viewOnMeetup}
+            </a>
+          )}
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

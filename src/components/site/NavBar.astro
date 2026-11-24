@@ -1,0 +1,166 @@
+---
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+import LanguageToggle from "./LanguageToggle.astro";
+
+interface Props {
+  locale: Locale;
+  activeRoute?: string;
+  currentPath?: string;
+}
+
+const { locale, activeRoute, currentPath } = Astro.props;
+const t = getUiDictionary(locale);
+
+const navItems = [
+  { key: "home",      label: t.nav.home,      href: `/${locale}/` },
+  { key: "events",    label: t.nav.events,    href: getLocalizedRoute(locale, "events") },
+  { key: "news",      label: t.nav.news,      href: getLocalizedRoute(locale, "news") },
+  { key: "speakers",  label: t.nav.speakers,  href: getLocalizedRoute(locale, "speakers") },
+  { key: "resources", label: t.nav.resources, href: getLocalizedRoute(locale, "resources") },
+  { key: "about",     label: t.nav.about,     href: getLocalizedRoute(locale, "about") },
+];
+const searchItem = { key: "search", label: t.nav.search, href: getLocalizedRoute(locale, "search") };
+// The desktop bar shows search as an icon; the mobile menu lists it as a text link after the pages
+const mobileItems = [...navItems, searchItem];
+
+const ctaLabel = locale === "fr" ? "Rejoindre" : "Join";
+const ctaHref  = site.social.meetup;
+---
+
+<header class="w-full bg-papier border-b border-trait">
+  <div class="max-w-6xl mx-auto h-14 lg:h-16 flex items-center px-4 md:px-8">
+    <!-- Logo -->
+    <a href={`/${locale}/`} aria-label="AZUG FR — Home" class="flex-shrink-0">
+      <img src="/azugfr-logo.png" alt="AZUG FR" class="h-8 w-auto" />
+    </a>
+
+    <!-- Desktop center nav -->
+    <nav aria-label="Main navigation" class="hidden lg:flex flex-1 justify-center gap-6">
+      {navItems.map(({ key, label, href }) => (
+        <a
+          href={href}
+          aria-current={activeRoute === key ? "page" : undefined}
+          class={`t-meta py-1 text-encre underline-offset-[10px] decoration-2 transition-colors ${
+            activeRoute === key
+              ? "font-semibold underline decoration-azur"
+              : "hover:underline decoration-trait"
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop right: Search + LanguageToggle + CTA -->
+    <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
+      <a
+        href={searchItem.href}
+        aria-label={searchItem.label}
+        aria-current={activeRoute === searchItem.key ? "page" : undefined}
+        class={`w-10 h-10 flex items-center justify-center rounded-btn text-encre hover:bg-ciel-soft transition-colors ${
+          activeRoute === searchItem.key ? "underline decoration-2 decoration-azur underline-offset-8" : ""
+        }`}
+        title={searchItem.label}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+        </svg>
+      </a>
+      <LanguageToggle locale={locale} currentPath={currentPath} />
+      <a
+        href={ctaHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary !min-h-0 px-4 py-2 text-meta"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+
+    <!-- Mobile: spacer + LanguageToggle + Hamburger -->
+    <div class="flex lg:hidden flex-1 justify-end items-center gap-2">
+      <LanguageToggle locale={locale} currentPath={currentPath} />
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="w-11 h-11 flex items-center justify-center rounded-btn text-encre hover:bg-ciel-soft transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu (off-canvas overlay) -->
+<div
+  id="mobile-menu"
+  class="hidden lg:hidden fixed inset-0 z-50 bg-papier flex flex-col pt-16 px-4 pb-8 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+>
+  <button
+    id="mobile-menu-close"
+    type="button"
+    aria-label="Close menu"
+    class="absolute top-4 right-4 w-11 h-11 flex items-center justify-center rounded-btn text-encre hover:bg-ciel-soft"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  <nav aria-label="Mobile navigation links" class="flex flex-col mt-2">
+    {mobileItems.map(({ key, label, href }) => (
+      <a
+        href={href}
+        aria-current={activeRoute === key ? "page" : undefined}
+        class={`flex items-center min-h-[48px] px-2 text-body border-b border-trait text-encre transition-colors hover:bg-ciel-soft ${
+          activeRoute === key ? "font-semibold border-l-4 border-l-azur" : ""
+        }`}
+      >
+        {label}
+      </a>
+    ))}
+    <a
+      href={ctaHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-primary mt-6 min-h-[48px]"
+    >
+      {ctaLabel}
+    </a>
+  </nav>
+</div>
+
+<script>
+  const btn   = document.getElementById("mobile-menu-btn");
+  const close = document.getElementById("mobile-menu-close");
+  const menu  = document.getElementById("mobile-menu");
+
+  function openMenu() {
+    menu?.classList.remove("hidden");
+    btn?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    menu?.classList.add("hidden");
+    btn?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  btn?.addEventListener("click", openMenu);
+  close?.addEventListener("click", closeMenu);
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+</script>

@@ -1,0 +1,29 @@
+{
+  "slug": "build-2026-localhost-paris-annonce",
+  "locale": "fr",
+  "title": "Build 2026 //localhost:paris : meetup IA et développement le 10 juin",
+  "summary": "À l'occasion de Microsoft Build 2026, un meetup dédié à l'IA et au développement se tient le mercredi 10 juin à 18h30 chez Microsoft, à Issy-les-Moulineaux. Inscription obligatoire sur Microsoft Reactor.",
+  "content": "BUILD 2026 //LOCALHOST:PARIS\nÀ l'occasion de Microsoft Build 2026, un meetup dédié à l'IA et au développement sera organisé le mercredi 10 juin, 18h30, dans les locaux de Microsoft.\n\nL'événement est organisé par AZUG FR - Azure User Group France, Global AI Community Paris, Global AI Community Virtuelle Francophone, Meetup C# .NET Paris.\nCette soirée réunira développeurs, ingénieurs cloud et passionnés d'intelligence artificielle autour des dernières innovations annoncées lors de la Build.\n\nAu programme :\n- Intro et Récapitulatif des temps forts de Microsoft Build 2026, par Marius Zaharia, MVP Azure\n- Talk 1 - Github Copilot dans Visual Studio : des agents qui déboguent, profilent et testent, par Achraf Ben Alaya, MVP Azure\n- Talk 2 - De l'observabilité au ROI pour les agents IA sur n'importe quel framework, par Ihor Leontiev, MVP Azure\n- Networking & échanges avec la communauté\n\nUne belle opportunité de découvrir des cas d'usage concrets, de partager des retours d'expérience et d'échanger avec l'écosystème tech local.\n\nMercredi 10 juin, 18h30\nLocaux Microsoft, 37 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux\nPour s'inscrire - Microsoft Reactor : https://developer.microsoft.com/reactor/events/27302\nAttention : toutes inscriptions doivent se faire directement sur le site Microsoft Reactor avant mardi 09/06/2026 16h. L'accès aux locaux ne sera pas possible sans inscription préalable.",
+  "publishedAt": "2026-06-04T17:02:22.493Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7468346423349002241/",
+  "tags": [
+    "Build 2026",
+    "Meetup",
+    "Microsoft",
+    "IA",
+    "GitHub Copilot"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7468346423349002241",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Build 2026 //localhost:paris: AI and development meetup on 10 June",
+      "summary": "For Microsoft Build 2026, a meetup dedicated to AI and development takes place on Wednesday 10 June at 6:30pm at Microsoft in Issy-les-Moulineaux. Registration is mandatory on Microsoft Reactor.",
+      "content": "BUILD 2026 //LOCALHOST:PARIS\nOn the occasion of Microsoft Build 2026, a meetup dedicated to AI and development will be held on Wednesday 10 June, 6:30pm, at Microsoft's offices.\n\nThe event is organised by AZUG FR - Azure User Group France, Global AI Community Paris, Global AI Community Virtuelle Francophone and Meetup C# .NET Paris.\nThis evening will bring together developers, cloud engineers and artificial intelligence enthusiasts around the latest innovations announced at Build.\n\nAgenda:\n- Intro and recap of the highlights of Microsoft Build 2026, by Marius Zaharia, Azure MVP\n- Talk 1 - GitHub Copilot in Visual Studio: agents that debug, profile and test, by Achraf Ben Alaya, Azure MVP\n- Talk 2 - From observability to ROI for AI agents on any framework, by Ihor Leontiev, Azure MVP\n- Networking and discussions with the community\n\nA great opportunity to discover concrete use cases, share experience and talk with the local tech ecosystem.\n\nWednesday 10 June, 6:30pm\nMicrosoft offices, 37 Quai du Président Roosevelt, 92130 Issy-les-Moulineaux\nTo register - Microsoft Reactor: https://developer.microsoft.com/reactor/events/27302\nPlease note: all registrations must be made directly on the Microsoft Reactor website before Tuesday 9 June 2026 at 4pm. Access to the premises will not be possible without prior registration."
+    }
+  }
+}

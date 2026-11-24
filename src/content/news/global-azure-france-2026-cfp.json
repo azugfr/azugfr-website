@@ -1,0 +1,23 @@
+{
+  "slug": "global-azure-france-2026-cfp",
+  "locale": "fr",
+  "title": "Call for Speakers — Global Azure France 2026",
+  "summary": "AZUG FR et l'ESGI organisent le Global Azure France 2026 le 18 avril à Paris. Les propositions de sessions sont ouvertes sur Sessionize.",
+  "content": "AZUG FR - Azure User Group France, la communauté française des utilisateurs de Microsoft Azure, et ESGI – l'École Supérieure de Génie Informatique – ont le plaisir d'organiser Global Azure France 2026.\n\nGlobal Azure est un événement gratuit dédié au cloud Microsoft Azure, organisé les mêmes jours par des groupes d'utilisateurs et communautés du monde entier.\n\nCet événement, ouvert à tous, aura lieu en France le samedi 18 avril 2026 à partir de 9h, dans les locaux de l'ESGI Paris (12ᵉ arrondissement).\n\nNous attendons avec intérêt vos propositions de keynote, sessions, workshops... N'hésitez pas à proposer des sujets sur le Cloud Azure, que ce soit développement, infrastructure, data, IA, DevOps, sécurité, gouvernance etc.\n\nCfP : https://sessionize.com/global-azure-2026-france/",
+  "publishedAt": "2026-03-14T10:00:00Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7436859571366739968/",
+  "tags": ["Global Azure", "Call for Speakers", "Azure", "Community", "Paris"],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7436859571366739968",
+    "lastSyncedAt": "2026-04-14T14:13:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Call for Speakers — Global Azure France 2026",
+      "summary": "AZUG FR and ESGI are organising Global Azure France 2026 on April 18 in Paris. Session proposals are open on Sessionize.",
+      "content": "AZUG FR - Azure User Group France, the French community of Microsoft Azure users, and ESGI – the École Supérieure de Génie Informatique – are pleased to organise Global Azure France 2026.\n\nGlobal Azure is a free event dedicated to the Microsoft Azure cloud, organised on the same days by user groups and communities around the world.\n\nThis event, open to everyone, will take place in France on Saturday 18 April 2026 from 9am, at ESGI Paris (12th arrondissement).\n\nWe look forward to your proposals for keynotes, sessions, workshops... Feel free to suggest topics on the Azure Cloud, whether development, infrastructure, data, AI, DevOps, security, governance, etc.\n\nCfP: https://sessionize.com/global-azure-2026-france/"
+    }
+  }
+}

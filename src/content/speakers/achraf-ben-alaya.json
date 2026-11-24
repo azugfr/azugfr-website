@@ -1,0 +1,24 @@
+{
+  "slug": "achraf-ben-alaya",
+  "locale": "fr",
+  "name": "Achraf Ben Alaya",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "313762069",
+      "313716280"
+    ]
+  },
+  "photo": "https://cdn.sessionize.com/image/b08d-400o400o2-BishxoeSEK2ocoTQs5gvEi.png",
+  "role": "MVP Azure",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/achrafbenalaya/",
+    "x": "https://twitter.com/achrafbenalaya",
+    "sessionize": "https://sessionize.com/achrafbenalaya/"
+  },
+  "headline": "Architecte Cloud et Azure, Microsoft MVP, Microsoft Certified Trainer et ingénieur DevSecOps",
+  "translations": {
+    "en": {
+      "headline": "Cloud and Azure Architect, Microsoft MVP, Microsoft Certified Trainer, and DevSecOps Engineer"
+    }
+  }
+}

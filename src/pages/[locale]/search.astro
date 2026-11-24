@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const pageTitle = locale === "fr" ? "Recherche | AZUG FR" : "Search | AZUG FR";
+---
+
+<BaseLayout locale={locale} title={pageTitle} activeRoute="search" canonicalUrl={`${site.url}/${locale}/search/`}>
+  {/* NOTE: Pagefind search UI requires a production build (npm run build).
+      In dev mode, the search box will appear but won't return results. */}
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-8">
+      {locale === "fr" ? "Recherche" : "Search"}
+    </h1>
+    <div id="search" class="measure mb-8"></div>
+  </section>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
+  <script define:vars={{ locale, placeholder: dict.search.placeholder, noResults: dict.search.noResults }}>
+    window.addEventListener("DOMContentLoaded", () => {
+      new PagefindUI({
+        element: "#search",
+        showSubResults: true,
+        resetStyles: false,
+        translations: locale === "fr"
+          ? {
+              placeholder: placeholder,
+              zero_results: `${noResults} pour [SEARCH_TERM]`,
+            }
+          : {
+              placeholder: placeholder,
+            },
+      });
+    });
+  </script>
+</BaseLayout>

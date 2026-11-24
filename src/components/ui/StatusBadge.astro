@@ -1,0 +1,26 @@
+---
+import type { DerivedStatus } from "@/lib/content/eventStatus";
+import type { Locale } from "@/lib/i18n";
+import { getUiDictionary } from "@/lib/i18n";
+
+interface Props {
+  status: DerivedStatus;
+  locale: Locale;
+}
+
+const { status, locale } = Astro.props;
+const dict = getUiDictionary(locale);
+
+const classes: Record<DerivedStatus, string> = {
+  upcoming: "bg-ciel-soft text-encre",
+  past: "bg-brume text-gris",
+  cancelled: "border border-encre text-encre",
+};
+const labels: Record<DerivedStatus, string> = {
+  upcoming: dict.common.upcoming,
+  past: dict.common.past,
+  cancelled: dict.common.cancelled,
+};
+---
+
+<span class={`inline-block px-2 py-0.5 rounded-btn t-meta font-semibold ${classes[status]}`}>{labels[status]}</span>

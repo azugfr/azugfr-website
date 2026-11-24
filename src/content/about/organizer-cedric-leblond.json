@@ -1,0 +1,45 @@
+{
+  "type": "organizer",
+  "slug": "cedric-leblond",
+  "order": 3,
+  "locale": "fr",
+  "name": "Cédric Leblond",
+  "role": "Consultant Cloud et architecte Azure",
+  "company": "Meritis",
+  "photo": "/speakers/cedric-leblond.jpg",
+  "awards": [
+    "Microsoft MVP Azure"
+  ],
+  "expertise": [
+    "Azure",
+    "Cloud",
+    "DevOps",
+    "Landing zones",
+    "Kubernetes (AKS)",
+    "Azure DevOps",
+    "ALM"
+  ],
+  "bio": "Cédric Leblond est consultant Cloud et architecte Azure chez Meritis, et Microsoft MVP Azure depuis 2014. Avec plus de dix ans d'expérience en solutions Cloud et méthodes DevOps, il conçoit et déploie des infrastructures Cloud en veillant à leur sécurité et à leur performance ; il a récemment participé au déploiement de landing zones pour 50 équipes et applications, et à la migration de deux départements vers Azure et AWS. Membre du réseau .NET/Azure Rangers, il participe à l'organisation d'AZUG FR, dont le Global Azure France.",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/cedric-leblond-cloud-azure/",
+    "github": "https://github.com/CedricLeblond",
+    "x": "https://twitter.com/leblond_c",
+    "website": "http://cedricleblond.blogspot.com",
+    "mvp": "https://mvp.microsoft.com/en-us/PublicProfile/5000596"
+  },
+  "translations": {
+    "en": {
+      "role": "Cloud Consultant and Azure Architect",
+      "bio": "Cédric Leblond is a Cloud consultant and Azure architect at Meritis, and a Microsoft Azure MVP since 2014. With more than ten years of experience in Cloud solutions and DevOps practices, he designs and deploys Cloud infrastructure with a focus on security and performance; he recently took part in rolling out landing zones for 50 teams and applications, and in migrating two departments to Azure and AWS. A member of the .NET/Azure Rangers, he helps organize AZUG FR, including Global Azure France.",
+      "expertise": [
+        "Azure",
+        "Cloud",
+        "DevOps",
+        "Landing zones",
+        "Kubernetes (AKS)",
+        "Azure DevOps",
+        "ALM"
+      ]
+    }
+  }
+}

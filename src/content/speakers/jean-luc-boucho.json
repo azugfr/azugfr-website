@@ -1,0 +1,17 @@
+{
+  "slug": "jean-luc-boucho",
+  "locale": "fr",
+  "name": "Jean-Luc Boucho",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "307062572",
+      "299674046",
+      "313716280"
+    ]
+  },
+  "company": "Avanade",
+  "role": "Advisory, Tech Strategist",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/jeanlucboucho/"
+  }
+}

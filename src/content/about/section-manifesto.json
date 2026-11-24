@@ -1,0 +1,14 @@
+{
+  "type": "section",
+  "slug": "manifesto",
+  "order": 1,
+  "locale": "fr",
+  "title": "Notre manifeste",
+  "body": "AZUG FR est la communauté francophone des professionnels et passionnés de Microsoft Azure en France. Fondée par des praticiens pour des praticiens, notre mission est de favoriser le partage de connaissances, l'entraide et le développement professionnel autour de la plateforme cloud Azure.",
+  "translations": {
+    "en": {
+      "title": "Our Manifesto",
+      "body": "AZUG FR is the French-speaking community for Microsoft Azure professionals and enthusiasts in France. Founded by practitioners for practitioners, our mission is to foster knowledge sharing, mutual support and professional development around the Azure cloud platform."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "afterwork-ete-2026-azugfr-2026-07-07",
+  "locale": "fr",
+  "title": "Afterwork été 2026 - AZUG FR & Co",
+  "summary": "Afterwork de fin de saison sur la terrasse Les Nautes à Paris, sans agenda fixé, avec la communauté AZUG FR.",
+  "description": "Après de belles rencontres en 2025-2026 autour du cloud, du dev, du devops, de la data et de l'IA, la communauté AZUG FR vous invite le mardi 7 juillet sur la terrasse Les Nautes (Paris Plage) pour une dernière soirée avant les vacances d'été. Afterwork détendu en bord de Seine, sans agenda fixé, pour échanger entre passionné·e·s de technologies, Microsoft et Azure en particulier. Formule libre : chaque participant règle sa consommation.",
+  "startDate": "2026-07-07T19:00:00",
+  "endDate": "2026-07-07T21:00:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "Les Nautes",
+    "address": "1 quai des Célestins",
+    "city": "Paris",
+    "mode": "in_person"
+  },
+  "registrationUrl": "https://www.meetup.com/azug-fr/events/315504913/",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/315504913/",
+  "tags": [
+    "Community",
+    "Afterwork",
+    "Azure"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "315504913",
+    "lastSyncedAt": "2026-11-23T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Summer afterwork 2026 - AZUG FR & Co",
+      "summary": "End-of-season afterwork on the Les Nautes terrace in Paris, with no fixed agenda, with the AZUG FR community.",
+      "description": "After a great 2025-2026 season around cloud, dev, devops, data and AI, the AZUG FR community invites you on Tuesday 7 July to the Les Nautes terrace (Paris Plage) for one last evening before the summer break. A relaxed afterwork by the Seine, with no fixed agenda, to chat with technology enthusiasts, Microsoft and Azure in particular. Pay-as-you-go: each participant pays for their own drinks."
+    }
+  }
+}

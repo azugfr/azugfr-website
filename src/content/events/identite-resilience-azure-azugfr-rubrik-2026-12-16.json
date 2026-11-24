@@ -1,0 +1,64 @@
+{
+  "slug": "identite-resilience-azure-azugfr-rubrik-2026-12-16",
+  "locale": "fr",
+  "title": "Identité et Résilience Azure - AZUG FR @ Rubrik",
+  "summary": "Dernière soirée AZUG FR de l'année, chez Rubrik : l'identité dans Azure et Azure Backup, puis networking avant les fêtes.",
+  "description": "Rendez-vous le 16 décembre 2026 chez Rubrik pour la dernière soirée AZUG FR de l'année, placée sous le signe de l'identité et de la résilience dans Azure. Au programme : introduction par la communauté AZUG FR, un talk de Pierre-Francois Guglielmi (Advisory Solution Architect) sur l'identité dans Azure, les attaques récentes et les risques associés, un second talk sur Azure Backup, ses avantages et ses défis, puis networking et échanges avec la communauté autour d'une coupe de champagne. À partir de 19h00. L'inscription est obligatoire via le formulaire Rubrik / AZUG FR.",
+  "startDate": "2026-12-16T19:00:00",
+  "endDate": "2026-12-16T22:00:00",
+  "timezone": "Europe/Paris",
+  "venue": {
+    "name": "Rubrik France – Morning Laffitte",
+    "address": "34 Rue Laffitte, 75009",
+    "city": "Paris",
+    "mode": "in_person"
+  },
+  "host": "Rubrik",
+  "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSejUKht-phdHGlyWAwxqu2zlIjygO3L47THfPhFLGn4slT0ng/viewform",
+  "meetupUrl": "https://www.meetup.com/azug-fr/events/317553267/",
+  "speakerSlugs": [
+    "pierre-francois-guglielmi"
+  ],
+  "talks": [
+    {
+      "title": "L'identité dans Azure : les récentes attaques et les risques associés",
+      "speakerSlugs": [
+        "pierre-francois-guglielmi"
+      ],
+      "translations": {
+        "en": {
+          "title": "Identity in Azure: recent attacks and the risks involved"
+        }
+      }
+    },
+    {
+      "title": "Azure Backup : avantages et challenges",
+      "speakerSlugs": [
+        "pierre-francois-guglielmi"
+      ],
+      "translations": {
+        "en": {
+          "title": "Azure Backup: benefits and challenges"
+        }
+      }
+    }
+  ],
+  "tags": [
+    "Azure",
+    "Identity",
+    "Security",
+    "Backup"
+  ],
+  "source": {
+    "provider": "meetup",
+    "externalId": "317553267",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Azure Identity and Resilience - AZUG FR @ Rubrik",
+      "summary": "The last AZUG FR evening of the year, at Rubrik: identity in Azure and Azure Backup, then networking before the holidays.",
+      "description": "Join us on 16 December 2026 at Rubrik for the last AZUG FR evening of the year, on identity and resilience in Azure. Agenda: introduction by the AZUG FR community, a talk by Pierre-Francois Guglielmi (Advisory Solution Architect) on identity in Azure, recent attacks and the risks involved, a second talk on Azure Backup, its benefits and challenges, then networking with the community over a glass of champagne. From 7:00 pm. Registration is mandatory through the Rubrik / AZUG FR form."
+    }
+  }
+}

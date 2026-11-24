@@ -1,0 +1,12 @@
+{
+  "slug": "alexandre-danoffre",
+  "locale": "fr",
+  "name": "Alexandre Danoffre",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "315082158"
+    ]
+  },
+  "company": "Microsoft",
+  "role": "Partner Solution Architect"
+}

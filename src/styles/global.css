@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens (docs/DESIGN-2026-11.md). Stored as RGB channels so Tailwind can apply
+ * opacity (e.g. `border-encre/15`). Components use the named Tailwind colours, never hex.
+ */
+:root {
+  --ciel: 143 211 244; /* #8FD3F4 logo cloud, large fields only, never text */
+  --ciel-soft: 214 239 251; /* #D6EFFB hover and selected tint */
+  --aube: 243 250 254; /* #F3FAFE pale sky behind the home hero */
+  --encre: 11 37 69; /* #0B2545 logo navy: text, headings, footer */
+  --azur: 0 120 212; /* #0078D4 buttons, links, active locale */
+  --azur-deep: 0 90 158; /* #005A9E hover, links on brume */
+  --rouge: 224 54 44; /* #E0362C only marks "next", large size only */
+  --papier: 255 255 255; /* #FFFFFF page background */
+  --brume: 238 244 248; /* #EEF4F8 alternating sections, quiet panels */
+  --trait: 201 214 226; /* #C9D6E2 rules and borders */
+  --gris: 74 91 110; /* #4A5B6E secondary text */
+  --givre: 185 211 234; /* #B9D3EA footer links on encre */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Archivo Variable", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 400;
+    font-stretch: 100%;
+    color: rgb(var(--encre));
+    background-color: rgb(var(--papier));
+  }
+
+  /* Focus: 2px azur ring; double ring on ciel and encre fields so it stays visible. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--azur));
+    outline-offset: 2px;
+  }
+  .on-ciel :focus-visible {
+    outline-color: rgb(var(--encre));
+    box-shadow: 0 0 0 2px rgb(var(--papier));
+  }
+  .on-encre :focus-visible {
+    outline-color: rgb(var(--papier));
+    box-shadow: 0 0 0 2px rgb(var(--encre));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Type roles. Personality comes from the Archivo width axis (font-stretch). */
+@layer components {
+  .t-wordmark {
+    font-size: 56px;
+    line-height: 0.9;
+    font-weight: 850;
+    font-stretch: 125%;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  .t-talk {
+    font-size: 24px;
+    line-height: 1.1;
+    font-weight: 600;
+    font-stretch: 75%;
+    overflow-wrap: anywhere;
+  }
+  .t-h1 {
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 750;
+    font-stretch: 112%;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  .t-h2 {
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 700;
+    font-stretch: 112%;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  .t-h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 650;
+    font-stretch: 100%;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  /* Small wordmark, e.g. in the footer */
+  .t-brand {
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 850;
+    font-stretch: 125%;
+  }
+  /* Footer column headings: h2 elements, kept quiet */
+  .t-foot-h {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 650;
+    font-stretch: 100%;
+  }
+  .t-meta {
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 450;
+  }
+  .t-num {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Large day number of an event date block */
+  .t-day {
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 750;
+    font-stretch: 112%;
+    font-variant-numeric: tabular-nums;
+  }
+  .t-day-xl {
+    font-size: 60px;
+    line-height: 1;
+    font-weight: 750;
+    font-stretch: 112%;
+    font-variant-numeric: tabular-nums;
+  }
+  .measure {
+    max-width: 70ch;
+  }
+
+  @media (min-width: 768px) {
+    .t-wordmark {
+      font-size: 112px;
+    }
+    .t-talk {
+      font-size: 40px;
+    }
+    .t-h1 {
+      font-size: 60px;
+    }
+    .t-h2 {
+      font-size: 36px;
+    }
+    .t-h3 {
+      font-size: 24px;
+    }
+  }
+
+  /* Buttons: primary = azur fill, secondary = 1.5px encre outline. Radius 6px. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 600;
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .btn-primary {
+    background-color: rgb(var(--azur));
+    color: rgb(var(--papier));
+  }
+  .btn-primary:hover {
+    background-color: rgb(var(--azur-deep));
+  }
+  .btn-secondary {
+    border: 1.5px solid rgb(var(--encre));
+    color: rgb(var(--encre));
+    background-color: transparent;
+  }
+  .btn-secondary:hover {
+    background-color: rgb(var(--encre) / 0.08);
+  }
+  .on-encre .btn-secondary {
+    border-color: rgb(var(--papier));
+    color: rgb(var(--papier));
+  }
+  .on-encre .btn-secondary:hover {
+    background-color: rgb(var(--papier) / 0.12);
+  }
+
+  /* Text links: azur on papier, azur-deep on brume, encre underlined on ciel. */
+  .link {
+    color: rgb(var(--azur-deep));
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .link:hover {
+    text-decoration-thickness: 2px;
+  }
+  .on-ciel .link {
+    color: rgb(var(--encre));
+  }
+}
+
+/* Pagefind search UI follows the same tokens */
+#search {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: rgb(var(--azur-deep));
+  --pagefind-ui-text: rgb(var(--encre));
+  --pagefind-ui-background: rgb(var(--papier));
+  --pagefind-ui-border: rgb(var(--trait));
+  --pagefind-ui-tag: rgb(var(--brume));
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 6px;
+  --pagefind-ui-font: "Archivo Variable", system-ui, sans-serif;
+}

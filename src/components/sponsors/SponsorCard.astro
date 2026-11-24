@@ -1,0 +1,31 @@
+---
+import type { SponsorEntry } from "@/content/config";
+import type { Locale } from "@/lib/i18n/index";
+import { getUiDictionary } from "@/lib/i18n/index";
+import SponsorMark from "./SponsorMark.astro";
+
+interface Props {
+  sponsor: SponsorEntry;
+  locale: Locale;
+}
+
+const { sponsor, locale } = Astro.props;
+const dict = getUiDictionary(locale);
+
+const tierLabel = sponsor.tier
+  ? `${dict.sponsors.tiers[sponsor.tier] ?? sponsor.tier}${sponsor.year ? ` ${sponsor.year}` : ""}`
+  : null;
+---
+
+<a
+  href={sponsor.website}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-testid={`sponsor-${sponsor.slug}`}
+  class="bg-papier border border-trait rounded-panel p-6 flex flex-col items-start gap-3 hover:bg-ciel-soft transition-colors h-full"
+>
+  <SponsorMark {sponsor} />
+  {sponsor.logo && <span class="t-meta font-semibold text-encre">{sponsor.name}</span>}
+  {tierLabel && <span class="t-meta text-gris">{tierLabel}</span>}
+  {sponsor.description && <p class="t-meta text-gris">{sponsor.description}</p>}
+</a>

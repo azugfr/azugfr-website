@@ -1,0 +1,30 @@
+---
+import type { SponsorEntry } from "@/content/config";
+
+interface Props {
+  sponsor: SponsorEntry;
+  /** "md" for cards, "lg" for the home band */
+  size?: "md" | "lg";
+}
+
+const { sponsor, size = "md" } = Astro.props;
+// Sponsors without a logo show a text wordmark (sponsor.wordmark, else the name).
+const wordmark = sponsor.wordmark ?? sponsor.name;
+const heights = { md: "h-12", lg: "h-14" } as const;
+---
+
+{
+  sponsor.logo ? (
+    <img
+      src={sponsor.logo}
+      alt={sponsor.alt ?? sponsor.name}
+      class={`${heights[size]} max-w-[240px] w-auto object-contain object-left`}
+    />
+  ) : (
+    <span
+      class={`${heights[size]} flex items-center t-h3 !font-bold ${size === "lg" ? "!text-[36px]" : ""} text-encre`}
+    >
+      {wordmark}
+    </span>
+  )
+}

@@ -1,0 +1,107 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getUiDictionary, getLocalizedRoute, resolveLocaleContent } from "@/lib/i18n";
+import { formatEventDate, toIsoWithOffset } from "@/lib/dates";
+import { getAllEvents } from "@/lib/content/contentHelpers";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  return [{ params: { locale: "fr" } }, { params: { locale: "en" } }];
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const dict = getUiDictionary(locale);
+const entries = await getCollection("resources");
+const events = await getAllEvents(locale);
+
+interface ResourceItem {
+  type: string;
+  url: string;
+  title: string;
+  summary?: string;
+  publishedAt?: string;
+  eventSlug?: string;
+  eventTitle?: string;
+}
+
+const fromCollection: ResourceItem[] = entries.map((e) => resolveLocaleContent(e.data, locale));
+const fromTalks: ResourceItem[] = events.flatMap((event) =>
+  (event.talks ?? []).flatMap((talk) => [
+    ...(talk.slidesUrl
+      ? [{ type: "slides", url: talk.slidesUrl, title: talk.title, publishedAt: event.startDate, eventSlug: event.slug, eventTitle: event.title }]
+      : []),
+    ...(talk.videoUrl
+      ? [{ type: "video", url: talk.videoUrl, title: talk.title, publishedAt: event.startDate, eventSlug: event.slug, eventTitle: event.title }]
+      : []),
+  ]),
+);
+const resources = [...fromCollection, ...fromTalks].sort((a, b) =>
+  (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+);
+
+const pageTitle =
+  locale === "fr" ? "Ressources | AZUG FR" : "Resources | AZUG FR";
+const pageDescription =
+  locale === "fr"
+    ? "Découvrez les présentations, vidéos et articles partagés par la communauté AZUG FR."
+    : "Browse slides, videos and articles shared by the AZUG FR community.";
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  activeRoute="resources"
+  canonicalUrl={`${site.url}/${locale}/resources/`}
+>
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-4">
+      {locale === "fr" ? "Ressources" : "Resources"}
+    </h1>
+    <p class="text-lead measure mb-10">{pageDescription}</p>
+
+    {
+      resources.length === 0 ? (
+        <div class="bg-brume rounded-panel p-6 md:p-8">
+          <p class="t-h3 mb-2">{dict.resources.empty}</p>
+          <p class="measure mb-6">{dict.resources.emptyCta}</p>
+          <a href={`mailto:${site.contactEmail}`} class="btn btn-primary">
+            {dict.home.proposeTalk}
+          </a>
+        </div>
+      ) : (
+        <ul class="border-t border-trait">
+          {resources.map((r) => (
+            <li class="border-b border-trait py-5 md:grid md:grid-cols-[11rem_1fr] md:gap-x-6">
+              <p class="t-meta t-num text-gris">
+                {r.publishedAt && (
+                  <time datetime={toIsoWithOffset(r.publishedAt)}>
+                    {formatEventDate(r.publishedAt, locale, "date")}
+                  </time>
+                )}
+              </p>
+              <div>
+                <h2 class="t-h3">
+                  <a href={r.url} target="_blank" rel="noopener noreferrer" class="text-encre hover:underline underline-offset-4">
+                    {r.title}
+                  </a>
+                </h2>
+                {r.summary && <p class="mt-2 measure">{r.summary}</p>}
+                <p class="t-meta text-gris mt-2 flex flex-wrap gap-x-4">
+                  <span class="capitalize">{r.type}</span>
+                  {r.eventSlug && (
+                    <a href={getLocalizedRoute(locale, "events", r.eventSlug)} class="link">
+                      {r.eventTitle}
+                    </a>
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

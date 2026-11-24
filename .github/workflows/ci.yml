@@ -1,0 +1,43 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: ["nextgen", "main", "master"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    name: Unit, type-check, build, browser smoke
+    # Pinned: ubuntu-latest is now 26.04, where Playwright 1.59 cannot install Chromium.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: "npm" }
+      - run: npm ci
+      - name: Unit + content integrity tests
+        run: npx vitest run
+      - name: Astro type check
+        run: npx astro check
+      - name: Build (Astro + Pagefind)
+        run: npm run build
+      - name: Speaker files complete
+        run: node scripts/derive-speakers.mjs --check
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npx playwright test
+        env: { CI: "true" }
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

@@ -1,0 +1,160 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSpeakerProfile, getRelatedEventsForSpeaker, getTalksForSpeaker } from "@/lib/content/contentHelpers";
+import Avatar from "@/components/ui/Avatar.astro";
+import StatusBadge from "@/components/ui/StatusBadge.astro";
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { deriveEventStatus } from "@/lib/content/eventStatus";
+import { site } from "@/data/site";
+import { formatEventDate } from "@/lib/dates";
+
+export async function getStaticPaths() {
+  const locales: Locale[] = ["fr", "en"];
+  const paths = [];
+  for (const locale of locales) {
+    const entries = await getCollection("speakers");
+    for (const entry of entries) {
+      paths.push({ params: { locale, slug: entry.data.slug } });
+    }
+  }
+  const seen = new Set<string>();
+  return paths.filter(p => {
+    const key = `${p.params.locale}:${p.params.slug}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const dict = getUiDictionary(locale);
+const speaker = await getSpeakerProfile(slug, locale);
+if (!speaker) return Astro.redirect(`/${locale}/speakers/`);
+const relatedEvents = await getRelatedEventsForSpeaker(slug, locale);
+const talkRows = await getTalksForSpeaker(slug, locale);
+const talkEventSlugs = new Set(talkRows.map((r) => r.event.slug));
+const attendedEvents = relatedEvents.filter((e) => !talkEventSlugs.has(e.slug));
+
+const title = `${speaker.name} | AZUG FR`;
+const description = speaker.headline ?? speaker.bio ?? "";
+const canonicalUrl = `${site.url}/${locale}/speakers/${slug}/`;
+
+const subtitle = speaker.headline ?? [speaker.role, speaker.company].filter(Boolean).join(", ");
+const linkDefs = [
+  { label: "LinkedIn", href: speaker.links?.linkedin },
+  { label: "GitHub", href: speaker.links?.github },
+  { label: dict.about.website, href: speaker.links?.website },
+  { label: "X / Twitter", href: speaker.links?.x },
+  { label: "Sessionize", href: speaker.links?.sessionize },
+  { label: dict.about.mvpProfile, href: (speaker.links as { mvp?: string } | undefined)?.mvp },
+].filter((l) => Boolean(l.href));
+const emptyProfile = !speaker.headline && !speaker.bio && linkDefs.length === 0;
+---
+
+<BaseLayout {locale} {title} {description} {canonicalUrl} activeRoute="speakers">
+  <article class="max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <a href={getLocalizedRoute(locale, "speakers")} class="link">
+      {dict.common.backTo} {dict.nav.speakers}
+    </a>
+
+    <!-- Header -->
+    <div class="mt-8 flex flex-col md:flex-row gap-8 items-start">
+      <Avatar name={speaker.name} src={speaker.photo} size="xl" />
+      <div class="flex-1">
+        <h1 class="t-h1 mb-3">{speaker.name}</h1>
+        {subtitle && <p class="text-lead mb-2">{subtitle}</p>}
+        {speaker.location && <p class="t-meta text-gris mb-2">{speaker.location}</p>}
+        {speaker.isOrganizer && (
+          <p class="t-meta font-semibold mb-2">{dict.speakers.organizerBadge}</p>
+        )}
+        {speaker.awards && speaker.awards.length > 0 && (
+          <ul class="t-meta text-gris mb-3" aria-label={dict.about.awards}>
+            {speaker.awards.map((award) => (
+              <li>{award}</li>
+            ))}
+          </ul>
+        )}
+        {linkDefs.length > 0 && (
+          <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3">
+            {linkDefs.map((l) => (
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${speaker.name} — ${l.label}`}
+                class="link t-meta"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    {speaker.bio && (
+      <section class="mt-12">
+        <h2 class="t-h2 mb-4">{locale === "fr" ? "Biographie" : "Biography"}</h2>
+        <p class="measure">{speaker.bio}</p>
+      </section>
+    )}
+
+    {speaker.expertise && speaker.expertise.length > 0 && (
+      <section class="mt-10">
+        <h2 class="t-h3 mb-3">{dict.about.expertise}</h2>
+        <ul class="flex flex-wrap gap-x-5 gap-y-1">
+          {speaker.expertise.map((tag) => (
+            <li class="t-meta text-gris">{tag}</li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {emptyProfile && (
+      <p class="mt-8 t-meta text-gris">
+        {dict.speakers.completeProfile.replace("{name}", speaker.name)}{" "}
+        <a href={`mailto:${site.contactEmail}`} class="link">{site.contactEmail}</a>{" "}
+        {dict.speakers.completeProfileOr}{" "}
+        <a href={site.repo} target="_blank" rel="noopener noreferrer" class="link">{dict.speakers.completeProfileRepo}</a>.
+      </p>
+    )}
+
+    {(talkRows.length > 0 || attendedEvents.length > 0) && (
+      <section class="mt-12">
+        <h2 class="t-h2 mb-6">{dict.speakers.talks}</h2>
+        <ul class="border-t border-trait">
+          {talkRows.map(({ talk, event }) => (
+            <li class="py-4 border-b border-trait">
+              <h3 class="t-h3">{talk.title}</h3>
+              <p class="t-meta text-gris mt-1 flex flex-wrap gap-x-4">
+                <a href={getLocalizedRoute(locale, "events", event.slug)} class="link">{event.title}</a>
+                <span class="t-num">{formatEventDate(event.startDate, locale, "date", event.timezone)}</span>
+                <StatusBadge status={deriveEventStatus(event)} {locale} />
+              </p>
+              {(talk.slidesUrl || talk.videoUrl) && (
+                <p class="mt-2 flex flex-wrap gap-x-5 gap-y-1 t-meta">
+                  {talk.slidesUrl && <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer" class="link">{dict.events.slides}</a>}
+                  {talk.videoUrl && <a href={talk.videoUrl} target="_blank" rel="noopener noreferrer" class="link">{dict.events.video}</a>}
+                </p>
+              )}
+            </li>
+          ))}
+          {attendedEvents.map((event) => (
+            <li class="py-4 border-b border-trait">
+              <h3 class="t-h3">
+                <a href={getLocalizedRoute(locale, "events", event.slug)} class="text-encre hover:underline underline-offset-4">{event.title}</a>
+              </h3>
+              <p class="t-meta text-gris mt-1 flex flex-wrap gap-x-4">
+                <span>{dict.speakers.attended}</span>
+                <span class="t-num">{formatEventDate(event.startDate, locale, "date", event.timezone)}</span>
+                <StatusBadge status={deriveEventStatus(event)} {locale} />
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+</BaseLayout>

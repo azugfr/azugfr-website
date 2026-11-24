@@ -1,0 +1,17 @@
+{
+  "slug": "marius-zaharia",
+  "locale": "fr",
+  "name": "Marius Zaharia",
+  "derivedFrom": {
+    "eventSourceIds": [
+      "307062572",
+      "313762069",
+      "298884827"
+    ]
+  },
+  "company": "Société Générale",
+  "role": "Principal Engineer / Responsable de la guilde Cloud",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/mzaharia/"
+  }
+}

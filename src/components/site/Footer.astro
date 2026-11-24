@@ -1,0 +1,113 @@
+---
+import { getUiDictionary, getLocalizedRoute } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { site } from "@/data/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUiDictionary(locale);
+
+const currentYear = new Date().getFullYear();
+const copyrightLabel = `© ${currentYear} AZUG FR — ${t.footer.rights}.`;
+
+const linkGroups = [
+  {
+    heading: "Azure UG France",
+    links: [
+      { label: locale === "fr" ? "À propos" : "About us",           href: getLocalizedRoute(locale, "about") },
+      { label: t.footer.board,                                        href: `${getLocalizedRoute(locale, "about")}#board` },
+      { label: t.footer.contact,                                      href: `mailto:${site.contactEmail}` },
+    ],
+  },
+  {
+    heading: locale === "fr" ? "Événements" : "Events",
+    links: [
+      { label: locale === "fr" ? "À venir" : "Upcoming",   href: `${getLocalizedRoute(locale, "events")}#upcoming` },
+      { label: locale === "fr" ? "Passés" : "Past events", href: `${getLocalizedRoute(locale, "events")}#past` },
+      { label: "Global Azure France",                       href: getLocalizedRoute(locale, "global-azure-france") },
+    ],
+    ctas: [
+      {
+        label: locale === "fr" ? "Proposer un talk" : "Submit a talk",
+        href: `mailto:${site.contactEmail}`,
+      },
+      {
+        label: locale === "fr" ? "Héberger un événement" : "Host an event",
+        href: `mailto:${site.contactEmail}`,
+      },
+    ],
+  },
+  {
+    heading: locale === "fr" ? "Communauté" : "Community",
+    links: [
+      { label: locale === "fr" ? "Intervenants" : "Speakers", href: getLocalizedRoute(locale, "speakers") },
+      { label: t.footer.resources,                                href: getLocalizedRoute(locale, "resources") },
+      { label: t.footer.news,                                     href: getLocalizedRoute(locale, "news") },
+      { label: t.sponsors.title,                                  href: `${getLocalizedRoute(locale, "about")}#sponsors` },
+    ],
+  },
+];
+
+const socials = [
+  { label: "LinkedIn",    href: site.social.linkedin },
+  { label: "Twitter / X", href: site.social.twitter },
+  { label: "GitHub",      href: site.social.github },
+  { label: "Meetup",      href: site.social.meetup },
+];
+
+const linkClass = "text-meta text-givre underline underline-offset-4 decoration-transparent hover:decoration-givre hover:text-papier transition-colors w-fit";
+---
+
+<footer class="on-encre bg-encre text-papier">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- 3 link columns -->
+    {linkGroups.map(({ heading, links, ctas }) => (
+      <div class="flex flex-col gap-2">
+        <h2 class="t-foot-h text-papier mb-1">{heading}</h2>
+        {links.map(({ label, href }) => (
+          <a href={href} class={linkClass}>
+            {label}
+          </a>
+        ))}
+        {ctas?.map((cta) => (
+          <a href={cta.href} class="btn btn-secondary mt-2 !min-h-0 py-1.5 px-3 text-meta w-fit">
+            {cta.label}
+          </a>
+        ))}
+      </div>
+    ))}
+
+    <!-- Follow us column -->
+    <div class="flex flex-col gap-2">
+      <h2 class="t-foot-h text-papier mb-1">{locale === "fr" ? "Nous suivre" : "Follow us"}</h2>
+      {socials.map(({ label, href }) => (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          class={linkClass}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Bottom bar: wordmark + copyright -->
+  <div class="border-t border-papier/15">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <a href={`/${locale}/`} aria-label="AZUG FR — Home" class="t-brand text-papier w-fit">
+        AZUG FR
+      </a>
+      <p class="text-meta text-givre">
+        {t.network.member}{" "}
+        <a href={site.network.url} target="_blank" rel="noopener noreferrer" class="text-papier underline underline-offset-4 hover:decoration-2">{site.network.name}</a>
+      </p>
+      <p class="text-meta text-givre">{copyrightLabel}</p>
+    </div>
+  </div>
+</footer>
