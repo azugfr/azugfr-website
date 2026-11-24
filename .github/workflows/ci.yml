@@ -12,7 +12,8 @@ concurrency:
 jobs:
   test:
     name: Unit, type-check, build, browser smoke
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest is now 26.04, where Playwright 1.59 cannot install Chromium.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
