@@ -1,6 +1,7 @@
 ---
 import NavBar from "@/components/site/NavBar.astro";
 import Footer from "@/components/site/Footer.astro";
+import "@fontsource-variable/archivo/wdth.css";
 import "@/styles/global.css";
 import { getAlternateLocale, getUiDictionary, swapLocaleInPath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
@@ -55,10 +56,10 @@ const currentPath = new URL(resolvedCanonical).pathname;
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")} />
     )}
   </head>
-  <body class="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+  <body class="min-h-screen flex flex-col bg-papier text-encre font-sans">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-white focus:text-azure-700 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-papier focus:text-azur-deep focus:px-4 focus:py-2 focus:rounded-btn focus:border focus:border-trait"
     >{dict.a11y.skipToContent}</a>
     <NavBar locale={locale} activeRoute={activeRoute} currentPath={currentPath} />
     <main id="main" class="flex-1" data-pagefind-body>

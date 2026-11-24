@@ -13,7 +13,6 @@ export const en: UiDictionary = {
   common: {
     upcoming: "Upcoming",
     past: "Past",
-    readMore: "Read more",
     backTo: "Back to",
     noResults: "No results",
     cancelled: "Cancelled",
@@ -55,20 +54,31 @@ export const en: UiDictionary = {
     talksCount: (n: number) => `${n} talk${n > 1 ? "s" : ""}`,
   },
   home: {
-    nextEvent: "Next event",
-    comingSoonTitle: "Next meetup coming soon",
-    comingSoonBody: "Follow us on Meetup to be notified as soon as registration opens, or propose a talk for an upcoming evening.",
+    tagline: "The Azure community in France, since 2014. Practitioners share what they have built.",
+    nextEvent: "Next evening",
+    comingSoonBody: "No date yet. The next evening is announced on Meetup first.",
     followMeetup: "Follow on Meetup",
     proposeTalk: "Propose a talk",
-    lastEvent: "Latest event",
+    lastEvent: "Latest evening",
     latestTalks: "Latest talks",
     allEvents: "All events",
+    latestNews: "News",
+    allNews: "All news",
+  },
+  network: {
+    // "AZUG FR is the Paris community of [MTG France], …"
+    before: "AZUG FR is the Paris community of",
+    after: ", the non-profit network of French-speaking Microsoft communities.",
+    member: "Member of",
   },
   speakers: {
     organizerBadge: "AZUG FR organizer",
     talks: "Talks",
     attended: "Speaker at the event",
-    completeProfile: "Are you {name}? Complete your profile by emailing us.",
+    // "Are you {name}? Complete your profile by emailing us at [email] or by submitting a pull request to [the GitHub repository]."
+    completeProfile: "Are you {name}? Complete your profile by emailing us at",
+    completeProfileOr: "or by submitting a pull request to",
+    completeProfileRepo: "the GitHub repository",
     talksCount: (n: number) => `${n} talk${n > 1 ? "s" : ""}`,
   },
   about: {
@@ -83,8 +93,11 @@ export const en: UiDictionary = {
     title: "Our sponsors",
     annualTitle: (year: number) => `${year} annual sponsor`,
     thanks: (name: string) => `Thank you to ${name} for supporting the AZUG FR community.`,
+    bandTitle: (year: number) => `${year} sponsors`,
+    thanksBoth: (a: string, b: string) => `Thank you to ${a} and ${b} for supporting the AZUG FR community.`,
     tiers: {
       annual: "Annual sponsor",
+      honor: "Honorary sponsor",
       host: "Event host",
       platinum: "Platinum",
       gold: "Gold",

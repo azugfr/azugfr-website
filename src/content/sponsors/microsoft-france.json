@@ -2,11 +2,13 @@
   "slug": "microsoft-france",
   "locale": "fr",
   "name": "Microsoft France",
-  "tier": "host",
+  "tier": "honor",
+  "wordmark": "Microsoft",
   "website": "https://www.microsoft.com/fr-fr/",
+  "logo": "/sponsors/microsoft.svg",
   "alt": "Logo Microsoft",
   "description": "Microsoft France soutient la communauté AZUG FR en mettant à disposition ses locaux et ses ressources techniques pour nos événements.",
-  "featured": false,
+  "featured": true,
   "translations": {
     "en": {
       "alt": "Microsoft logo",

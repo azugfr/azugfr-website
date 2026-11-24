@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { linkify } from "@/lib/ui/linkify";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getUiDictionary, getLocalizedRoute, resolveLocaleContent } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
@@ -50,31 +51,23 @@ function formatDate(iso: string, loc: Locale): string {
   activeRoute="news"
   canonicalUrl={`${site.url}/${locale}/news/${entry.data.slug}/`}
 >
-  <article class="max-w-4xl mx-auto px-4 py-12">
-    <a
-      href={getLocalizedRoute(locale, "news")}
-      class="text-azure-600 hover:underline text-sm"
-    >
-      ← {dict.common.backTo}
+  <article class="max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <a href={getLocalizedRoute(locale, "news")} class="link">
+      {dict.common.backTo}
       {locale === "fr" ? "Actualités" : "News"}
     </a>
 
-    <header class="mt-6 mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{item.title}</h1>
-      <div class="flex items-center gap-4 text-sm text-gray-500">
-        <time datetime={item.publishedAt}>
+    <header class="mt-8 mb-8">
+      <h1 class="t-h1 mb-4">{item.title}</h1>
+      <p class="t-meta text-gris flex flex-wrap gap-x-5 gap-y-1">
+        <time datetime={item.publishedAt} class="t-num">
           {formatDate(item.publishedAt, locale)}
         </time>
-        {item.author && <span>— {item.author}</span>}
-        <a
-          href={item.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-azure-600 hover:underline"
-        >
-          {locale === "fr" ? "Voir la source" : "View source"} ↗
+        {item.author && <span>{item.author}</span>}
+        <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" class="link">
+          {locale === "fr" ? "Voir la source" : "View source"}
         </a>
-      </div>
+      </p>
     </header>
 
     {
@@ -82,31 +75,28 @@ function formatDate(iso: string, loc: Locale): string {
         <img
           src={item.image}
           alt={item.title}
-          class="w-full rounded-lg mb-8 object-cover max-h-64"
+          class="w-full rounded-panel mb-8 object-cover max-h-64"
         />
       )
     }
 
     {
       item.content ? (
-        <div
-          class="prose max-w-none text-gray-700"
-          set:html={item.content}
-        />
+        <div class="measure whitespace-pre-line" set:html={linkify(item.content)} />
       ) : (
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-          <p class="text-gray-700 text-lg mb-4">{item.summary}</p>
+        <div class="bg-brume rounded-panel p-6 md:p-8">
+          <p class="text-lead measure mb-6">{item.summary}</p>
           <a
             href={item.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-block bg-azure-600 text-white px-6 py-3 rounded-lg hover:bg-azure-700 transition-colors font-semibold"
+            class="btn btn-primary"
           >
             {
               locale === "fr"
                 ? "Lire l'article complet sur LinkedIn"
                 : "Read full article on LinkedIn"
-            } ↗
+            }
           </a>
         </div>
       )

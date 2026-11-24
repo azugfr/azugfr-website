@@ -11,7 +11,6 @@ export const fr = {
   common: {
     upcoming: "À venir",
     past: "Passé",
-    readMore: "Lire la suite",
     backTo: "Retour à",
     noResults: "Aucun résultat",
     cancelled: "Annulé",
@@ -53,20 +52,31 @@ export const fr = {
     talksCount: (n: number) => `${n} session${n > 1 ? "s" : ""}`,
   },
   home: {
-    nextEvent: "Prochain événement",
-    comingSoonTitle: "Prochain meetup bientôt annoncé",
-    comingSoonBody: "Suivez-nous sur Meetup pour être prévenu·e dès l'ouverture des inscriptions, ou proposez un talk pour une prochaine soirée.",
+    tagline: "La communauté Azure en France, depuis 2014. Des praticiens partagent ce qu'ils ont construit.",
+    nextEvent: "Prochaine soirée",
+    comingSoonBody: "Pas encore de date. La prochaine soirée est annoncée d'abord sur Meetup.",
     followMeetup: "Suivre sur Meetup",
     proposeTalk: "Proposer un talk",
-    lastEvent: "Dernier événement",
+    lastEvent: "Dernière soirée",
     latestTalks: "Derniers talks",
     allEvents: "Tous les événements",
+    latestNews: "Actualités",
+    allNews: "Toutes les actualités",
+  },
+  network: {
+    // "AZUG FR est la communauté parisienne de [MTG France], …"
+    before: "AZUG FR est la communauté parisienne de",
+    after: ", le réseau associatif des communautés Microsoft francophones.",
+    member: "Membre de",
   },
   speakers: {
     organizerBadge: "Organisateur AZUG FR",
     talks: "Interventions",
     attended: "Intervenant·e à l'événement",
-    completeProfile: "Vous êtes {name} ? Complétez votre profil en nous écrivant.",
+    // "Vous êtes {name} ? Complétez votre profil en nous écrivant à [email] ou en proposant une pull request sur [le dépôt GitHub]."
+    completeProfile: "Vous êtes {name} ? Complétez votre profil en nous écrivant à",
+    completeProfileOr: "ou en proposant une pull request sur",
+    completeProfileRepo: "le dépôt GitHub",
     talksCount: (n: number) => `${n} intervention${n > 1 ? "s" : ""}`,
   },
   about: {
@@ -81,8 +91,11 @@ export const fr = {
     title: "Nos sponsors",
     annualTitle: (year: number) => `Sponsor annuel ${year}`,
     thanks: (name: string) => `Merci à ${name} de soutenir la communauté AZUG FR.`,
+    bandTitle: (year: number) => `Sponsors ${year}`,
+    thanksBoth: (a: string, b: string) => `Merci à ${a} et à ${b} de soutenir la communauté AZUG FR.`,
     tiers: {
       annual: "Sponsor annuel",
+      honor: "Sponsor d'honneur",
       host: "Hôte d'événements",
       platinum: "Platine",
       gold: "Or",

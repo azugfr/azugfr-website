@@ -36,57 +36,36 @@ function formatDate(iso: string, loc: Locale): string {
   activeRoute="news"
   canonicalUrl={`${site.url}/${locale}/news/`}
 >
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-3">
+  <section class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
+    <h1 class="t-h1 mb-4">
       {locale === "fr" ? "Actualités" : "News"}
     </h1>
-    <p class="text-gray-600 mb-10">
-      {
-        locale === "fr"
-          ? "Les dernières nouvelles de la communauté AZUG FR."
-          : "The latest news from the AZUG FR community."
-      }
+    <p class="text-lead measure mb-10">
+      {pageDescription}
     </p>
 
     {
       news.length === 0 ? (
-        <p class="text-gray-500">{dict.common.noResults}</p>
+        <p class="text-gris">{dict.common.noResults}</p>
       ) : (
-        <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <ul class="border-t border-trait">
           {news.map((item) => (
-            <li class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow flex flex-col">
-              {item.image && (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  class="w-full h-48 object-cover"
-                />
-              )}
-              <div class="p-6 flex flex-col flex-1">
-                <time
-                  class="text-xs text-gray-400 mb-2"
-                  datetime={item.publishedAt}
-                >
-                  {formatDate(item.publishedAt, locale)}
-                </time>
-                <h2 class="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">
+            <li class="relative border-b border-trait py-5 px-2 md:grid md:grid-cols-[11rem_1fr_6rem] md:gap-x-6 md:items-baseline hover:bg-ciel-soft transition-colors">
+              <time class="t-meta t-num text-gris block" datetime={item.publishedAt}>
+                {formatDate(item.publishedAt, locale)}
+              </time>
+              <div class="mt-1 md:mt-0">
+                <h2 class="t-h3">
                   <a
                     href={getLocalizedRoute(locale, "news", item.slug)}
-                    class="hover:text-azure-600"
+                    class="text-encre after:absolute after:inset-0 hover:underline underline-offset-4"
                   >
                     {item.title}
                   </a>
                 </h2>
-                <p class="text-sm text-gray-600 flex-1 line-clamp-3">
-                  {item.summary}
-                </p>
-                <a
-                  href={getLocalizedRoute(locale, "news", item.slug)}
-                  class="mt-4 text-azure-600 hover:underline text-sm font-medium"
-                >
-                  {dict.common.readMore} →
-                </a>
+                <p class="mt-2 measure">{item.summary}</p>
               </div>
+              <p class="t-meta text-gris mt-2 md:mt-0 md:text-right">LinkedIn</p>
             </li>
           ))}
         </ul>

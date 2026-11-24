@@ -15,10 +15,8 @@ const { sponsors, locale, title } = Astro.props;
 {
   sponsors.length > 0 && (
     <section>
-      {title && (
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">{title}</h2>
-      )}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {title && <h2 class="t-h2 mb-6">{title}</h2>}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {sponsors.map((sponsor) => (
           <SponsorCard sponsor={sponsor} locale={locale} />
         ))}

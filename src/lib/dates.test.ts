@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { formatEventDate, getBuildNow, toInstant, toIsoWithOffset } from "./dates";
+import { formatEventDate, formatEventDateParts, getBuildNow, toInstant, toIsoWithOffset } from "./dates";
 
 describe("toIsoWithOffset", () => {
   it("adds the summer offset for Europe/Paris", () => {
@@ -75,5 +75,23 @@ describe("getBuildNow", () => {
     const now = getBuildNow().getTime();
     expect(now).toBeGreaterThanOrEqual(before);
     expect(now).toBeLessThanOrEqual(Date.now());
+  });
+});
+
+describe("formatEventDateParts", () => {
+  it("splits day, short month and year in the event's own zone", () => {
+    expect(formatEventDateParts("2026-04-18T09:00:00", "en")).toEqual({ day: "18", month: "Apr", year: "2026" });
+    const fr = formatEventDateParts("2025-11-25T18:30:00", "fr");
+    expect(fr.day).toBe("25");
+    expect(fr.year).toBe("2025");
+    expect(fr.month.startsWith("nov")).toBe(true);
+  });
+
+  it("does not shift the day for early-morning local times", () => {
+    expect(formatEventDateParts("2025-11-26T00:30:00", "en", "Europe/Paris").day).toBe("26");
+  });
+
+  it("does not shift the day for late-evening local times", () => {
+    expect(formatEventDateParts("2025-11-25T23:30:00", "en", "Europe/Paris").day).toBe("25");
   });
 });
