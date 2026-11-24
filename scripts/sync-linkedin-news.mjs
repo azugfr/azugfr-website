@@ -2,7 +2,9 @@
 /**
  * sync-linkedin-news.mjs
  * Fetches AZUG FR LinkedIn posts from an RSS bridge and writes normalized
- * JSON files into src/content/news/.
+ * JSON files into src/content/news/. `content` is stored as plain text (the site
+ * escapes and linkifies it). Posts already present (same source.externalId) are
+ * updated in place; hand-translated posts keep their text.
  *
  * Usage:
  *   RSS_BRIDGE_URL=<url> node scripts/sync-linkedin-news.mjs [--dry-run]
@@ -11,9 +13,10 @@
  *   RSS_BRIDGE_URL   Required. RSS bridge URL for AZUG FR LinkedIn posts.
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { htmlToText, normalizeExternalId, stripHtml } from "./lib/news-text.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -73,6 +76,7 @@ async function run() {
   }
 
   const now = new Date().toISOString();
+  const existing = existingPostsByExternalId();
 
   for (const item of items) {
     if (!item.pubDate) {
@@ -80,35 +84,68 @@ async function run() {
       continue;
     }
 
-    const slug = newsSlug(item.title, item.pubDate);
-    const entry = {
-      slug,
-      locale: "fr",
-      title: item.title || "Post LinkedIn AZUG FR",
-      summary: stripHtml(item.description).slice(0, 300).trim(),
-      content: item.description || undefined,
-      publishedAt: new Date(item.pubDate).toISOString(),
-      author: "AZUG FR",
-      sourceUrl: item.link,
-      tags: [],
-      source: {
-        provider: "linkedin-rss",
-        externalId: item.guid || item.link,
-        lastSyncedAt: now,
-      },
-    };
+    const externalId = normalizeExternalId(item.guid || item.link);
+    const text = htmlToText(item.description);
+    const found = existing.get(externalId);
 
-    const filePath = join(NEWS_DIR, `${slug}.json`);
+    let entry;
+    let filePath;
+    if (found) {
+      // Update in place: keep slug, title, tags and translations; only refresh the text of posts without translations.
+      entry = { ...found.data, source: { ...found.data.source, lastSyncedAt: now } };
+      if (!found.data.translations) {
+        entry.summary = stripHtml(item.description).slice(0, 300).trim();
+        entry.content = text || undefined;
+      }
+      filePath = found.filePath;
+    } else {
+      const slug = newsSlug(item.title, item.pubDate);
+      entry = {
+        slug,
+        locale: "fr",
+        title: item.title || "Post LinkedIn AZUG FR",
+        summary: stripHtml(item.description).slice(0, 300).trim(),
+        content: text || undefined,
+        publishedAt: new Date(item.pubDate).toISOString(),
+        author: "AZUG FR",
+        sourceUrl: item.link,
+        tags: [],
+        source: {
+          provider: "linkedin-rss",
+          externalId,
+          lastSyncedAt: now,
+        },
+      };
+      filePath = join(NEWS_DIR, `${slug}.json`);
+    }
+
     const json = JSON.stringify(entry, null, 2);
 
     if (DRY_RUN) {
-      console.log(`✓ [dry-run] Would write ${filePath}`);
+      console.log(`✓ [dry-run] Would ${found ? "update" : "write"} ${filePath}`);
       console.log(json);
     } else {
-      writeFileSync(filePath, json, "utf8");
-      console.log(`✓ Written src/content/news/${slug}.json`);
+      writeFileSync(filePath, json + "\n", "utf8");
+      console.log(`✓ ${found ? "Updated" : "Written"} src/content/news/${entry.slug}.json`);
     }
   }
+}
+
+function existingPostsByExternalId() {
+  const map = new Map();
+  if (!existsSync(NEWS_DIR)) return map;
+  for (const name of readdirSync(NEWS_DIR)) {
+    if (!name.endsWith(".json")) continue;
+    const filePath = join(NEWS_DIR, name);
+    try {
+      const data = JSON.parse(readFileSync(filePath, "utf8"));
+      const id = normalizeExternalId(data?.source?.externalId);
+      if (id) map.set(id, { filePath, data });
+    } catch {
+      console.warn(`⚠ Could not read ${name}; ignoring it for matching.`);
+    }
+  }
+  return map;
 }
 
 // ---------------------------------------------------------------------------
@@ -175,8 +212,4 @@ function slugify(text) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-}
-
-function stripHtml(html) {
-  return (html || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }

@@ -19,7 +19,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const EVENTS_DIR = resolve(ROOT, "src/content/events");
 const MEETUP_GQL = "https://api.meetup.com/gql";
-const GROUP_URLNAME = "azure-user-group-france";
+// The group URL name from https://www.meetup.com/azug-fr/
+const GROUP_URLNAME = "azug-fr";
 const FETCH_COUNT = 50;
 
 const isDryRun = process.argv.includes("--dry-run");

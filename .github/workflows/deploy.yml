@@ -2,7 +2,8 @@ name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: ["nextgen", "main"]
+    # Production (azug.fr) is published from master; the github-pages environment only allows master.
+    branches: ["master"]
   workflow_dispatch:
   # Daily rebuild so derived event status (upcoming/past) never goes stale.
   # Note: GitHub runs schedules only from the default branch.
