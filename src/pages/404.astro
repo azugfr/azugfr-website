@@ -1,6 +1,7 @@
 ---
 // GitHub Pages will serve this for any unmatched route.
 // We redirect to the French home page after a short delay.
+// Standalone page: the design tokens (docs/DESIGN-2026-11.md) are inlined, no site CSS is loaded.
 const redirectUrl = "/fr/";
 ---
 
@@ -11,20 +12,23 @@ const redirectUrl = "/fr/";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Page introuvable | AZUG FR</title>
     <meta http-equiv="refresh" content={`5;url=${redirectUrl}`} />
-    <link rel="canonical" href="https://azugfr.github.io/fr/" />
+    <link rel="canonical" href="https://azug.fr/fr/" />
     <style>
-      body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f9fafb; }
-      .card { text-align: center; max-width: 480px; padding: 2rem; }
-      h1 { font-size: 2rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem; }
-      p { color: #6b7280; margin-bottom: 1.5rem; }
-      a { color: #1d4ed8; text-decoration: underline; }
+      :root { --encre: #0B2545; --azur-deep: #005A9E; --ciel: #8FD3F4; --papier: #FFFFFF; --gris: #4A5B6E; }
+      * { box-sizing: border-box; }
+      body { font-family: system-ui, sans-serif; font-size: 18px; line-height: 1.55; display: flex; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; background: var(--papier); color: var(--encre); border-top: 12px solid var(--ciel); }
+      main { max-width: 36rem; margin: 0 auto; padding: 2rem 0; }
+      h1 { font-size: 3.5rem; line-height: 1; font-weight: 800; margin: 0 0 0.75rem; color: var(--encre); }
+      p { color: var(--gris); margin: 0 0 1.25rem; }
+      a { color: var(--azur-deep); text-decoration: underline; text-underline-offset: 3px; }
+      a:focus-visible { outline: 2px solid var(--azur-deep); outline-offset: 2px; }
     </style>
   </head>
   <body>
-    <div class="card">
+    <main>
       <h1>404</h1>
       <p>Cette page n'existe pas. Vous allez être redirigé vers l'accueil dans 5 secondes.</p>
-      <p><a href={redirectUrl}>Retour à l'accueil →</a></p>
-    </div>
+      <p><a href={redirectUrl}>Retour à l'accueil</a></p>
+    </main>
   </body>
 </html>

@@ -25,3 +25,6 @@ Thumbs.db
 # Playwright
 playwright-report/
 test-results/
+
+# Local dev-server launch config
+.claude/launch.json

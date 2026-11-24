@@ -4,7 +4,7 @@
 
 The official website for **Azure User Group France (AZUG FR)** — the French Azure community. Built with Astro 5, Tailwind CSS, and deployed to GitHub Pages.
 
-🌐 **Live site:** [azugfr.github.io](https://azugfr.github.io)
+🌐 **Live site:** [azug.fr](https://azug.fr)
 
 ---
 
@@ -345,7 +345,7 @@ The `about` collection uses a **discriminated union** schema with two entry type
   "name": "Équipe AZUG FR",
   "role": "Organisateurs bénévoles",
   "photo": "/organizers/team.jpg",      // optional
-  "linkedin": "https://linkedin.com/company/azure-user-group-france/",
+  "linkedin": "https://www.linkedin.com/company/azugfr/",
   "github": "https://github.com/azugfr",  // optional
   "translations": {
     "en": {
@@ -401,7 +401,7 @@ MEETUP_KEY=<your-oauth-token> npm run sync:events
 MEETUP_KEY=<your-oauth-token> node scripts/sync-meetup-events.mjs --dry-run
 ```
 
-- Calls the [Meetup GraphQL API](https://www.meetup.com/api/oauth/list) for the `azure-user-group-france` group
+- Calls the [Meetup GraphQL API](https://www.meetup.com/api/oauth/list) for the `azug-fr` group
 - Fetches 50 upcoming + 50 past events
 - Writes or idempotently updates `src/content/events/{slug}.json`
 - Existing files matched by `source.externalId` are updated in place (slug is preserved)
@@ -413,6 +413,9 @@ npm run sync:news
 ```
 
 Fetches posts from the [AZUG FR LinkedIn page](https://www.linkedin.com/company/azugfr) and writes them to `src/content/news/`.
+
+- `content` is stored as **plain text** (HTML from the feed is converted to text; the site escapes it and turns URLs and emails into links).
+- Posts already in `src/content/news/` (matched by `source.externalId`, normalised from `urn:li:activity:<id>` to `<id>`) are updated in place. Their slug, title and tags are kept, and `content`/`summary` are only refreshed when the post has no `translations`.
 
 ### Derive Speakers
 
@@ -426,12 +429,12 @@ Scans all event JSON files, collects `speakerSlugs`, and creates minimal speaker
 
 ## CI/CD — GitHub Actions
 
-The site is automatically built and deployed on every push to the `nextgen` or `main` branches.
+The site is automatically built and deployed on every push to the `master` branch, and published to https://azug.fr.
 
 **Workflow:** `.github/workflows/deploy.yml`
 
 ```
-push to nextgen/main
+push to master
   └─ build job
        ├─ actions/checkout@v4
        ├─ Node.js 20 setup
@@ -439,7 +442,7 @@ push to nextgen/main
        ├─ npm run build          (Astro build + Pagefind index)
        └─ upload Pages artifact
   └─ deploy job
-       └─ actions/deploy-pages@v4 → azugfr.github.io
+       └─ actions/deploy-pages@v4 → azug.fr
 ```
 
 **Manual trigger:** The workflow can also be triggered manually from the Actions tab (via `workflow_dispatch`).
@@ -516,10 +519,10 @@ Create `src/content/about/organizer-{slug}.json` with `"type": "organizer"`, set
 
 ## Contributing
 
-1. **Fork** the repository and create a branch from `nextgen`.
+1. **Fork** the repository and create a branch from `master`.
 2. Make your changes — content or code.
 3. Run `npm test` to validate everything passes.
-4. Open a **pull request** against `nextgen`.
+4. Open a **pull request** against `master`.
 
 For content contributions (events, speakers, sponsors), follow the JSON schemas described above. For questions or to propose a talk, use the [Submit a Talk](https://sessionize.com/azugfr) form linked in the site footer.
 
@@ -529,9 +532,9 @@ For content contributions (events, speakers, sponsors), follow the JSON schemas 
 
 | | |
 |---|---|
-| 🌐 Website | [azugfr.github.io](https://azugfr.github.io) |
+| 🌐 Website | [azug.fr](https://azug.fr) |
 | 💼 LinkedIn | [linkedin.com/company/azugfr](https://www.linkedin.com/company/azugfr) |
 | 🐦 X / Twitter | [@azugfr](https://twitter.com/azugfr) |
-| 📅 Meetup | [meetup.com/azure-user-group-france](https://www.meetup.com/fr-FR/azure-user-group-france/) |
+| 📅 Meetup | [meetup.com/azug-fr](https://www.meetup.com/azug-fr/) |
 | 🎥 YouTube | [youtube.com/@azugfr](https://www.youtube.com/@azugfr) |
 | 💻 GitHub | [github.com/azugfr](https://github.com/azugfr) |

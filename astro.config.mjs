@@ -6,8 +6,8 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   output: "static",
   trailingSlash: "always",
-  // azugfr.github.io is an org/user page → no base path needed
-  site: "https://azugfr.github.io",
+  // Served from GitHub Pages under the custom domain azug.fr (repo Settings → Pages) → no base path
+  site: "https://azug.fr",
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
