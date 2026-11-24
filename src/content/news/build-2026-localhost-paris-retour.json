@@ -1,0 +1,28 @@
+{
+  "slug": "build-2026-localhost-paris-retour",
+  "locale": "fr",
+  "title": "Build 2026 //localhost:paris : le meetup est en marche",
+  "summary": "Retour sur le meetup Build //localhost:paris organisé chez Microsoft France, avec les talks d'Achraf Ben Alaya et d'Ihor Leontiev et un récapitulatif de Microsoft Build 2026.",
+  "content": "Notre meetup Build //localhost:paris chez Microsoft France est en marche !\n\nJ'ai eu le plaisir d'ouvrir l'événement, de présenter notre communauté AZUG FR - Azure User Group France et ensuite partager toutes les nouveautés intéressantes de la Build 2026.\n\nMerci aux speakers Achraf Ben Alaya et Ihor Leontiev, à notre hôte Julien Bichon, aux communautés partenaires / Nicolas Robert / Jean-Philippe Encausse / Marc Kruzik / Andréa Girollet & Cédric Leblond - et à tous les participants !",
+  "publishedAt": "2026-06-10T19:59:41.381Z",
+  "author": "Marius Zaharia",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7470565373273354241/",
+  "tags": [
+    "Build 2026",
+    "Meetup",
+    "Microsoft",
+    "IA"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7470565373273354241",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Build 2026 //localhost:paris: the meetup is under way",
+      "summary": "A look back at the Build //localhost:paris meetup held at Microsoft France, with talks by Achraf Ben Alaya and Ihor Leontiev and a recap of Microsoft Build 2026.",
+      "content": "Our Build //localhost:paris meetup at Microsoft France is under way!\n\nI had the pleasure of opening the event, presenting our AZUG FR - Azure User Group France community and then sharing all the interesting news from Build 2026.\n\nThanks to the speakers Achraf Ben Alaya and Ihor Leontiev, to our host Julien Bichon, to the partner communities / Nicolas Robert / Jean-Philippe Encausse / Marc Kruzik / Andréa Girollet & Cédric Leblond - and to all the participants!"
+    }
+  }
+}

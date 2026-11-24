@@ -1,0 +1,29 @@
+{
+  "slug": "cross-meetup-csharp-dotnet-paris-2026-04-07",
+  "locale": "fr",
+  "title": "1er Cross-Meetup AZUG FR x Meetup C# .NET Paris le 7 avril",
+  "summary": "AZUG FR et Meetup C# .NET Paris organisent leur premier cross-meetup le mardi 7 avril 2026 à 19h à L'Atelier, avec deux sessions sans slides sur Copilot dans VS Code et la modernisation de repos Azure DevOps.",
+  "content": "1er Cross-Meetup AZUG FR - Azure User Group France x Meetup C# .NET Paris\nMardi 7 avril 2026\nÀ partir de 19h00\n\nOn est très heureux de vous annoncer notre premier Cross-Meetup entre le meetup AZUG FR - Azure User Group France et notre Meetup C# .NET Paris.\n\nDeux communautés, une soirée, et du contenu ultra concret !\n\nAu programme :\n- Michel Perfetti nous parlera de « L'architecte Azure augmenté avec Copilot » : du live, 100% dans VS Code. Pas de slides, pas de blabla : du concret, en direct.\n- Marc Kruzik nous expliquera comment « Nettoyer 300 repos et survivre grâce à C# » : un retour d'expérience sur la modernisation de repos legacy Azure DevOps (avec les outils et les approches utilisés, et les scripts et rapports).\n\nComme toujours : échanges et convivialité dans les locaux de L'Atelier.\nPour vous inscrire : https://www.meetup.com/azug-fr/events/313762067/\n\nHâte de vous voir nombreux pour ce premier cross-meetup !\nMerci à la team : Maxime MADER, Marc Kruzik, Marius Zaharia, Aymeric Weinbach, Ihor Leontiev.",
+  "publishedAt": "2026-03-11T16:53:58.275Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7437541339929399297/",
+  "tags": [
+    "Meetup",
+    "Cross-Meetup",
+    "C# .NET",
+    "Copilot",
+    "Azure DevOps"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7437541339929399297",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "First Cross-Meetup AZUG FR x Meetup C# .NET Paris on 7 April",
+      "summary": "AZUG FR and Meetup C# .NET Paris hold their first cross-meetup on Tuesday 7 April 2026 at 7pm at L'Atelier, with two no-slides sessions on Copilot in VS Code and modernising Azure DevOps repos.",
+      "content": "First Cross-Meetup AZUG FR - Azure User Group France x Meetup C# .NET Paris\nTuesday 7 April 2026\nFrom 7:00pm\n\nWe are very happy to announce our first Cross-Meetup between the AZUG FR - Azure User Group France meetup and our Meetup C# .NET Paris.\n\nTwo communities, one evening, and very concrete content!\n\nAgenda:\n- Michel Perfetti will talk about \"The Azure architect augmented with Copilot\": live, 100% in VS Code. No slides, no fluff: concrete, live.\n- Marc Kruzik will explain how to \"Clean up 300 repos and survive thanks to C#\": an experience report on modernising legacy Azure DevOps repos (with the tools and approaches used, and the scripts and reports).\n\nAs always: discussions and good company at L'Atelier.\nTo register: https://www.meetup.com/azug-fr/events/313762067/\n\nLooking forward to seeing many of you at this first cross-meetup!\nThanks to the team: Maxime MADER, Marc Kruzik, Marius Zaharia, Aymeric Weinbach, Ihor Leontiev."
+    }
+  }
+}

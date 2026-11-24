@@ -1,0 +1,28 @@
+{
+  "slug": "rubrik-sponsor-annuel-2026",
+  "locale": "fr",
+  "title": "Rubrik, nouveau sponsor annuel d'AZUG FR",
+  "summary": "Rubrik devient sponsor annuel de la communauté AZUG FR - Azure User Group France, qui prévoit encore plus de meetups, conférences et événements à la rentrée.",
+  "content": "Nous sommes heureux d'annoncer que Rubrik est désormais le nouveau sponsor annuel de la communauté AZUG FR - Azure User Group France !\n\nAux membres de notre communauté : pour la rentrée, restez proches - nous comptons organiser encore plus de meetups, conférences et événements autour du Cloud, d'Azure et de l'IA hébergée dans Azure.\n\nNous remercions Rubrik pour leur support !",
+  "publishedAt": "2026-08-02T15:20:38.977Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7489701707417858048/",
+  "tags": [
+    "Sponsor",
+    "Rubrik",
+    "Community",
+    "Azure"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7489701707417858048",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "Rubrik, new annual sponsor of AZUG FR",
+      "summary": "Rubrik becomes an annual sponsor of the AZUG FR - Azure User Group France community, which plans even more meetups, conferences and events for the new season.",
+      "content": "We are happy to announce that Rubrik is now the new annual sponsor of the AZUG FR - Azure User Group France community!\n\nTo the members of our community: for the new season, stay close - we plan to organise even more meetups, conferences and events around the Cloud, Azure and AI hosted in Azure.\n\nWe thank Rubrik for their support!"
+    }
+  }
+}

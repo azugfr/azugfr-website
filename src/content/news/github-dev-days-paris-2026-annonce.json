@@ -1,0 +1,28 @@
+{
+  "slug": "github-dev-days-paris-2026-annonce",
+  "locale": "fr",
+  "title": "GitHub Dev Days débarque à Paris le 29 septembre",
+  "summary": "Avec GitHub et Microsoft, AZUG FR propose le 29 septembre 2026 à Paris une soirée hands-on autour de GitHub Copilot, de l'application Copilot et du Copilot CLI. L'inscription se fait sur Luma, pas sur Meetup.",
+  "content": "GitHub Dev Days débarque à Paris !\n\nAvec nos amis de GitHub et Microsoft, on vous propose une soirée hands-on autour de GitHub Copilot, du Copilot app et du Copilot CLI, pour tester vraiment ce qu'il sait faire dans vos vrais workflows de dev.\n\nAu menu :\nMoins de blabla, plus de code\nDes démos live, des ateliers guidés, et des petits hacks pour bosser plus vite avec Copilot dans vos outils préférés.\nQue vous utilisiez déjà Copilot tous les jours ou que vous soyez juste curieux, vous êtes les bienvenus.\n\nParis\n29 septembre 2026\nOuvert à tous les devs (débutant, confirmé, curieux, sceptique…)\n\nTrès important : la réservation ne se fait PAS sur notre Meetup.\nPour avoir une vraie place à l'événement, il faut absolument vous inscrire ici : https://luma.com/7n9bgsow",
+  "publishedAt": "2026-08-26T13:52:39.705Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7498376873320595458/",
+  "tags": [
+    "GitHub Dev Days",
+    "GitHub Copilot",
+    "Meetup",
+    "Paris"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7498376873320595458",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "GitHub Dev Days comes to Paris on 29 September",
+      "summary": "With GitHub and Microsoft, AZUG FR is hosting a hands-on evening in Paris on 29 September 2026 around GitHub Copilot, the Copilot app and the Copilot CLI. Registration is on Luma, not on Meetup.",
+      "content": "GitHub Dev Days is coming to Paris!\n\nWith our friends at GitHub and Microsoft, we are offering a hands-on evening around GitHub Copilot, the Copilot app and the Copilot CLI, to really test what it can do in your real dev workflows.\n\nOn the menu:\nLess talk, more code\nLive demos, guided workshops, and little hacks to work faster with Copilot in your favourite tools.\nWhether you already use Copilot every day or are just curious, you are welcome.\n\nParis\n29 September 2026\nOpen to all developers (beginner, experienced, curious, sceptical…)\n\nVery important: booking is NOT done on our Meetup.\nTo get a real seat at the event, you absolutely must register here: https://luma.com/7n9bgsow"
+    }
+  }
+}

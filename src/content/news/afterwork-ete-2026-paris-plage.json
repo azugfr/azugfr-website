@@ -1,0 +1,28 @@
+{
+  "slug": "afterwork-ete-2026-paris-plage",
+  "locale": "fr",
+  "title": "Afterwork d'été AZUG FR le 7 juillet à Paris Plage",
+  "summary": "AZUG FR invite ses membres le mardi 7 juillet à la terrasse Les Nautes (Paris Plage) pour un afterwork sans agenda avant les vacances d'été.",
+  "content": "Après des belles rencontres en 2025-2026 sous le signe du cloud, du dev, du devops, de la data et de l'IA, vous êtes invités le mardi 7 juillet, à la terrasse Les Nautes (Paris Plage) pour une dernière soirée avant les vacances d'été dans la compagnie de la communauté AZUG FR - Azure User Group France et ses membres.\n\nCe sera un afterwork détendu en bords de Seine, sans agenda fixé mais donnant l'opportunité de beaux échanges entre les enthousiastes et passionnés des technologies (Microsoft / Azure en particulier).\nVenez nombreux !",
+  "publishedAt": "2026-07-02T15:56:04.585Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7478476599030521856/",
+  "tags": [
+    "Afterwork",
+    "Community",
+    "Paris",
+    "Azure"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7478476599030521856",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "AZUG FR summer afterwork on 7 July at Paris Plage",
+      "summary": "AZUG FR invites its members on Tuesday 7 July to the Les Nautes terrace (Paris Plage) for an afterwork with no fixed agenda before the summer break.",
+      "content": "After great meetups in 2025-2026 around cloud, dev, devops, data and AI, you are invited on Tuesday 7 July to the Les Nautes terrace (Paris Plage) for one last evening before the summer holidays with the AZUG FR - Azure User Group France community and its members.\n\nIt will be a relaxed afterwork on the banks of the Seine, with no fixed agenda but a chance for good conversations among technology enthusiasts (Microsoft / Azure in particular).\nCome in numbers!"
+    }
+  }
+}

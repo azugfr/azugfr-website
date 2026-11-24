@@ -1,0 +1,28 @@
+{
+  "slug": "github-dev-days-paris-2026-lancement",
+  "locale": "fr",
+  "title": "GitHub Dev Days Paris : c'est parti",
+  "summary": "Les GitHub Dev Days ont démarré à Paris avec une session 100 % pratique autour de GitHub Copilot, des applications Copilot et du Copilot CLI.",
+  "content": "Les GitHub Dev Days sont officiellement lancés à Paris !\nCe soir, on accueille une belle communauté de développeurs pour une session 100% pratique autour de GitHub Copilot, des applications Copilot et du Copilot CLI.\nPas de blabla, que du code.\nAu menu : démos live, ateliers guidés et petits hacks pour intégrer Copilot dans vos workflows réels, quel que soit votre niveau ou votre stack.",
+  "publishedAt": "2026-09-29T17:20:05.380Z",
+  "author": "AZUG FR",
+  "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7510750261695541248/",
+  "tags": [
+    "GitHub Dev Days",
+    "GitHub Copilot",
+    "Meetup",
+    "Paris"
+  ],
+  "source": {
+    "provider": "linkedin-rss",
+    "externalId": "7510750261695541248",
+    "lastSyncedAt": "2026-11-24T00:00:00Z"
+  },
+  "translations": {
+    "en": {
+      "title": "GitHub Dev Days Paris: we are live",
+      "summary": "GitHub Dev Days has started in Paris with a 100% hands-on session around GitHub Copilot, Copilot apps and the Copilot CLI.",
+      "content": "GitHub Dev Days is officially under way in Paris!\nTonight we welcome a great community of developers for a 100% hands-on session around GitHub Copilot, Copilot apps and the Copilot CLI.\nNo fluff, just code.\nOn the menu: live demos, guided workshops and little hacks to bring Copilot into your real workflows, whatever your level or stack."
+    }
+  }
+}
